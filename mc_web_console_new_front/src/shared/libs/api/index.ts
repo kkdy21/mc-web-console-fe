@@ -1,3 +1,3 @@
-import {axiosInstance} from './instance.ts'
+import { axiosInstance } from './instance.ts';
 
-export default axiosInstance
+export default axiosInstance;
