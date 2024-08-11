@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
 import { api } from '@/entities';
+import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
+import { IApiResponse } from '@/shared/libs/api/request.ts';
 
-const loginData = {
+const loginData: IUser = {
   id: 'mcpadmin',
-  pw: 'mcpuserpassword',
+  password: 'mcpuserpassword',
 };
 
-const handleLogin = () => {
-  const res = api.getLogin(loginData.id, loginData.pw);
-  console.log(res);
-  //res에 필요한 타입 검증후 필수 타입만.
+const handleLogin = async () => {
+  const { success, data, error }: IApiResponse<IUserResponse> =
+    await api.getLogin<IUserResponse, IUser>(loginData.id, loginData.password);
 };
 </script>
 
@@ -40,7 +41,7 @@ const handleLogin = () => {
         </div>
         <div style="display: flex; flex-direction: column; align-items: start">
           <label>password</label>
-          <p-text-input v-model="loginData.pw" />
+          <p-text-input v-model="loginData.password" />
         </div>
       </div>
 

@@ -5,7 +5,7 @@ import LoginForm from '@/features/auth/LoginForm.vue';
 <template>
   <div>
     <h1>login page</h1>
-    <LoginForm></LoginForm>
+    <LoginForm />
   </div>
 </template>
 

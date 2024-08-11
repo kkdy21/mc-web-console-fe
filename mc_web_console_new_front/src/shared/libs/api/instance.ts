@@ -6,6 +6,7 @@ const createInstance = () => {
   return axios.create({
     baseURL: `${url}`,
     withCredentials: true,
+    'Content-Type': 'application/json',
   });
 };
 
