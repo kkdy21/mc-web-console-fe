@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
-import { api } from '@/entities';
+import { api, useGetLogin } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
 import { IApiResponse } from '@/shared/libs/api/request.ts';
 
@@ -10,8 +10,14 @@ const loginData: IUser = {
 };
 
 const handleLogin = async () => {
-  const { success, data, error }: IApiResponse<IUserResponse> =
-    await api.getLogin<IUserResponse, IUser>(loginData.id, loginData.password);
+  // const { success, data, error }: IApiResponse<IUserResponse> =
+  //   await api.getLogin<IUserResponse, IUser>(loginData.id, loginData.password);
+
+  const res = useGetLogin<IUserResponse, IUser>(
+    loginData.id,
+    loginData.password,
+  );
+  console.log(res);
 };
 </script>
 
