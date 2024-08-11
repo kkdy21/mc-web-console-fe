@@ -11,9 +11,6 @@ const loginData: IUser = {
 };
 let res = ref<IApiState<any>>({});
 const handleLogin = async () => {
-  // const { success, data, error }: IApiResponse<IUserResponse> =
-  //   await api.getLogin<IUserResponse, IUser>(loginData.id, loginData.password);
-
   res.value = useGetLogin<IUserResponse, IUser>(
     loginData.id,
     loginData.password,
