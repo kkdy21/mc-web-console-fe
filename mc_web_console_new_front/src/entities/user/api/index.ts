@@ -2,10 +2,11 @@ import {
   axiosPost,
   IApiResponse,
   IApiState,
+  useAxiosPost,
 } from '@/shared/libs/api/request.ts';
 import { AxiosResponse } from 'axios';
 import { IUserResponse } from '@/entities/user/model/types.ts';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 const LOGIN_URL = 'api/auth/login';
 
@@ -17,38 +18,8 @@ export function useGetLogin<T extends IUserResponse, D = any>(
   id: string,
   password: string,
 ) {
-  const res = useAjaxWrapper(() =>
-    axiosPost<T, D>(LOGIN_URL, { id, password }, {}),
-  );
-  return res.value;
-}
-
-export function useAjaxWrapper<T extends IUserResponse, D = any>(
-  apiCall: () => Promise<AxiosResponse<T>>,
-) {
-  const httpState = ref<IApiState<T>>({
-    loading: true,
-    success: false,
-    error: null,
-    data: null,
-  });
-
-  const executeApiCall = async () => {
-    try {
-      const res = await apiCall();
-      httpState.value.loading = false;
-      httpState.value.success = true;
-      httpState.value.data = res.data;
-    } catch (e) {
-      httpState.value.loading = false;
-      httpState.value.success = true;
-      httpState.value.error = e.message || e.toString();
-    }
-  };
-
-  executeApiCall();
-
-  return httpState;
+  const res = useAxiosPost<T, D>('test_endpoint', { id, password }, {});
+  return res;
 }
 
 // export function useGetLogin<T extends IUserResponse, D = any>(

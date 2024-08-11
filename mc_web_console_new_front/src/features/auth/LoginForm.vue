@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
-import { api, useGetLogin } from '@/entities';
+import { useGetLogin } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
-import { IApiResponse } from '@/shared/libs/api/request.ts';
+import { IApiState } from '@/shared/libs/api/request.ts';
+import { ref } from 'vue';
 
 const loginData: IUser = {
   id: 'mcpadmin',
   password: 'mcpuserpassword',
 };
-
+let res = ref<IApiState<any>>({});
 const handleLogin = async () => {
   // const { success, data, error }: IApiResponse<IUserResponse> =
   //   await api.getLogin<IUserResponse, IUser>(loginData.id, loginData.password);
 
-  const res = useGetLogin<IUserResponse, IUser>(
+  res.value = useGetLogin<IUserResponse, IUser>(
     loginData.id,
     loginData.password,
   );
@@ -67,6 +68,11 @@ const handleLogin = async () => {
         Login
       </p-button>
     </fieldset>
+    <div class="res-test-box">
+      <p v-if="res.loading">Loading</p>
+      <p v-if="!res.loading && res.success">{{ res.data }}</p>
+      <p v-if="!res.loading && !res.success">{{ res.error }}</p>
+    </div>
   </div>
 </template>
 
@@ -79,5 +85,10 @@ const handleLogin = async () => {
 .login-buttons {
   display: flex;
   gap: 5px;
+}
+
+.res-test-box {
+  width: 40px;
+  border: 1px solid red;
 }
 </style>
