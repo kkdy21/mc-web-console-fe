@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SidebarLayout from '@/widgets/sidebar/SidebarLayout.vue';
+</script>
 
 <template>
-  <div class="flex h-full">
-    <aside class="left-side-bar">
+  <div>
+    <sidebar-layout />
+    <!-- <aside class="left-side-bar">
       <p class="font-bold">left-side-bar</p>
       <button
         @click="$router.push({ name: `alibaba-dashboard` }).catch(() => {})"
@@ -10,11 +13,12 @@
         Alibaba
       </button>
       <button @click="$router.push({ name: `aws-dashboard` })">AWS</button>
-    </aside>
-    <section class="dashboard-page-main">
+      <button @click="$router.push({ name: `vpc-crud` })">VPC CRUD</button>
+    </aside> -->
+    <!-- <section class="dashboard-page-main">
       <h1>dashboard page</h1>
       <router-view />
-    </section>
+    </section> -->
   </div>
 </template>
 

@@ -48,6 +48,8 @@ WORKDIR /bin/
 COPY --from=builder /bin/api .
 COPY --from=builder /bin/front .
 
+ADD /mc_web_console_api/conf /bin/conf
+
 ENV API_ADDR 0.0.0.0
 ENV API_PORT 3000
 

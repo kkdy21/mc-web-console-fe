@@ -3,6 +3,7 @@ import { RouteConfig } from 'vue-router';
 import DashboardPage from './DashboardPage.vue';
 import AlibabaPage from './alibaba/AlibabaPage.vue';
 import AwsPage from './aws/AwsPage.vue';
+import VpcCrudPage from './vpc/VpcPage.vue';
 
 export const DASHBOARD_ROUTE = {
   _NAME: 'mciDashboard',
@@ -11,6 +12,9 @@ export const DASHBOARD_ROUTE = {
   },
   AWS: {
     _NAME: 'aws-dashboard',
+  },
+  VPC_CRUD: {
+    _NAME: 'vpc-crud',
   },
 } as const;
 
@@ -35,6 +39,14 @@ const dashboardRoutes: RouteConfig[] = [
         path: 'aws',
         name: DASHBOARD_ROUTE.AWS._NAME,
         component: AwsPage,
+        meta: {
+          roles: ['client'],
+        },
+      },
+      {
+        path: 'vpc-crud',
+        name: DASHBOARD_ROUTE.VPC_CRUD._NAME,
+        component: VpcCrudPage,
         meta: {
           roles: ['client'],
         },

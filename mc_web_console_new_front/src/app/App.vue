@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { PButton } from '@cloudforet-test/mirinae';
 
-import {preAutoLogin} from "@/app/providers/router/auth.ts";
+import { preAutoLogin } from '@/app/providers/router/auth.ts';
 
 preAutoLogin();
 </script>

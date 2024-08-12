@@ -48,12 +48,12 @@ const handleLogin = async () => {
 
       <p-button
         style="margin-top: 20px"
-        styleType="primary"
+        style-type="primary"
         size="md"
         :loading="false"
         href="#"
-        :iconLeft="null"
-        :iconRight="null"
+        :icon-left="null"
+        :icon-right="null"
         :block="false"
         :disabled="false"
         :readonly="false"
