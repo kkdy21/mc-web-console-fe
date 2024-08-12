@@ -2,8 +2,8 @@
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
 import { useGetLogin } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
-import { IApiState } from '@/shared/libs/api/request.ts';
 import { ref } from 'vue';
+import { IApiState } from '@/shared/libs';
 
 const loginData: IUser = {
   id: 'mcpadmin',
@@ -11,10 +11,7 @@ const loginData: IUser = {
 };
 let res = ref<IApiState<any>>({});
 const handleLogin = async () => {
-  res.value = useGetLogin<IUserResponse, IUser>(
-    loginData.id,
-    loginData.password,
-  );
+  res.value = useGetLogin<IUserResponse, IUser>(loginData);
   console.log(res);
 };
 </script>

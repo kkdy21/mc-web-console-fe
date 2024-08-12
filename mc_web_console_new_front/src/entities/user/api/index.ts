@@ -1,24 +1,10 @@
-import {
-  axiosPost,
-  IApiResponse,
-  IApiState,
-  useAxiosPost,
-} from '@/shared/libs/api/request.ts';
-import { AxiosResponse } from 'axios';
+import { useAxiosPost } from '@/shared/libs/api/request.ts';
 import { IUserResponse } from '@/entities/user/model/types.ts';
-import { ref } from 'vue';
 
 const LOGIN_URL = 'api/auth/login';
 
-export const api = {
-  useGetLogin,
-};
-
-export function useGetLogin<T extends IUserResponse, D = any>(
-  id: string,
-  password: string,
-) {
-  const res = useAxiosPost<T, D>('test_endpoint', { id, password }, {});
+export function useGetLogin<T extends IUserResponse, D>(loginData: D) {
+  const res = useAxiosPost<T, D>('test_endpoint', loginData, {});
   return res;
 }
 

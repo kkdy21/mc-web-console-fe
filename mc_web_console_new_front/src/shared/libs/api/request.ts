@@ -1,15 +1,8 @@
-import { axiosInstance } from '@/shared/libs';
 import { IStringIdx } from '@/shared/types';
 import { AxiosResponse } from 'axios';
-import { IUserResponse } from '@/entities/user/model/types.ts';
-import { ref } from 'vue';
-
-export interface IApiState<T> {
-  loading?: boolean;
-  success?: boolean;
-  error?: Error | null;
-  data?: T | null;
-}
+import { ref, UnwrapRef } from 'vue';
+import { IApiState } from '@/shared/libs/api/types.ts';
+import { axiosInstance } from '@/shared/libs/api/instance.ts';
 
 export function axiosGet<T>(url: string, params?: IStringIdx) {
   return axiosInstance.get<T>(`${url}`, {
@@ -27,9 +20,7 @@ export function axiosPost<T, D = any>(
   });
 }
 
-export function useAjaxWrapper<T extends IUserResponse, D = any>(
-  apiCall: () => Promise<AxiosResponse<T>>,
-) {
+export function useAjaxWrapper<T>(apiCall: () => Promise<AxiosResponse<T>>) {
   const httpState = ref<IApiState<T>>({
     loading: true,
     success: false,
@@ -42,8 +33,8 @@ export function useAjaxWrapper<T extends IUserResponse, D = any>(
       const res = await apiCall();
       httpState.value.loading = false;
       httpState.value.success = true;
-      httpState.value.data = res.data;
-    } catch (e) {
+      httpState.value.data = res.data as UnwrapRef<T>;
+    } catch (e: any) {
       httpState.value.loading = false;
       httpState.value.success = false;
       httpState.value.error = e.message || e.toString();
@@ -55,11 +46,16 @@ export function useAjaxWrapper<T extends IUserResponse, D = any>(
   return httpState;
 }
 
-export function useAxiosPost<T extends IUserResponse, D = any>(
+export function useAxiosGet<T>(url: string, params: IStringIdx = {}) {
+  const res = useAjaxWrapper<T>(() => axiosGet<T>(url, params));
+  return res.value;
+}
+
+export function useAxiosPost<T, D = any>(
   url: string,
   data: D,
   params: IStringIdx = {},
 ) {
-  const res = useAjaxWrapper(() => axiosPost<T, D>(url, data, params));
+  const res = useAjaxWrapper<T>(() => axiosPost<T, D>(url, data, params));
   return res.value;
 }
