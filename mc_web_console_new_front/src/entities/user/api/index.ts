@@ -4,7 +4,7 @@ import { IUserResponse } from '@/entities/user/model/types.ts';
 const LOGIN_URL = 'api/auth/login';
 
 export function useGetLogin<T extends IUserResponse, D>(loginData: D) {
-  const res = useAxiosPost<T, D>('test_endpoint', loginData, {});
+  const res = useAxiosPost<T, D>(LOGIN_URL, loginData, {});
   return res;
 }
 
