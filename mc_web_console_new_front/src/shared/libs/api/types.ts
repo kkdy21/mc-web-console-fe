@@ -4,3 +4,11 @@ export interface IApiState<T> {
   error?: Error | null;
   data?: T | null;
 }
+
+export interface IAxiosResponse<T> {
+  responseData?: T;
+  status?: {
+    code: number;
+    message: string;
+  };
+}

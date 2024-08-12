@@ -3,16 +3,16 @@ import { PButton, PTextInput } from '@cloudforet-test/mirinae';
 import { useGetLogin } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
 import { ref } from 'vue';
-import { IApiState } from '@/shared/libs';
+import { IApiState, IAxiosResponse } from '@/shared/libs';
 
 const loginData: IUser = {
   id: 'mcpadmin',
   password: 'mcpuserpassword',
 };
-let res = ref<IApiState<any>>({});
+
+let res = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
 const handleLogin = async () => {
-  res.value = useGetLogin<IUserResponse, IUser>(loginData);
-  console.log(res);
+  res.value = useGetLogin<IAxiosResponse<IUserResponse>, IUser>(loginData);
 };
 </script>
 
@@ -82,7 +82,7 @@ const handleLogin = async () => {
 }
 
 .res-test-box {
-  width: 40px;
+  width: 400px;
   border: 1px solid red;
 }
 </style>

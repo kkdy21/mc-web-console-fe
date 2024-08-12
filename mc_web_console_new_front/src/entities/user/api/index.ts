@@ -1,11 +1,10 @@
 import { useAxiosPost } from '@/shared/libs/api/request.ts';
-import { IUserResponse } from '@/entities/user/model/types.ts';
 
 // const LOGIN_URL = 'api/auth/login';
 
 const LOGIN_URL = 'api/auth/login';
 
-export function useGetLogin<T extends IUserResponse, D>(loginData: D) {
+export function useGetLogin<T, D>(loginData: D) {
   interface RequestWrapper<D> {
     request: D;
   }
