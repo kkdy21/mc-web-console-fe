@@ -12,7 +12,7 @@ const loginData: IUser = {
 
 let res = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
 const handleLogin = async () => {
-  res.value = useGetLogin<IAxiosResponse<IUserResponse>, IUser>(loginData);
+  res.value = useGetLogin<IUserResponse, IUser>(loginData);
 };
 </script>
 
