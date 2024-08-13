@@ -29,6 +29,8 @@ WORKDIR /src/mc-web-console/mc_web_console_api
 RUN go mod download
 RUN buffalo build --static -o /bin/api
 
+
+
 ##############################################################
 ## Stage 3 - Go Build [FRONT SERVER]
 ##############################################################
