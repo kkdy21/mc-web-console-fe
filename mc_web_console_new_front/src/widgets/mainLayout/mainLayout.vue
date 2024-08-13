@@ -4,6 +4,8 @@ import { AUTO_LOGIN, useLocalStorage } from '@/shared/libs/access-localstorage';
 import { ILoginData } from '@/shared/libs/access-localstorage/types.ts';
 import { McmpRouter } from '@/app/providers/router';
 import LayoutHeader from './LayoutHeader.vue';
+import SidebarLayout from '../sidebar/SidebarLayout.vue';
+import GNBToolbox from '../sidebar/GNBToolbox.vue';
 
 const handleLogout = () => {
   const loginDataLocalStorage = useLocalStorage<ILoginData>(AUTO_LOGIN);
@@ -16,10 +18,14 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col overflow-y-hidden">
-    <nav class="top-bar">
+  <div class="h-full flex flex-col overflow-hidden">
+    <div class="top-bar">
       <layout-header />
-    </nav>
+    </div>
+
+    <div class="sidebar-layout-container">
+      <sidebar-layout />
+    </div>
 
     <main>
       <slot />
@@ -29,8 +35,9 @@ const handleLogout = () => {
 
 <style scoped lang="postcss">
 main {
-  height: calc(100% - 100px);
-  border: 1px solid black;
+  /* height: calc(100% - 100px); */
+  height: inherit;
+  /* border: 1px solid black; */
 }
 .main-header {
   height: 100px;

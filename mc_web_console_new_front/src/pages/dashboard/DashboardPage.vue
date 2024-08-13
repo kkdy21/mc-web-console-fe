@@ -1,10 +1,7 @@
-<script setup lang="ts">
-import SidebarLayout from '@/widgets/sidebar/SidebarLayout.vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
-    <sidebar-layout />
     <!-- <aside class="left-side-bar">
       <p class="font-bold">left-side-bar</p>
       <button

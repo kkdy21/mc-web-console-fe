@@ -4,12 +4,10 @@ import GNBNavigationRail from './GNBNavigationRail.vue';
 </script>
 
 <template>
-  <div class="layout-container">
-    <nav class="gnb">
-      <g-n-b-toolbox class="g-n-b-item" />
-      <g-n-b-navigation-rail class="g-n-b-item" />
-    </nav>
-  </div>
+  <nav class="gnb">
+    <g-n-b-toolbox class="g-n-b-item" />
+    <g-n-b-navigation-rail class="g-n-b-item" />
+  </nav>
 </template>
 
 <style scoped lang="postcss">

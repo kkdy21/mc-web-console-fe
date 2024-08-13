@@ -22,10 +22,11 @@ export class McmpRouter {
       name: ROOT_ROUTE._NAME,
       component: () => import('@/widgets/mainLayout/MainLayout.vue'),
     },
+    ...authRoutes,
     {
       path: '/main',
       component: MainPage,
-      children: [...dashboardRoutes, ...authRoutes],
+      children: [...dashboardRoutes],
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ];

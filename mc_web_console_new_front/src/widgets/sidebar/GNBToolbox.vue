@@ -1,25 +1,26 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { PTooltip, PIconButton, PBreadcrumbs } from '@cloudforet-test/mirinae';
+
+const handleClickMenuButton = () => {
+  // TODO: menu icon click event (navigation rail created)
+};
+</script>
 
 <template>
   <div class="g-n-b-toolbox">
     <div class="navigation-section">
-      <p-tooltip class="menu-button-wrapper" position="bottom">
+      <p-tooltip class="menu-button-wrapper" position="bottom" contents="??">
         <p-icon-button
           name="ic_gnb_menu"
           style-type="transparent"
           class="menu-button"
           shape="square"
           size="md"
+          @click="handleClickMenuButton"
         />
       </p-tooltip>
+      <!-- TODO: p-breadcrumbs: selected menu path text -->
       <p-breadcrumbs />
-      <favorite-button />
-    </div>
-    <div>
-      <b>common gnb toolbox i: </b>
-      <p-copy-button class="copy-button"
-size="sm"
-/>
     </div>
   </div>
 </template>
@@ -53,13 +54,6 @@ size="sm"
     .copy-button {
       @apply flex items-center text-gray-500;
     }
-  }
-}
-
-/* custom design-system component - p-copy-button */
-:deep(.p-copy-button) {
-  .copy-button-alert {
-    top: calc($top-bar-height + $gnb-toolbox-height - 0.5rem) !important;
   }
 }
 </style>

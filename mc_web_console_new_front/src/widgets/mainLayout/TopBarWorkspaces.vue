@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { PSelectDropdown, PTooltip, PI } from '@cloudforet-test/mirinae';
-import { gray } from '@/app/style/colors.js';
+// @ts-ignore
+// import { gray } from '@/app/style/colors.js';
 
 const menuItems = [
   {
@@ -123,9 +124,7 @@ const menuItems = [
       multi-selectable
     >
       <template #dropdown-button-icon>
-        <p-i
-name="ic_chevron-sort" :color="gray[800]"
-/>
+        <p-i name="ic_chevron-sort" />
       </template>
       <template #dropdown-button>
         <div>

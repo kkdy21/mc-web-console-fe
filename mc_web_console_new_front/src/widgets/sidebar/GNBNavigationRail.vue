@@ -1,9 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="g-n-b-navigation-rail g-n-b-item">
-    <!-- <p-tooltip class="minimize-button-wrapper" position="bottom">
-      </p-tooltip> -->
+  <div class="g-n-b-navigation-rail">
+    <!-- <p-tooltip
+class="minimize-button-wrapper" position="bottom" /> -->
+    <!-- TODO: Menu Icon -->
     <div class="navigation-rail-container">
       <div class="navigation-rail-wrapper">
         <div class="menu-wrapper">
@@ -27,7 +28,7 @@
 <style scoped lang="postcss">
 .g-n-b-navigation-rail {
   @apply relative flex-col items-start bg-white border-r;
-  top: $gnb-toolbox-height;
+  margin-top: $gnb-toolbox-height;
   height: calc(100% - $gnb-toolbox-height);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   z-index: 51;
