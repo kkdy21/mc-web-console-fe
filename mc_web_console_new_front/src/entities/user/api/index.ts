@@ -18,5 +18,5 @@ export function useGetLogin<T, D>(loginData: D) {
     requestWrapper,
     {},
   );
-  return res;
+  return res.value;
 }

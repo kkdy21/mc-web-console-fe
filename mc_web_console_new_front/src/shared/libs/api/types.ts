@@ -1,7 +1,7 @@
 export interface IApiState<T> {
   loading?: boolean;
   success?: boolean;
-  error?: Error | null;
+  error?: string | null;
   data?: T | null;
 }
 

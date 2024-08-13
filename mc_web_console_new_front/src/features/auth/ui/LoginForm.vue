@@ -2,8 +2,9 @@
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
 import { useGetLogin } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { IApiState, IAxiosResponse } from '@/shared/libs';
+import { useAuth } from '@/features/auth/model/useAuth.ts';
 
 const loginData: IUser = {
   id: 'mcpadmin',
@@ -11,9 +12,30 @@ const loginData: IUser = {
 };
 
 let res = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
+const auth = useAuth();
+
 const handleLogin = async () => {
   res.value = useGetLogin<IUserResponse, IUser>(loginData);
 };
+
+watch(
+  res,
+  async (newRes, oldRes) => {
+    if (res.value.success && res.value.data?.responseData) {
+      const auth = useAuth();
+      auth.setUser({ ...res.value.data.responseData, id: loginData.id });
+    } else {
+      console.log(res.value.error);
+    }
+
+    if (!res.value.loading) {
+      console.log(auth.sessionUser.data);
+    }
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <template>
@@ -66,6 +88,9 @@ const handleLogin = async () => {
       <p v-if="res.loading">Loading</p>
       <p v-if="!res.loading && res.success">{{ res.data }}</p>
       <p v-if="!res.loading && !res.success">{{ res.error }}</p>
+    </div>
+    <div>
+      <p>{{ auth.getUser() }}</p>
     </div>
   </div>
 </template>
