@@ -1,40 +1,53 @@
 <script setup lang="ts">
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
-import { useGetLogin } from '@/entities';
+import { useGetLogin, useGetUserRole } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
 import { ref, watch } from 'vue';
 import { IApiState, IAxiosResponse } from '@/shared/libs';
 import { useAuth } from '@/features/auth/model/useAuth.ts';
+import { jwtDecode } from 'jwt-decode';
 
 const loginData: IUser = {
   id: 'mcpadmin',
   password: 'mcpuserpassword',
 };
 
-let res = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
+let resLogin = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
+let resUserInfo = ref<IApiState<any>>({});
 const auth = useAuth();
 
-const handleLogin = async () => {
-  res.value = useGetLogin<IUserResponse, IUser>(loginData);
+const handleLogin = () => {
+  resLogin.value = useGetLogin<IUserResponse, IUser>(loginData);
+};
+const jwtDecodeTest = (accesstoken: string) => {
+  var token = jwtDecode(accesstoken);
+  console.log(token);
 };
 
 watch(
-  res,
-  async (newRes, oldRes) => {
-    if (res.value.success && res.value.data?.responseData) {
+  resLogin,
+  () => {
+    if (resLogin.value.success && resLogin.value.data?.responseData) {
       const auth = useAuth();
-      auth.setUser({ ...res.value.data.responseData, id: loginData.id });
+      auth.setUser({ ...resLogin.value.data.responseData, id: loginData.id });
+      resUserInfo.value = useGetUserRole<any>();
+      jwtDecodeTest(auth.getUser().access_token);
     } else {
-      console.log(res.value.error);
-    }
-
-    if (!res.value.loading) {
-      console.log(auth.sessionUser.data);
+      //FIXME error message 띄우는 방식 추가
+      console.log(resLogin.value.error);
     }
   },
   {
     deep: true,
   },
+);
+
+watch(
+  resUserInfo,
+  () => {
+    console.log(resUserInfo);
+  },
+  { deep: true },
 );
 </script>
 
@@ -85,9 +98,9 @@ watch(
       </p-button>
     </fieldset>
     <div class="res-test-box">
-      <p v-if="res.loading">Loading</p>
-      <p v-if="!res.loading && res.success">{{ res.data }}</p>
-      <p v-if="!res.loading && !res.success">{{ res.error }}</p>
+      <p v-if="resLogin.loading">Loading</p>
+      <p v-if="!resLogin.loading && resLogin.success">{{ resLogin.data }}</p>
+      <p v-if="!resLogin.loading && !resLogin.success">{{ resLogin.error }}</p>
     </div>
     <div>
       <p>{{ auth.getUser() }}</p>

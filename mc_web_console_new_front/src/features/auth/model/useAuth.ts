@@ -1,5 +1,6 @@
 import { useLocalStorage } from '@/shared/libs/access-localstorage';
-import { IUserResponse, useAuthStore } from '@/entities';
+import { IUserResponse } from '@/entities';
+import { useAuthStore } from '@/shared/libs/store/auth';
 
 const LOGIN_AUTH = 'LOGIN_AUTH';
 
@@ -8,14 +9,19 @@ const LOGIN_AUTH = 'LOGIN_AUTH';
 // - api 요청할때마다 access_token을 넣고 진행.
 export function useAuth() {
   const sessionUser =
-    useLocalStorage<
-      Pick<IUserResponse, 'refresh_token' | 'access_token' | 'role'>
-    >(LOGIN_AUTH);
+    useLocalStorage<Pick<IUserResponse, 'access_token' | 'role'>>(LOGIN_AUTH);
 
   const authStore = useAuthStore();
 
   function setUser(props: IUserResponse & { id: string }) {
-    sessionUser.setItem(props);
+    const userData = {
+      id: props.id,
+      role: props.role,
+      access_token: props.access_token,
+      expires_in: props.expires_in,
+    };
+
+    sessionUser.setItem(userData);
     authStore.onLogin(props);
   }
 

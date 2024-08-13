@@ -4,7 +4,7 @@ import dashboardRoutes from '@/pages/dashboard/dashboard.route.ts';
 import authRoutes, { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
 import NotFound from '@/pages/error/404/NotFound.vue';
 import MainPage from '@/pages/main/MainPage.vue';
-import { AuthorizationType, useAuthStore } from '@/entities';
+import { AuthorizationType, useAuthStore } from '@/shared/libs/store/auth';
 
 //TODO admin부분 고려
 

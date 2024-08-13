@@ -3,10 +3,11 @@ import { AxiosResponse } from 'axios';
 import { ref, UnwrapRef } from 'vue';
 import { IApiState } from '@/shared/libs/api/types.ts';
 import { axiosInstance } from '@/shared/libs/api/instance.ts';
+import { useAuthStore } from '@/shared/libs/store/auth';
 
 export function axiosGet<T>(url: string, params?: IStringIdx) {
   return axiosInstance.get<T>(`${url}`, {
-    params,
+    ...params,
   });
 }
 
@@ -16,7 +17,7 @@ export function axiosPost<T, D = any>(
   params?: IStringIdx,
 ) {
   return axiosInstance.post<T>(`/${url}`, data, {
-    params,
+    ...params,
   });
 }
 
@@ -70,8 +71,13 @@ function extractErrorMessage(error: any): string {
 }
 
 export function useAxiosGet<T>(url: string, params: IStringIdx = {}) {
+  const authStore = useAuthStore();
+  params = Object.assign(params, {
+    headers: { Authorization: `Bearer ${authStore.access_token}` },
+  });
+
   const res = useAjaxWrapper<T>(() => axiosGet<T>(url, params));
-  return res.value;
+  return res;
 }
 
 export function useAxiosPost<T, D = any>(
@@ -79,6 +85,11 @@ export function useAxiosPost<T, D = any>(
   data: D,
   params: IStringIdx = {},
 ) {
+  const authStore = useAuthStore();
+  params = Object.assign(params, {
+    headers: { Authorization: `Bearer ${authStore.access_token}` },
+  });
+
   const res = useAjaxWrapper<T>(() => axiosPost<T, D>(url, data, params));
   return res;
 }
