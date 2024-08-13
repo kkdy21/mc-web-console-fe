@@ -1,26 +1,79 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { PTooltip, PI, PButton } from '@cloudforet-test/mirinae';
+import { SIDEBAR_MENU } from './constant';
+import { ref } from 'vue';
+
+const isSidebarExpanded = ref(false);
+</script>
 
 <template>
   <div class="g-n-b-navigation-rail">
     <!-- <p-tooltip
 class="minimize-button-wrapper" position="bottom" /> -->
-    <!-- TODO: Menu Icon -->
+    <!-- TODO: Sidebar shirnk & expand -->
+    <p-tooltip
+      class="minimize-button-wrapper"
+      position="bottom"
+      :contents="isSidebarExpanded ? 'Minimize menu' : 'Expand menu'"
+      @click="isSidebarExpanded = !isSidebarExpanded"
+    >
+      <!-- storeState.isMinimizeNavRail
+          ? $t('COMMON.GNB.TOOLTIP.EXPAND_GNB_RAIL')
+          : $t('COMMON.GNB.TOOLTIP.MINIMIZE_GNB_RAIL') -->
+      <p-i
+        :name="
+          isSidebarExpanded
+            ? 'ic_double-chevron-right'
+            : 'ic_double-chevron-left'
+        "
+        class="menu-button"
+        height="1.5rem"
+        width="1.5rem"
+        color="inherit"
+      />
+    </p-tooltip>
     <div class="navigation-rail-container">
-      <div class="navigation-rail-wrapper">
-        <div class="menu-wrapper">
-          <div class="menu-container">
-            <span class="menu-title">item label</span>
+      <div
+        v-for="(item, idx) in SIDEBAR_MENU"
+        :key="`navigation-rail-item-${idx}`"
+        class="navigation-rail-wrapper"
+      >
+        <router-link
+          v-if="item.to"
+          :to="{ name: 'vpc-crud' }"
+          class="service-menu"
+        >
+          <div class="menu-wrapper">
+            <p-i
+              :name="item.icon"
+              class="menu-button"
+              height="1.25rem"
+              width="1.25rem"
+              color="inherit"
+            />
+            <div class="menu-container">
+              <span class="menu-title">{{ item.label }}</span>
+              <!-- <p-button
+                icon-right="ic_arrow-right"
+                style-type="tertiary"
+                size="sm"
+                class="learn-more-button"
+              /> -->
+            </div>
           </div>
-          <div class="menu-container">
-            <span class="menu-title">item label</span>
-          </div>
-          <div class="menu-container">
-            <span class="menu-title">item label</span>
-          </div>
-        </div>
-        <!-- <router-link>
-          </router-link> -->
+        </router-link>
       </div>
+      <!-- <div class="menu-wrapper">
+          <div class="menu-container">
+            <span class="menu-title">item label</span>
+          </div>
+          <div class="menu-container">
+            <span class="menu-title">item label</span>
+          </div>
+          <div class="menu-container">
+            <span class="menu-title">item label</span>
+          </div>
+        </div> -->
     </div>
   </div>
 </template>
@@ -79,7 +132,7 @@ class="minimize-button-wrapper" position="bottom" /> -->
         &.is-selected {
           @apply relative bg-violet-100 text-violet-600;
           &::before {
-            @apply absolute bg-violet-400;
+            @apply absolute;
             content: '';
             top: 0.125rem;
             left: -0.75rem;

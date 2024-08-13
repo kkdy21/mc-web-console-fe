@@ -9,7 +9,11 @@ const handleClickMenuButton = () => {
 <template>
   <div class="g-n-b-toolbox">
     <div class="navigation-section">
-      <p-tooltip class="menu-button-wrapper" position="bottom" contents="??">
+      <p-tooltip
+        class="menu-button-wrapper"
+        position="bottom"
+        contents="Close menu"
+      >
         <p-icon-button
           name="ic_gnb_menu"
           style-type="transparent"

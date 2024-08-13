@@ -47,9 +47,9 @@ const dashboardRoutes: RouteConfig[] = [
         path: 'vpc-crud',
         name: DASHBOARD_ROUTE.VPC_CRUD._NAME,
         component: VpcCrudPage,
-        meta: {
-          roles: ['client'],
-        },
+        // meta: {
+        //   roles: ['client'],
+        // },
       },
     ],
   },

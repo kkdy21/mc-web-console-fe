@@ -16,4 +16,4 @@ const fetch = async () => {};
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="postcss"></style>
