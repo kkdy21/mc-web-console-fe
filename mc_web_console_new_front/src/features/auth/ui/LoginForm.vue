@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
-import { useGetLogin, useGetUserRole } from '@/entities';
+import { useGetLogin, useGetLogin2, useGetUserRole } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
 import { ref, watch } from 'vue';
 import { IApiState, IAxiosResponse } from '@/shared/libs';
@@ -13,9 +13,10 @@ const loginData: IUser = {
 };
 
 let resLogin = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
+let resLogin2 = useGetLogin2(null);
+resLogin2.execute(loginData);
 let resUserInfo = ref<IApiState<any>>({});
 const auth = useAuth();
-
 const handleLogin = () => {
   resLogin.value = useGetLogin<IUserResponse, IUser>(loginData);
 };
@@ -98,9 +99,9 @@ watch(
       </p-button>
     </fieldset>
     <div class="res-test-box">
-      <p v-if="resLogin.loading">Loading</p>
-      <p v-if="!resLogin.loading && resLogin.success">{{ resLogin.data }}</p>
-      <p v-if="!resLogin.loading && !resLogin.success">{{ resLogin.error }}</p>
+      <p v-if="resLogin2.status === 'loading'">Loading</p>
+      <p v-if="!resLogin2.loading && resLogin.success">{{ resLogin.data }}</p>
+      <p v-if="!resLogin2.loading && !resLogin.success">{{ resLogin.error }}</p>
     </div>
     <div>
       <p>{{ auth.getUser() }}</p>

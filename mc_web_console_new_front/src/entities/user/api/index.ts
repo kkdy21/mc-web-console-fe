@@ -1,4 +1,10 @@
-import { useAxiosGet, useAxiosPost } from '@/shared/libs/api/request.ts';
+import {
+  axiosPost,
+  useAsync,
+  useAxiosGet,
+  useAxiosPost,
+  useAxiosPost2,
+} from '@/shared/libs/api/request.ts';
 import { IAxiosResponse } from '@/shared/libs';
 
 // const LOGIN_URL = 'api/auth/login';
@@ -25,4 +31,19 @@ export function useGetLogin<T, D>(loginData: D) {
 export function useGetUserRole<T>() {
   const res = useAxiosGet<T>(GET_USER_INFO);
   return res.value;
+}
+
+export function useGetLogin2<T, D>(loginData: D | null) {
+  interface RequestWrapper<D> {
+    request: D;
+  }
+
+  const requestWrapper: RequestWrapper<D | null> = {
+    request: loginData,
+  };
+  return useAxiosPost2<IAxiosResponse<T>, RequestWrapper<D>>(
+    LOGIN_URL,
+    requestWrapper,
+    {},
+  );
 }
