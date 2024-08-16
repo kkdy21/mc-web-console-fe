@@ -3,9 +3,8 @@ import { IUserResponse } from '@/entities';
 
 export type AuthorizationType = null | 'admin' | 'client';
 
-type IAuthStore = Omit<IUserResponse, 'expires_in' | 'refresh_expires_in'> & {
+type IAuthStore = Omit<IUserResponse, 'refresh_expires_in'> & {
   id: string;
-  role: string;
   isLogin: boolean;
 };
 

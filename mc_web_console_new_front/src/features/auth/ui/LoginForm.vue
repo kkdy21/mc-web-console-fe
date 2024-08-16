@@ -10,10 +10,10 @@ const loginData: IUser = {
   password: 'mcpuserpassword',
 };
 
-let resLogin = useGetLogin<IUserResponse, IUser | null>(null);
-let resUserInfo = useGetUserRole<IUserResponse>();
-
+const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
+const resUserInfo = useGetUserRole<IUserResponse>();
 const auth = useAuth();
+
 const handleLogin = () => {
   resLogin.execute({ request: loginData });
 };
@@ -27,7 +27,7 @@ watch(resLogin.data, () => {
     role: 'admin',
     id: 'test',
   };
-  const auth = useAuth();
+
   auth.setUser(userData);
 
   resUserInfo.execute();

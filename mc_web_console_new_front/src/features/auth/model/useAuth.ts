@@ -4,12 +4,11 @@ import { useAuthStore } from '@/shared/libs/store/auth';
 
 const LOGIN_AUTH = 'LOGIN_AUTH';
 
-// session을 store에 넣음
-// - store에 유저정보와 토큰을 넣음
-// - api 요청할때마다 access_token을 넣고 진행.
 export function useAuth() {
   const sessionUser =
-    useLocalStorage<Pick<IUserResponse, 'access_token' | 'role'>>(LOGIN_AUTH);
+    useLocalStorage<Pick<IUserResponse, 'access_token' | 'role', 'expires_in'>>(
+      LOGIN_AUTH,
+    );
 
   const authStore = useAuthStore();
 
