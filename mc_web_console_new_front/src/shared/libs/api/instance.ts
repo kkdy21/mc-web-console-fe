@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const url = 'http://mcmpdemo.csesmzc.com:3000';
-const url = 'http://localhost:3000/api';
+const url = '/api';
 
 const createInstance = () => {
   return axios.create({

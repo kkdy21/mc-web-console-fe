@@ -12,4 +12,21 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://api.onecloudcon.com',
+    //     changeOrigin: true,
+    //     rewrite: path => path.replace(/^\/api/, ''),
+    //     secure: false,
+    //   },
+    // },
+    proxy: {
+      '/api': {
+        target: 'https://api.onecloudcon.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '/api'),
+      },
+    },
+  },
 });
