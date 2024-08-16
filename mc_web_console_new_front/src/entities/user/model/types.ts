@@ -5,8 +5,8 @@ export interface IUser {
 
 export interface IUserResponse {
   role: string;
-  access_token: string;
-  expires_in: number;
-  refresh_expires_in: number;
-  refresh_token: string;
+  access_token?: string;
+  expires_in?: number;
+  refresh_expires_in?: number;
+  refresh_token?: string;
 }

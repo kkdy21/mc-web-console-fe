@@ -21,7 +21,6 @@ export function useGetLogin<T, D>(loginData: D | null) {
   );
 }
 
-// export function useGetUserRole<T>() {
-//   const res = useAxiosGet<T>(GET_USER_INFO);
-//   return res.value;
-// }
+export function useGetUserRole<T>() {
+  return useAxiosGet<T>(GET_USER_INFO);
+}
