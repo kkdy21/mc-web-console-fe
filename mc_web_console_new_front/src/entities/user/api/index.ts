@@ -1,5 +1,6 @@
 import { useAxiosGet, useAxiosPost } from '@/shared/libs/api/request.ts';
 import { IAxiosResponse } from '@/shared/libs';
+import { useAuthStore } from '@/shared/libs/store/auth';
 
 // const LOGIN_URL = 'api/auth/login';
 
@@ -17,7 +18,6 @@ export function useGetLogin<T, D>(loginData: D | null) {
   return useAxiosPost<IAxiosResponse<T>, RequestBodyWrapper<D | null>>(
     LOGIN_URL,
     requestBodyWrapper,
-    {},
   );
 }
 

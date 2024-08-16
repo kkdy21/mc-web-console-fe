@@ -4,7 +4,6 @@ import { useGetLogin, useGetUserRole } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
 import { watch } from 'vue';
 import { useAuth } from '@/features/auth/model/useAuth.ts';
-import { jwtDecode } from 'jwt-decode';
 
 const loginData: IUser = {
   id: 'mcpadmin',
@@ -12,7 +11,8 @@ const loginData: IUser = {
 };
 
 let resLogin = useGetLogin<IUserResponse, IUser | null>(null);
-let resUserInfo = useGetUserRole<any>();
+let resUserInfo = useGetUserRole<IUserResponse>();
+
 const auth = useAuth();
 const handleLogin = () => {
   resLogin.execute({ request: loginData });

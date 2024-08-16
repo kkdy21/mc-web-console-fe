@@ -1,23 +1,17 @@
-import { IStringIdx } from '@/shared/types';
-import { AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Ref, ref } from 'vue';
 import { axiosInstance } from '@/shared/libs/api/instance.ts';
-import { useAuthStore } from '@/shared/libs/store/auth';
 
-export function axiosGet<T>(url: string, params?: IStringIdx) {
-  return axiosInstance.get<T>(`${url}`, {
-    ...params,
-  });
+export function axiosGet<T>(url: string, config?: AxiosRequestConfig) {
+  return axiosInstance.get<T>(`/${url}`, config);
 }
 
 export function axiosPost<T, D = any>(
   url: string,
   data: D,
-  params?: IStringIdx,
+  config?: AxiosRequestConfig,
 ) {
-  return axiosInstance.post<T>(`/${url}`, data, {
-    ...params,
-  });
+  return axiosInstance.post<T>(`/${url}`, data, config);
 }
 
 export type AsyncStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -28,12 +22,15 @@ export interface IUseAsyncReturnType<T, D> {
   data: Ref<T | null>;
   error: Ref<Error | null>;
   errorMsg: Ref<string | null>;
-  execute: (payload?: D) => Promise<void>;
+  execute: (payload?: D, config?: AxiosRequestConfig) => Promise<void>;
   reset: () => void;
 }
 
-export function useAsync<T, D = any>(
-  apiCall: (payload?: D) => Promise<AxiosResponse<T>>,
+export function useAxiosWrapper<T, D = any>(
+  apiCall: (
+    payload?: D,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<T>>,
 ): IUseAsyncReturnType<T, D> {
   const isLoading: Ref<boolean> = ref(false);
   const data: Ref<T | null> = ref(null);
@@ -41,11 +38,11 @@ export function useAsync<T, D = any>(
   const errorMsg: Ref<string | null> = ref(null);
   const status: Ref<AsyncStatus> = ref<AsyncStatus>('idle');
 
-  const execute = async (payload?: D) => {
+  const execute = async (payload?: D, config?: AxiosRequestConfig) => {
     isLoading.value = true;
     status.value = 'loading';
     try {
-      const result = payload ? await apiCall(payload) : await apiCall();
+      const result = await apiCall(payload, config);
       data.value = result.data;
       status.value = 'success';
     } catch (e: any) {
@@ -97,26 +94,30 @@ function extractErrorMessage(error: any): string {
   }
 }
 
-export function useAxiosGet<T>(url: string, params: IStringIdx = {}) {
-  const authStore = useAuthStore();
-  params = Object.assign(params, {
-    headers: { Authorization: `Bearer ${authStore.access_token}` },
-  });
+export function useAxiosGet<T>(
+  url: string,
+  initialConfig: AxiosRequestConfig = {},
+) {
+  return useAxiosWrapper<T>((_, dynamicConfig) => {
+    const mergedConfig = {
+      ...initialConfig,
+      ...dynamicConfig,
+    };
 
-  return useAsync<T>(() => axiosGet<T>(url, params));
+    return axiosGet<T>(url, mergedConfig);
+  });
 }
 
 export function useAxiosPost<T, D>(
   url: string,
   data: D,
-  params: IStringIdx = {},
+  initialConfig: AxiosRequestConfig = {},
 ) {
-  const authStore = useAuthStore();
-  params = Object.assign(params, {
-    headers: { Authorization: `Bearer ${authStore.access_token}` },
+  return useAxiosWrapper<T, D>((payload, dynamicConfig) => {
+    const mergedConfig = {
+      ...initialConfig,
+      ...dynamicConfig,
+    };
+    return axiosPost<T, D>(url, payload || data, mergedConfig);
   });
-
-  return useAsync<T, D>(payload =>
-    axiosPost<T, D>(url, payload || data, params),
-  );
 }
