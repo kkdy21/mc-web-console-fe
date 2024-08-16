@@ -13,14 +13,6 @@ export default defineConfig({
     },
   },
   server: {
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://api.onecloudcon.com',
-    //     changeOrigin: true,
-    //     rewrite: path => path.replace(/^\/api/, ''),
-    //     secure: false,
-    //   },
-    // },
     proxy: {
       '/api': {
         target: 'https://api.onecloudcon.com',

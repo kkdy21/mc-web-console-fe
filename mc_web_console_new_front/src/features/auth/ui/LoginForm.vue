@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { PButton, PTextInput } from '@cloudforet-test/mirinae';
-import { useGetLogin, useGetLogin2, useGetUserRole } from '@/entities';
+import { useGetLogin, useGetUserRole } from '@/entities';
 import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
 import { ref, watch } from 'vue';
-import { IApiState, IAxiosResponse } from '@/shared/libs';
+import { IApiState, useAsync, useAxiosPost } from '@/shared/libs';
 import { useAuth } from '@/features/auth/model/useAuth.ts';
 import { jwtDecode } from 'jwt-decode';
 
@@ -12,36 +12,37 @@ const loginData: IUser = {
   password: 'mcpuserpassword',
 };
 
-let resLogin = ref<IApiState<IAxiosResponse<IUserResponse>>>({});
-let resLogin2 = useGetLogin2(null);
-resLogin2.execute(loginData);
+// let resLogin = useGetLogin<IUserResponse, IUser>(null);
+let resLogin = useGetLogin<IUserResponse, IUser | null>(null);
+console.log(resLogin);
 let resUserInfo = ref<IApiState<any>>({});
 const auth = useAuth();
 const handleLogin = () => {
-  resLogin.value = useGetLogin<IUserResponse, IUser>(loginData);
+  resLogin.execute({ request: loginData });
+  // resLogin.value = useGetLogin<IUserResponse, IUser>(loginData);
 };
-const jwtDecodeTest = (accesstoken: string) => {
-  var token = jwtDecode(accesstoken);
-  console.log(token);
-};
+// const jwtDecodeTest = (accesstoken: string) => {
+//   var token = jwtDecode(accesstoken);
+//   console.log(token);
+// };
 
-watch(
-  resLogin,
-  () => {
-    if (resLogin.value.success && resLogin.value.data?.responseData) {
-      const auth = useAuth();
-      auth.setUser({ ...resLogin.value.data.responseData, id: loginData.id });
-      resUserInfo.value = useGetUserRole<any>();
-      jwtDecodeTest(auth.getUser().access_token);
-    } else {
-      //FIXME error message 띄우는 방식 추가
-      console.log(resLogin.value.error);
-    }
-  },
-  {
-    deep: true,
-  },
-);
+// watch(
+//   resLogin,
+//   () => {
+//     if (resLogin.value.success && resLogin.value.data?.responseData) {
+//       const auth = useAuth();
+//       auth.setUser({ ...resLogin.value.data.responseData, id: loginData.id });
+//       resUserInfo.value = useGetUserRole<any>();
+//       jwtDecodeTest(auth.getUser().access_token);
+//     } else {
+//       //FIXME error message 띄우는 방식 추가
+//       console.log(resLogin.value.error);
+//     }
+//   },
+//   {
+//     deep: true,
+//   },
+// );
 
 watch(
   resUserInfo,
@@ -99,9 +100,10 @@ watch(
       </p-button>
     </fieldset>
     <div class="res-test-box">
-      <p v-if="resLogin2.status === 'loading'">Loading</p>
-      <p v-if="!resLogin2.loading && resLogin.success">{{ resLogin.data }}</p>
-      <p v-if="!resLogin2.loading && !resLogin.success">{{ resLogin.error }}</p>
+      <p v-if="resLogin.status === 'idle'">idle</p>
+      <p v-if="resLogin.status === 'isLoading'">Loading</p>
+      <p v-if="resLogin.status === 'success'">{{ resLogin.data }}</p>
+      <p v-if="resLogin.status === 'error'">{{ resLogin.error }}</p>
     </div>
     <div>
       <p>{{ auth.getUser() }}</p>

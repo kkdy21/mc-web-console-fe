@@ -14,4 +14,3 @@ const createInstance = () => {
 };
 
 export const axiosInstance = createInstance(); //http://localhost:3000/test
-export const dashboardInstance = createInstance(); // http://localhost:3000/dashboard
