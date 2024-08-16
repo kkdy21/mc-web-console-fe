@@ -1,9 +1,45 @@
 <script setup lang="ts">
 import { PTooltip, PI, PButton } from '@cloudforet-test/mirinae';
 import { SIDEBAR_MENU } from './constant';
-import { ref } from 'vue';
+import type { MenuCategory } from './constant';
+import { ref, watch, watchEffect } from 'vue';
+import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import MenuCategorySet from './MenuCategory.vue';
 
 const isSidebarExpanded = ref(false);
+const userMenuAuthorized = ref<null | string[]>(null);
+const displayedMenu = ref<MenuCategory[]>([]);
+
+watchEffect(() => {
+  const menuPerUserStore = useMenuPerUserStore();
+  userMenuAuthorized.value = menuPerUserStore.userMenuInfo.menus;
+});
+
+// TODO: SIDEBAR_MENU와 userMenuAuthorized를 비교하여 권한이 있는 메뉴만 렌더링 (✓)
+watch(
+  [userMenuAuthorized, displayedMenu],
+  () => {
+    // SIDEBAR_MENU.forEach(menu => {
+    //   userMenuAuthorized.value?.includes(menu.id)
+    //     ? displayedMenu.value.push(menu)
+    //     : null;
+    // });
+
+    SIDEBAR_MENU.forEach(menu => {
+      const { category, menuList } = menu;
+
+      menuList.forEach(s_menu => {
+        userMenuAuthorized.value?.includes(s_menu.id)
+          ? displayedMenu.value.push({
+              category,
+              menuList: [s_menu],
+            })
+          : null;
+      });
+    });
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -33,47 +69,9 @@ class="minimize-button-wrapper" position="bottom" /> -->
       />
     </p-tooltip>
     <div class="navigation-rail-container">
-      <div
-        v-for="(item, idx) in SIDEBAR_MENU"
-        :key="`navigation-rail-item-${idx}`"
-        class="navigation-rail-wrapper"
-      >
-        <router-link
-          v-if="item.to"
-          :to="{ name: 'vpc-crud' }"
-          class="service-menu"
-        >
-          <div class="menu-wrapper">
-            <p-i
-              :name="item.icon"
-              class="menu-button"
-              height="1.25rem"
-              width="1.25rem"
-              color="inherit"
-            />
-            <div class="menu-container">
-              <span class="menu-title">{{ item.label }}</span>
-              <!-- <p-button
-                icon-right="ic_arrow-right"
-                style-type="tertiary"
-                size="sm"
-                class="learn-more-button"
-              /> -->
-            </div>
-          </div>
-        </router-link>
+      <div class="navigation-rail-wrapper">
+        <menu-category-set :displayed-menu="displayedMenu" />
       </div>
-      <!-- <div class="menu-wrapper">
-          <div class="menu-container">
-            <span class="menu-title">item label</span>
-          </div>
-          <div class="menu-container">
-            <span class="menu-title">item label</span>
-          </div>
-          <div class="menu-container">
-            <span class="menu-title">item label</span>
-          </div>
-        </div> -->
     </div>
   </div>
 </template>
@@ -93,6 +91,11 @@ class="minimize-button-wrapper" position="bottom" /> -->
     .navigation-rail-wrapper {
       width: calc($gnb-navigation-rail-max-width - 1.625rem);
       transition: width 0.3s ease;
+      .menu-category {
+        font-size: 14px;
+        color: #898995;
+        /* padding-top: 8px; */
+      }
       .service-menu {
         @apply flex items-center justify-between text-label-md;
         width: 100%;

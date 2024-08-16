@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { PSelectDropdown, PTooltip, PI } from '@cloudforet-test/mirinae';
-// @ts-ignore
-// import { gray } from '@/app/style/colors.js';
+import {
+  PSelectDropdown,
+  PTooltip,
+  PI,
+  PTextHighlighting,
+  PButton,
+} from '@cloudforet-test/mirinae';
+import { gray } from '@/app/style/colors.js';
 
 const menuItems = [
   {
@@ -111,20 +116,33 @@ const menuItems = [
     headerName: 'Concrete',
   },
 ];
+
+const selectWorkspace = () => {
+  console.log('selectWorkspace');
+};
 </script>
 
 <template>
   <div class="top-bar-header">
+    <!-- ref="selectDropdownRef"
+      :class="{ 'workspace-dropdown': true }" -->
     <p-select-dropdown
       class="workspace-dropdown"
       style-type="transparent"
       is-filterable
       hide-header-without-items
       show-delete-all-button
-      multi-selectable
+      :menu="menuItems"
+      :selected.sync="menuItems[0]"
+      @select="selectWorkspace"
     >
       <template #dropdown-button-icon>
-        <p-i name="ic_chevron-sort" />
+        <p-i
+          name="ic_chevron-sort"
+          width="1rem"
+          height="1rem"
+          :color="gray[800]"
+        />
       </template>
       <template #dropdown-button>
         <div>
@@ -138,9 +156,27 @@ const menuItems = [
           :contents="[menuItems[0].label]"
         >
           <div class="workspace-wrapper">
-            <span class="workspace-name">workspace name!!!</span>
+            <span class="workspace-name">{{ menuItems[0].label }}</span>
           </div>
         </p-tooltip>
+      </template>
+      <template #menu-item--format="{ item }">
+        <div class="menu-item-wrapper">
+          <div class="label">
+            <p-text-highlighting class="label-text" :text="item.label" />
+            <!-- :highlight="menuItems[0].label" -->
+          </div>
+        </div>
+      </template>
+      <template #menu-bottom>
+        <div class="workspace-toolbox-wrapper">
+          <p-button
+            style-type="transparent"
+            size="md"
+            class="view-all-workspace-button tool"
+            icon-right="ic_arrow-right"
+          />
+        </div>
       </template>
     </p-select-dropdown>
   </div>

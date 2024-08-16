@@ -14,7 +14,7 @@ import TopBarToolset from './TopBarToolset.vue';
 
 <style lang="postcss" scoped>
 .top-bar {
-  @apply bg-red-400 items-center justify-between border-gray-200;
+  @apply bg-white items-center justify-between border-b border-gray-200;
   display: flex !important;
   width: 100%;
 

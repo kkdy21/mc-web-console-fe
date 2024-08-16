@@ -18,17 +18,14 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <div class="h-full flex flex-col overflow-hidden">
+  <div class="layout-container">
     <div class="top-bar">
       <layout-header />
     </div>
-
-    <div class="sidebar-layout-container">
-      <sidebar-layout />
-    </div>
-
-    <main>
-      <slot />
+    <sidebar-layout />
+    <main class="main">
+      <router-view />
+      <slot name="main" />
     </main>
   </div>
 </template>
@@ -55,6 +52,18 @@ main {
 .main-body {
   height: calc(100% - 100px);
   border: 1px solid black;
+}
+
+.main {
+  @apply absolute;
+  top: calc($gnb-toolbox-height + $top-bar-height);
+  left: $gnb-navigation-rail-max-width;
+  width: calc(100% - $gnb-navigation-rail-max-width);
+  height: calc(100% - $gnb-toolbox-height);
+  margin: auto;
+  transition:
+    left 0.3s ease,
+    width 0.3s ease;
 }
 
 .top-bar {
