@@ -28,7 +28,7 @@ watch(resLogin.data, () => {
   });
   McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
 
-  // resUserInfo.execute();
+  resUserInfo.execute();
 });
 </script>
 
