@@ -19,17 +19,11 @@ const handleLogin = () => {
 };
 
 watch(resLogin.data, () => {
-  let userData: IUserResponse & { id: string } = {
-    access_token: resLogin.data.value?.responseData?.access_token,
-    expires_in: resLogin.data.value?.responseData?.expires_in,
-    refresh_token: resLogin.data.value?.responseData?.refresh_token,
-    refresh_expires_in: resLogin.data.value?.responseData?.refresh_expires_in,
+  auth.setUser({
+    ...resLogin.data.value?.responseData,
+    id: loginData.id,
     role: 'admin',
-    id: 'test',
-  };
-
-  auth.setUser(userData);
-
+  });
   resUserInfo.execute();
   // jwtDecodeTest(auth.getUser().access_token);
 });

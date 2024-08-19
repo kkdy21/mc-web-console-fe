@@ -16,7 +16,7 @@ export function axiosPost<T, D = any>(
 
 export type AsyncStatus = 'idle' | 'loading' | 'success' | 'error';
 
-export interface IUseAsyncReturnType<T, D> {
+export interface IUseAxiosWrapperReturnType<T, D> {
   isLoading: Ref<boolean>;
   status: Ref<AsyncStatus>;
   data: Ref<T | null>;
@@ -31,7 +31,7 @@ export function useAxiosWrapper<T, D = any>(
     payload?: D,
     config?: AxiosRequestConfig,
   ) => Promise<AxiosResponse<T>>,
-): IUseAsyncReturnType<T, D> {
+): IUseAxiosWrapperReturnType<T, D> {
   const isLoading: Ref<boolean> = ref(false);
   const data: Ref<T | null> = ref(null);
   const error: Ref<Error | null> = ref(null);

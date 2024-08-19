@@ -6,9 +6,9 @@ const LOGIN_AUTH = 'LOGIN_AUTH';
 
 export function useAuth() {
   const sessionUser =
-    useLocalStorage<Pick<IUserResponse, 'access_token' | 'role', 'expires_in'>>(
-      LOGIN_AUTH,
-    );
+    useLocalStorage<
+      Pick<IUserResponse, 'access_token' | 'role' | 'expires_in'>
+    >(LOGIN_AUTH);
 
   const authStore = useAuthStore();
 
@@ -19,7 +19,6 @@ export function useAuth() {
       access_token: props.access_token,
       expires_in: props.expires_in,
     };
-
     sessionUser.setItem(userData);
     authStore.onLogin(props);
   }
