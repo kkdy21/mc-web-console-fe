@@ -21,12 +21,10 @@ const handleLogin = () => {
 };
 
 watch(resLogin.data, () => {
-  let t = resLogin.data.value?.responseData?.refresh_token + 'ete';
   auth.setUser({
     ...resLogin.data.value?.responseData,
     id: loginData.id,
     role: 'admin',
-    refresh_token: t,
   });
   McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
   // resUserInfo.execute();
