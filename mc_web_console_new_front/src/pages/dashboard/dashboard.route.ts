@@ -40,9 +40,9 @@ const dashboardRoutes: RouteConfig[] = [
         path: 'aws',
         name: DASHBOARD_ROUTE.AWS._NAME,
         component: AwsPage,
-        meta: {
-          roles: ['client'],
-        },
+        // meta: {
+        //   roles: ['client'],
+        // },
       },
       {
         path: 'vpc-crud',

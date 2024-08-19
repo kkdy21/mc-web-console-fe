@@ -5,10 +5,20 @@ import type { MenuCategory } from './constant';
 import { ref, watch, watchEffect } from 'vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import MenuCategorySet from './MenuCategory.vue';
+import { useSidebar } from '@/shared/libs/store/sidebar';
+import { storeToRefs } from 'pinia';
+
+const sidebar = useSidebar();
 
 const isSidebarExpanded = ref(false);
 const userMenuAuthorized = ref<null | string[]>(null);
 const displayedMenu = ref<MenuCategory[]>([]);
+
+const { isCollapsed, isMinimized } = storeToRefs(sidebar);
+
+const clickMinimizeBtn = () => {
+  sidebar.toggleMinimize();
+};
 
 watchEffect(() => {
   const menuPerUserStore = useMenuPerUserStore();
@@ -43,24 +53,26 @@ watch(
 </script>
 
 <template>
-  <div class="g-n-b-navigation-rail">
+  <div
+    class="g-n-b-navigation-rail"
+    :class="{ 'is-minimize': isMinimized, 'is-hide': isCollapsed }"
+  >
     <!-- <p-tooltip
 class="minimize-button-wrapper" position="bottom" /> -->
     <!-- TODO: Sidebar shirnk & expand -->
     <p-tooltip
       class="minimize-button-wrapper"
       position="bottom"
-      :contents="isSidebarExpanded ? 'Minimize menu' : 'Expand menu'"
-      @click="isSidebarExpanded = !isSidebarExpanded"
+      :contents="isMinimized ? 'Minimize menu' : 'Expand menu'"
+      @click="clickMinimizeBtn"
     >
+      <!-- @click="isSidebarExpanded = !isSidebarExpanded" -->
       <!-- storeState.isMinimizeNavRail
           ? $t('COMMON.GNB.TOOLTIP.EXPAND_GNB_RAIL')
           : $t('COMMON.GNB.TOOLTIP.MINIMIZE_GNB_RAIL') -->
       <p-i
         :name="
-          isSidebarExpanded
-            ? 'ic_double-chevron-right'
-            : 'ic_double-chevron-left'
+          isMinimized ? 'ic_double-chevron-right' : 'ic_double-chevron-left'
         "
         class="menu-button"
         height="1.5rem"
@@ -78,15 +90,17 @@ class="minimize-button-wrapper" position="bottom" /> -->
 
 <style scoped lang="postcss">
 .g-n-b-navigation-rail {
-  @apply relative flex-col items-start bg-white border-r;
-  margin-top: $gnb-toolbox-height;
-  height: calc(100% - $gnb-toolbox-height);
+  @apply absolute flex-col items-start bg-white border-r;
+  /* top: $gnb-toolbox-height; */
+  height: calc(95.9vh - $gnb-toolbox-height);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   z-index: 51;
+  width: $gnb-navigation-rail-max-width;
   .navigation-rail-container {
     @apply overflow-y-auto overflow-x-hidden;
     width: $gnb-navigation-rail-max-width;
     transition: width 0.3s ease;
+    transition: height 0.3s ease;
     padding: 1rem 0.75rem;
     .navigation-rail-wrapper {
       width: calc($gnb-navigation-rail-max-width - 1.625rem);

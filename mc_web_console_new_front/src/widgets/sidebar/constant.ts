@@ -34,16 +34,29 @@ export const SIDEBAR_MENU: MenuCategory[] = [
         label: 'Dashboard',
         icon: 'ic_service_dashboard',
         to: {
-          name: 'dashboard',
+          // name: 'dashboard',
+          // TODO: temporary
+          name: 'vpc-crud',
           path: '/main/dashboard',
         },
+        subMenuList: [
+          {
+            id: 'dashboard1',
+            label: 'Dashboard1',
+            icon: 'ic_service_dashboard',
+            to: {
+              name: 'vpc-crud',
+              path: '/main/dashboard',
+            },
+          },
+        ],
       },
       {
         id: 'workspaces',
         label: 'Workspaces',
         icon: 'ic_service_cloud-service',
         to: {
-          name: 'workspaces',
+          name: 'aws-dashboard',
         },
       },
       {

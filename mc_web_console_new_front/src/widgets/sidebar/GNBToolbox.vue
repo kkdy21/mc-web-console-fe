@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { PTooltip, PIconButton, PBreadcrumbs } from '@cloudforet-test/mirinae';
+import { useSidebar } from '@/shared/libs/store/sidebar';
+import { storeToRefs } from 'pinia';
+
+const sidebar = useSidebar();
+
+const { isCollapsed } = storeToRefs(sidebar);
 
 const handleClickMenuButton = () => {
-  // TODO: menu icon click event (navigation rail created)
+  sidebar.toggleCollapse();
 };
 </script>
 
@@ -12,7 +18,7 @@ const handleClickMenuButton = () => {
       <p-tooltip
         class="menu-button-wrapper"
         position="bottom"
-        contents="Close menu"
+        :contents="isCollapsed ? 'Open Menu' : 'Close Menu'"
       >
         <p-icon-button
           name="ic_gnb_menu"
@@ -31,8 +37,7 @@ const handleClickMenuButton = () => {
 
 <style scoped lang="postcss">
 .g-n-b-toolbox {
-  @apply justify-between bg-white border-b;
-  /* top: 0; */
+  @apply relative justify-between bg-white border-b;
   width: 100%;
   height: $gnb-toolbox-height;
   padding-right: 1rem;

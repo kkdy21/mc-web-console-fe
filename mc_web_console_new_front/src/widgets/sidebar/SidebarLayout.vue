@@ -14,7 +14,7 @@ import GNBNavigationRail from './GNBNavigationRail.vue';
 .gnb {
   z-index: 50;
   .g-n-b-item {
-    @apply absolute flex border-gray-200;
+    @apply relative flex border-gray-200;
   }
 }
 </style>

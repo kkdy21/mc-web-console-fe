@@ -15,5 +15,8 @@
     "ACCOUNT_AND_ACCESS_ORGANIZATIONS": "Organizations",
     "ACCOUNT_AND_ACCESS_CONTROL": "Access Control",
     "ACCOUNT_AND_ACCESS_WORKSPACE_SETTINGS": "Workspace Settings"
+  },
+  "WORKSPACE": {
+    "WORKSPACE": "Workspace"
   }
 }

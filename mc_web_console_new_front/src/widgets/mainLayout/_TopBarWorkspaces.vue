@@ -5,9 +5,7 @@ import {
   PI,
   PTextHighlighting,
   PButton,
-  PContextMenu,
 } from '@cloudforet-test/mirinae';
-import { getSelectDropdownMenu } from '@cloudforet-test/mirinae/src/inputs/dropdown/select-dropdown/mock';
 import { gray, violet } from '@/app/style/colors';
 import { reactive, ref, watch, watchEffect } from 'vue';
 
@@ -23,7 +21,7 @@ const CONTEXT_MENU_TYPE = {
 const selectDropdownRef = ref<PSelectDropdown | null>(null);
 
 watch(
-  () => selectDropdownRef,
+  () => workspaceList,
   async () => {
     if (!selectDropdownRef.value) return;
     await selectDropdownRef.value.reloadMenu();
@@ -33,8 +31,6 @@ watch(
 const state = reactive({
   searchText: 'searchText Ex',
 });
-
-const opened = ref(false);
 
 const workspaceList = [
   {
@@ -139,7 +135,6 @@ const workspaceList = [
     headerName: 'Concrete',
   },
 ];
-
 const formatMenuItems = (menuItems: any[]) => {
   const result =
     menuItems.length > 0
@@ -163,7 +158,6 @@ const formatMenuItems = (menuItems: any[]) => {
 };
 
 const menuHandler = async (inputText: string) => {
-  opened.value = true;
   inputText = 'Tuna';
   const _workspaceList = workspaceList.filter(w =>
     w.name.toLowerCase()?.includes(inputText.toLowerCase()),
@@ -195,16 +189,107 @@ const selectWorkspace = (name: string) => {
 //     userWorkspaceStore.setCurrentWorkspace(workspaceId);
 //     router.push({ name: MENU_INFO_MAP[targetMenuId].routeName, params: { workspaceId } }).catch(() => {});
 // };
-
-const menu = ['a', 'b', 'c'];
 </script>
 
 <template>
   <div class="top-bar-header">
     <!-- ref="selectDropdownRef"
         :class="{ 'workspace-dropdown': true }" -->
-    <p-select-dropdown :menu="menu" :page-size="5">
-      {{ menu[0] }}
+    <p-select-dropdown
+      ref="selectDropdownRef"
+      class="workspace-dropdown"
+      style-type="transparent"
+      :handler="menuHandler"
+      :search-text.sync="state.searchText"
+      is-filterable
+      hide-header-without-items
+      show-delete-all-button
+      :selected="workspaceList[0].name"
+      @select="selectWorkspace"
+    >
+      <!-- :selected.sync="menuItems[0]"
+        @select="selectWorkspace" -->
+      <template #dropdown-button-icon>
+        <p-i
+          name="ic_chevron-sort"
+          width="1rem"
+          height="1rem"
+          :color="gray[800]"
+        />
+      </template>
+      <template #dropdown-button>
+        <div>
+          <span class="selected-workspace">
+            {{ workspaceList[0].name }}
+          </span>
+          <span class="tablet-selected"> ... </span>
+        </div>
+      </template>
+      <template #menu-header>
+        <p-tooltip
+          class="menu-header-selected-workspace"
+          position="bottom"
+          :contents="workspaceList[0].name || ''"
+        >
+          <div class="workspace-wrapper">
+            <span class="workspace-name">{{ workspaceList[0].name }}</span>
+          </div>
+          <p-i
+            name="ic_check"
+            :color="violet[600]"
+            width="1rem"
+            height="1rem"
+          />
+        </p-tooltip>
+      </template>
+      <template #menu-item--format="{ item }">
+        <div class="menu-item-wrapper is-starred">
+          <div class="label">
+            <workspace-logo-icon
+              :text="item?.label || ''"
+              :theme="item?.tags?.theme"
+              size="xs"
+            />
+            <p-text-highlighting
+              class="label-text"
+              :text="item.label"
+              :term="state.searchText"
+            />
+          </div>
+        </div>
+      </template>
+      <template #menu-bottom>
+        <div class="workspace-toolbox-wrapper">
+          <p-button
+            style-type="transparent"
+            size="md"
+            class="view-all-workspace-button tool"
+            icon-right="ic_arrow-right"
+          >
+            {{ $t('COMMON.GNB.WORKSPACE.VIEW_WORKSPACES') }}
+          </p-button>
+          <div class="workspace-toolbox">
+            <p-divider />
+            <p-button
+              style-type="substitutive"
+              size="sm"
+              class="create-new-button tool"
+              icon-left="ic_plus_bold"
+            >
+              {{ $t('COMMON.GNB.WORKSPACE.CREATE_WORKSPACE') }}
+            </p-button>
+            <p-divider class="tools-divider" />
+            <p-button
+              style-type="tertiary"
+              size="sm"
+              class="manage-button tool"
+              icon-left="ic_settings"
+            >
+              {{ $t('COMMON.GNB.WORKSPACE.MANAGE_WORKSPACE') }}
+            </p-button>
+          </div>
+        </div>
+      </template>
     </p-select-dropdown>
   </div>
 </template>

@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { PI } from '@cloudforet-test/mirinae';
+import type { MenuCategory } from './constant';
+import { MENU_ID, MenuId } from './sidebar-config';
+import { useRoute } from 'vue-router/composables';
+import { useSidebar } from '@/shared/libs/store/sidebar';
+import { clone } from 'lodash';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
-  displayedMenu: any[];
+  displayedMenu: MenuCategory[];
 }>();
+
+const route = useRoute();
+const sidebar = useSidebar();
+
+const { isMinimized } = storeToRefs(sidebar);
 
 const filteredCategories = computed(() => {
   const set = new Set();
@@ -19,23 +30,39 @@ const filteredCategories = computed(() => {
     }
   });
 });
+
+const state = reactive({
+  selectedMenuId: computed(() => {
+    const reversedMatched = clone(route.matched).reverse();
+    const closestRoute = reversedMatched.find((r: any) => r.name !== undefined);
+    // TODO: temporary fix
+    const targetMenuId: MenuId | string =
+      closestRoute?.name || MENU_ID.DASHBOARD;
+    return targetMenuId;
+  }),
+});
 </script>
 
 <template>
   <div>
     <div v-for="(filteredCategory, i) in filteredCategories" :key="i">
-      <span class="menu-category">{{ filteredCategory }}</span>
+      <span v-if="!isMinimized" class="menu-category">{{
+        filteredCategory
+      }}</span>
+      <span v-else>&nbsp;</span>
       <div
         v-for="(item, idx) in displayedMenu"
         :key="`navigation-rail-item-${idx}`"
       >
         <div v-if="item.category === filteredCategory">
-          <div
-            v-for="(menu, midx) in item.menuList"
-            :key="`menu-list-${midx}`"
-            :to="{ name: 'vpc-crud' }"
-          >
-            <router-link class="service-menu" :to="{ name: 'vpc-crud' }">
+          <div v-for="(menu, midx) in item.menuList" :key="`menu-list-${midx}`">
+            <router-link
+              class="service-menu"
+              :class="{
+                'is-selected': menu.to.name === state.selectedMenuId,
+              }"
+              :to="{ name: `${menu.to.name}` }"
+            >
               <div class="menu-wrapper">
                 <p-i
                   :name="menu.icon"
@@ -44,7 +71,7 @@ const filteredCategories = computed(() => {
                   width="1.25rem"
                   color="inherit"
                 />
-                <div class="menu-container">
+                <div v-if="!isMinimized" class="menu-container">
                   <span class="menu-title">{{ menu.label }}</span>
                 </div>
               </div>
