@@ -1,20 +1,105 @@
 <script setup lang="ts">
-// import { PButton } from '@cloudforet-test/mirinae';
+import { PSidebar } from '@cloudforet-test/mirinae';
 
 import { preAutoLogin } from '@/app/providers/router/auth.ts';
+import LayoutHeader from '@/widgets/mainLayout/LayoutHeader.vue';
+import MainLayout from '@/widgets/mainLayout/MainLayout.vue';
 
+import { styleVariables } from '@cloudforet-test/mirinae';
 preAutoLogin();
 </script>
 
 <template>
-  <div id="app">
-    <router-view />
+  <div v-cloak id="app">
+    <div class="top-bar">
+      <layout-header />
+    </div>
+    <div>
+      <main-layout
+        class="app-body"
+        :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
+      >
+        <!-- <template #main>
+          <p-sidebar>
+            <div class="main-content">
+              <router-view />
+            </div>
+            <template #title>
+              <div>title</div>
+            </template>
+            <template #sidebar>
+              <div>sidebar</div>
+            </template>
+            <template #footer>
+              <div>footer</div>
+            </template>
+          </p-sidebar>
+        </template> -->
+      </main-layout>
+    </div>
   </div>
 </template>
 
 <style lang="postcss" scoped>
-.test-class {
+#app {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-color;
+
+  .console-loading-wrapper {
+    position: absolute;
+    height: 100%;
+    z-index: 10;
+    & > .data-loader-container > .loader-wrapper > .loader.spinner {
+      max-height: unset;
+    }
+  }
+
+  .top-bar {
+    position: fixed;
+    width: 100%;
+    height: $top-bar-height;
+    z-index: 100;
+    flex-shrink: 0;
+    top: 0;
+  }
+  .app-body {
+    @apply relative flex flex-col;
+    margin-top: $top-bar-height;
+    overflow-y: hidden;
+    width: 100%;
+    flex-grow: 1;
+    .p-sidebar {
+      .sidebar-container {
+        @apply bg-gray-100;
+      }
+      .non-sidebar-wrapper {
+        min-height: 100%;
+      }
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+  }
+}
+/* .test-class {
   @apply flex flex-row justify-center;
   border: 1px solid red;
+} */
+
+.top-bar {
+  width: 100%;
+  height: $top-bar-height;
+  z-index: 100;
+  flex-shrink: 0;
+  top: 0;
 }
 </style>

@@ -21,9 +21,8 @@ export const DASHBOARD_ROUTE = {
 const dashboardRoutes: RouteConfig[] = [
   {
     path: 'dashboard',
-    // component: DashboardPage,
-    component: { template: '<router-view/>' },
     name: DASHBOARD_ROUTE._NAME,
+    component: VpcCrudPage,
     meta: {
       roles: [],
     },

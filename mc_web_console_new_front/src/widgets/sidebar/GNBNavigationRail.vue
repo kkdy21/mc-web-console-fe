@@ -90,26 +90,19 @@ class="minimize-button-wrapper" position="bottom" /> -->
 
 <style scoped lang="postcss">
 .g-n-b-navigation-rail {
-  @apply absolute flex-col items-start bg-white border-r;
-  /* top: $gnb-toolbox-height; */
-  height: calc(95.9vh - $gnb-toolbox-height);
+  @apply relative flex-col items-start bg-white border-r;
+  top: $gnb-toolbox-height;
+  height: calc(100% - $gnb-toolbox-height);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   z-index: 51;
-  width: $gnb-navigation-rail-max-width;
   .navigation-rail-container {
     @apply overflow-y-auto overflow-x-hidden;
     width: $gnb-navigation-rail-max-width;
     transition: width 0.3s ease;
-    transition: height 0.3s ease;
     padding: 1rem 0.75rem;
     .navigation-rail-wrapper {
       width: calc($gnb-navigation-rail-max-width - 1.625rem);
       transition: width 0.3s ease;
-      .menu-category {
-        font-size: 14px;
-        color: #898995;
-        /* padding-top: 8px; */
-      }
       .service-menu {
         @apply flex items-center justify-between text-label-md;
         width: 100%;
@@ -149,7 +142,7 @@ class="minimize-button-wrapper" position="bottom" /> -->
         &.is-selected {
           @apply relative bg-violet-100 text-violet-600;
           &::before {
-            @apply absolute;
+            @apply absolute bg-violet-500;
             content: '';
             top: 0.125rem;
             left: -0.75rem;

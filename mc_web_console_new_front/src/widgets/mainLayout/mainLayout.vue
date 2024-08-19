@@ -6,6 +6,12 @@ import { McmpRouter } from '@/app/providers/router';
 import LayoutHeader from './LayoutHeader.vue';
 import SidebarLayout from '../sidebar/SidebarLayout.vue';
 import GNBToolbox from '../sidebar/GNBToolbox.vue';
+import GNBNavigationRail from '../sidebar/GNBNavigationRail.vue';
+import { computed, reactive } from 'vue';
+import { useSidebar } from '@/shared/libs/store/sidebar.ts';
+import { storeToRefs } from 'pinia';
+
+const sidebar = useSidebar();
 
 const handleLogout = () => {
   const loginDataLocalStorage = useLocalStorage<ILoginData>(AUTO_LOGIN);
@@ -15,48 +21,44 @@ const handleLogout = () => {
     .push({ name: AUTH_ROUTE.LOGIN._NAME })
     .catch(() => {});
 };
+
+const { isMinimized, isCollapsed } = storeToRefs(sidebar);
 </script>
 
 <template>
-  <div class="layout-container">
-    <div class="top-bar">
-      <layout-header />
+  <div>
+    <!-- <div class="top-bar">
+        <layout-header />
+      </div> -->
+    <!-- <sidebar-layout /> -->
+    <div class="layout-container">
+      <nav class="gnb">
+        <g-n-b-toolbox class="g-n-b-item" />
+        <g-n-b-navigation-rail class="g-n-b-item" />
+      </nav>
+      <main
+        class="main"
+        :class="{
+          'is-hide': isCollapsed,
+          'is-minimize': isCollapsed && isMinimized,
+        }"
+      >
+        <!-- <slot name="main" /> -->
+      </main>
     </div>
-    <sidebar-layout />
-    <main class="main">
-      <router-view />
-      <slot name="main" />
-    </main>
   </div>
 </template>
 
 <style scoped lang="postcss">
-main {
-  /* height: calc(100% - 100px); */
-  height: inherit;
-  /* border: 1px solid black; */
-}
-.main-header {
-  height: 100px;
-  border: 1px solid black;
-
-  ul {
-    list-style-type: none;
-
-    li {
-      border: 1px solid blue;
-    }
+.gnb {
+  z-index: 50;
+  .g-n-b-item {
+    @apply absolute flex border-gray-200;
   }
 }
-
-.main-body {
-  height: calc(100% - 100px);
-  border: 1px solid black;
-}
-
 .main {
   @apply absolute;
-  top: calc($gnb-toolbox-height + $top-bar-height);
+  top: $gnb-toolbox-height;
   left: $gnb-navigation-rail-max-width;
   width: calc(100% - $gnb-navigation-rail-max-width);
   height: calc(100% - $gnb-toolbox-height);
@@ -64,6 +66,14 @@ main {
   transition:
     left 0.3s ease,
     width 0.3s ease;
+  &.is-hide {
+    left: 0;
+    width: 100%;
+  }
+  &.is-minimize {
+    left: $gnb-navigation-rail-min-width;
+    width: calc(100% - $gnb-navigation-rail-min-width);
+  }
 }
 
 .top-bar {

@@ -15,7 +15,7 @@ const props = defineProps<{
 const route = useRoute();
 const sidebar = useSidebar();
 
-const { isMinimized } = storeToRefs(sidebar);
+const { isMinimized, isCollapsed } = storeToRefs(sidebar);
 
 const filteredCategories = computed(() => {
   const set = new Set();
@@ -45,7 +45,11 @@ const state = reactive({
 
 <template>
   <div>
-    <div v-for="(filteredCategory, i) in filteredCategories" :key="i">
+    <div
+      v-for="(filteredCategory, i) in filteredCategories"
+      v-if="!isCollapsed"
+      :key="i"
+    >
       <span v-if="!isMinimized" class="menu-category">{{
         filteredCategory
       }}</span>

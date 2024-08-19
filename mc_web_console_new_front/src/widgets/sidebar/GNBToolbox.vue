@@ -37,7 +37,8 @@ const handleClickMenuButton = () => {
 
 <style scoped lang="postcss">
 .g-n-b-toolbox {
-  @apply relative justify-between bg-white border-b;
+  @apply justify-between bg-white border-b;
+  top: 0;
   width: 100%;
   height: $gnb-toolbox-height;
   padding-right: 1rem;
@@ -63,6 +64,13 @@ const handleClickMenuButton = () => {
     .copy-button {
       @apply flex items-center text-gray-500;
     }
+  }
+}
+
+/* custom design-system component - p-copy-button */
+:deep(.p-copy-button) {
+  .copy-button-alert {
+    top: calc($top-bar-height + $gnb-toolbox-height - 0.5rem) !important;
   }
 }
 </style>
