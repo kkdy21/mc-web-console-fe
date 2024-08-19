@@ -24,11 +24,11 @@ watch(resLogin.data, () => {
   auth.setUser({
     ...resLogin.data.value?.responseData,
     id: loginData.id,
-    role: 'admin',
+    role: '',
   });
   McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
+
   // resUserInfo.execute();
-  // jwtDecodeTest(auth.getUser().access_token);
 });
 </script>
 

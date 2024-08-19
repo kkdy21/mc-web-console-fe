@@ -40,6 +40,8 @@ axiosInstance.interceptors.response.use(
       const authStore = useAuthStore();
       const auth = useAuth();
 
+      console.log(authStore);
+
       if (!authStore.refresh_token) {
         McmpRouter.getRouter()
           .push({ name: AUTH_ROUTE.LOGIN._NAME })
@@ -47,7 +49,7 @@ axiosInstance.interceptors.response.use(
       }
 
       try {
-        const resLogin = await axios.post<IUserResponse>(
+        const resLogin = await axios.post(
           url + '/LoginRefresh',
           {
             request: {
@@ -60,9 +62,8 @@ axiosInstance.interceptors.response.use(
             },
           },
         );
-
         auth.setUser({
-          ...resLogin.data,
+          ...resLogin.data.responseData,
           id: authStore.id,
           role: authStore.role,
         });

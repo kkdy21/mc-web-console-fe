@@ -19,3 +19,5 @@ export const preAutoLogin = () => {
   //   .push({ name: DASHBOARD_ROUTE._NAME })
   //   .catch(() => {});
 };
+
+//TODO 새로고침시 정보가져와야함
