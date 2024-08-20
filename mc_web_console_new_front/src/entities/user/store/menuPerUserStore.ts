@@ -1,21 +1,50 @@
 import { defineStore } from 'pinia';
 
+export interface MenuWithSubMenu {
+  menuId: string;
+  subMenuList: string[];
+}
 export interface UserMenuInfo {
   userId: string;
-  menus: string[];
+  menus: MenuWithSubMenu[];
 }
 
 export const useMenuPerUserStore = defineStore('menuPerUser', {
   state: () => ({
+    // userMenuInfo: {
+    //   userId: 'demo_user-1',
+    //   menus: [
+    //     // TODO: api 구현 후 받아올 예정 (우선 임시 데이터) 1️⃣
+    //     'dashboard',
+    //     'workspaces',
+    //     'project',
+    //     'workflows',
+    //     'thirdPartyMonitoringTool',
+    //   ],
+    // },
     userMenuInfo: {
       userId: 'demo_user-1',
       menus: [
-        // TODO: api 구현 후 받아올 예정 (우선 임시 데이터) 1️⃣
-        'dashboard',
-        'workspaces',
-        'project',
-        'workflows',
-        'thirdPartyMonitoringTool',
+        {
+          menuId: 'dashboard',
+          subMenuList: ['dashboard1', 'dashboard2'],
+        },
+        {
+          menuId: 'workspaces',
+          subMenuList: [],
+        },
+        {
+          menuId: 'project',
+          subMenuList: [],
+        },
+        {
+          menuId: 'workflows',
+          subMenuList: [],
+        },
+        {
+          menuId: 'thirdPartyMonitoringTool',
+          subMenuList: [],
+        },
       ],
     },
   }),

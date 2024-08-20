@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { PTooltip, PI, PButton } from '@cloudforet-test/mirinae';
 import { SIDEBAR_MENU } from './constant';
-import type { MenuCategory } from './constant';
+import type { Menu, MenuCategory } from './constant';
+import type { MenuWithSubMenu } from '@/entities/user/store/menuPerUserStore';
 import { ref, watch, watchEffect } from 'vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import MenuCategorySet from './MenuCategory.vue';
@@ -11,7 +12,7 @@ import { storeToRefs } from 'pinia';
 const sidebar = useSidebar();
 
 const isSidebarExpanded = ref(false);
-const userMenuAuthorized = ref<null | string[]>(null);
+const userMenuAuthorized = ref<null | MenuWithSubMenu[]>(null);
 const displayedMenu = ref<MenuCategory[]>([]);
 
 const { isCollapsed, isMinimized } = storeToRefs(sidebar);
@@ -24,32 +25,88 @@ watchEffect(() => {
   const menuPerUserStore = useMenuPerUserStore();
   userMenuAuthorized.value = menuPerUserStore.userMenuInfo.menus;
 });
+const arr = ref<any[]>([]);
 
 // TODO: SIDEBAR_MENU와 userMenuAuthorized를 비교하여 권한이 있는 메뉴만 렌더링 (✓)
 watch(
   [userMenuAuthorized, displayedMenu],
   () => {
-    // SIDEBAR_MENU.forEach(menu => {
-    //   userMenuAuthorized.value?.includes(menu.id)
-    //     ? displayedMenu.value.push(menu)
-    //     : null;
-    // });
+    SIDEBAR_MENU.forEach(s_menu => {
+      // const userMenuAuthorizedSet = new Set(
+      //   userMenuAuthorized.value?.map(menu => menu.menuId),
+      // );
 
-    SIDEBAR_MENU.forEach(menu => {
-      const { category, menuList } = menu;
+      const userMenuAuthorizedSet = new Set(
+        userMenuAuthorized.value?.map(menu => menu.subMenuList).flat(),
+      );
 
-      menuList.forEach(s_menu => {
-        userMenuAuthorized.value?.includes(s_menu.id)
-          ? displayedMenu.value.push({
-              category,
-              menuList: [s_menu],
-            })
-          : null;
-      });
+      const filteredMenuList = s_menu.menuList
+        .map(s_menu_item => {
+          if (userMenuAuthorizedSet.has(s_menu_item.id)) {
+            let filteredSubMenusList = [];
+            if (s_menu_item.subMenuList && s_menu_item.subMenuList.length > 0) {
+              filteredSubMenusList = s_menu_item.subMenuList.filter(subMenu => {
+                return userMenuAuthorizedSet.has(subMenu.id);
+              });
+            }
+
+            return {
+              ...s_menu_item,
+              subMenuList: filteredSubMenusList,
+            };
+          }
+          return null;
+        })
+        .filter(menu => menu !== null);
+
+      arr.value.push({ category: s_menu.category, menuList: filteredMenuList });
     });
+
+    console.log(arr.value);
+
+    // SIDEBAR_MENU.forEach(menu => {
+    //   const { category, menuList } = menu;
+    //   menuList.forEach(s_menu => {
+    //     userMenuAuthorized.value?.forEach(u_menu => {
+    //       // // TODO: menu mapping
+    //       u_menu.menuId === s_menu.id
+    //         ? displayedMenu.value.push({ category, menuList: [s_menu] })
+    //         : null;
+    //       // TODO: submenu mapping
+    //       // Set 사용 (O(n))
+    //       // s_menu.subMenuList?.forEach(s_subMenu => {
+    //       //   const s_set = new Set(s_subMenu.id);
+    //       //   u_menu.subMenuList.forEach(u_subMenu => {
+    //       //     // TODO: menu mapping
+    //       //     u_menu.menuId === s_menu.id || s_set.has(u_subMenu)
+    //       //       ? displayedMenu.value.push({
+    //       //           category,
+    //       //           menuList: [
+    //       //             {
+    //       //               ...s_menu,
+    //       //               subMenuList: [s_subMenu],
+    //       //             },
+    //       //           ],
+    //       //         })
+    //       //       : null;
+    //       //     // s_set.has(u_subMenu) && u_menu.menuId === s_menu.id ? displayedMenu.value.push({
+    //       //     // })
+    //       //   });
+    //       // });
+    //     });
+    //     // userMenuAuthorized.value?.includes(s_menu.id)
+    //     //   ? displayedMenu.value.push({
+    //     //       category,
+    //     //       menuList: [s_menu],
+    //     //     })
+    //     //   : null;
+    //   });
+    // });
   },
   { immediate: true },
 );
+
+console.log(displayedMenu.value, 'displayedMenu');
 </script>
 
 <template>

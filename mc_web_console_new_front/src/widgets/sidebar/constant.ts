@@ -12,15 +12,13 @@ export interface Menu {
   label: string;
   icon: string;
   to: Location;
-  subMenuList?: Menu[];
+  subMenuList?: Menu[] | any[];
 }
 
 export interface MenuCategory {
   category: 'Manage' | 'Analytics' | 'Environment' | 'Account & Access';
   menuList: Menu[];
 }
-
-// TODO: 대분류에 따른 메뉴 분류
 
 export const SIDEBAR_MENU: MenuCategory[] = [
   {
@@ -44,6 +42,15 @@ export const SIDEBAR_MENU: MenuCategory[] = [
             to: {
               name: 'vpc-crud',
               path: '/main/dashboard',
+            },
+          },
+          {
+            id: 'dashboard2',
+            label: 'Dashboard2',
+            icon: 'ic_service_dashboard',
+            to: {
+              name: 'vpc-crud',
+              path: '',
             },
           },
         ],
