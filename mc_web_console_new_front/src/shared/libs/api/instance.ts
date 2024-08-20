@@ -6,7 +6,6 @@ import { McmpRouter } from '@/app/providers/router';
 import { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
 // const url = 'http://mcmpdemo.csesmzc.com:3000';
 const url = import.meta.env.VITE_BACKEND_ENDPOINT;
-
 const createInstance = () => {
   return axios.create({
     baseURL: `${url}`,
@@ -39,8 +38,6 @@ axiosInstance.interceptors.response.use(
 
       const authStore = useAuthStore();
       const auth = useAuth();
-
-      console.log(authStore);
 
       if (!authStore.refresh_token) {
         McmpRouter.getRouter()
@@ -78,3 +75,4 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+

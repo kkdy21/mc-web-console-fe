@@ -3,6 +3,7 @@ import { IUserResponse } from '@/entities';
 import { useAuthStore } from '@/shared/libs/store/auth';
 import { jwtDecode } from 'jwt-decode';
 
+
 const LOGIN_AUTH = 'LOGIN_AUTH';
 
 export function useAuth() {
