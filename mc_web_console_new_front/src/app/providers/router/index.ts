@@ -20,12 +20,11 @@ export class McmpRouter {
       path: '/',
       redirect: '/main',
       name: ROOT_ROUTE._NAME,
-      // component: () => import('@/widgets/mainLayout/MainLayout.vue'),
     },
     ...authRoutes,
     {
       path: '/main',
-      // component: MainPage,
+      component: { template: '<router-view/>' },
       children: [...dashboardRoutes],
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },

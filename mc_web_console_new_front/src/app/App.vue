@@ -19,7 +19,7 @@ preAutoLogin();
         class="app-body"
         :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
       >
-        <!-- <template #main>
+        <template #main>
           <p-sidebar>
             <div class="main-content">
               <router-view />
@@ -34,13 +34,13 @@ preAutoLogin();
               <div>footer</div>
             </template>
           </p-sidebar>
-        </template> -->
+        </template>
       </main-layout>
     </div>
   </div>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped lang="postcss">
 #app {
   display: flex;
   flex-direction: column;

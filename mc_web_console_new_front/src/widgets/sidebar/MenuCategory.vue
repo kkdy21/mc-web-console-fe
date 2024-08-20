@@ -44,12 +44,8 @@ const state = reactive({
 </script>
 
 <template>
-  <div>
-    <div
-      v-for="(filteredCategory, i) in filteredCategories"
-      v-if="!isCollapsed"
-      :key="i"
-    >
+  <div v-if="!isCollapsed">
+    <div v-for="(filteredCategory, i) in filteredCategories" :key="i">
       <span v-if="!isMinimized" class="menu-category">{{
         filteredCategory
       }}</span>

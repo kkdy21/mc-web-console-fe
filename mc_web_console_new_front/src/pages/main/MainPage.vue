@@ -5,7 +5,7 @@ import MainLayout from '@/widgets/mainLayout/MainLayout.vue';
 <template>
   <div class="h-screen">
     <main-layout>
-      <router-view />
+      <!-- <router-view /> -->
     </main-layout>
   </div>
 </template>

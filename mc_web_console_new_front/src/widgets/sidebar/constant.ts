@@ -1,5 +1,4 @@
 import { i18n } from '@/app/language';
-import { MENU_ID, MenuId, MenuInfo } from './sidebar-config';
 
 const { t } = i18n;
 
@@ -7,8 +6,6 @@ interface Location {
   name?: string;
   path?: string;
 }
-
-// type MenuId = typeof
 
 export interface Menu {
   id: string;

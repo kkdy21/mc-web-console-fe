@@ -3,11 +3,8 @@ import { AUTH_ROUTE } from '../../pages/auth/auth.route.ts';
 import { AUTO_LOGIN, useLocalStorage } from '@/shared/libs/access-localstorage';
 import { ILoginData } from '@/shared/libs/access-localstorage/types.ts';
 import { McmpRouter } from '@/app/providers/router';
-import LayoutHeader from './LayoutHeader.vue';
-import SidebarLayout from '../sidebar/SidebarLayout.vue';
 import GNBToolbox from '../sidebar/GNBToolbox.vue';
 import GNBNavigationRail from '../sidebar/GNBNavigationRail.vue';
-import { computed, reactive } from 'vue';
 import { useSidebar } from '@/shared/libs/store/sidebar.ts';
 import { storeToRefs } from 'pinia';
 
@@ -27,10 +24,6 @@ const { isMinimized, isCollapsed } = storeToRefs(sidebar);
 
 <template>
   <div>
-    <!-- <div class="top-bar">
-        <layout-header />
-      </div> -->
-    <!-- <sidebar-layout /> -->
     <div class="layout-container">
       <nav class="gnb">
         <g-n-b-toolbox class="g-n-b-item" />
@@ -40,10 +33,10 @@ const { isMinimized, isCollapsed } = storeToRefs(sidebar);
         class="main"
         :class="{
           'is-hide': isCollapsed,
-          'is-minimize': isCollapsed && isMinimized,
+          'is-minimize': !isCollapsed && isMinimized,
         }"
       >
-        <!-- <slot name="main" /> -->
+        <slot name="main" />
       </main>
     </div>
   </div>

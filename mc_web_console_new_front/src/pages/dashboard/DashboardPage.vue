@@ -2,20 +2,8 @@
 
 <template>
   <div>
-    <!-- <aside class="left-side-bar">
-      <p class="font-bold">left-side-bar</p>
-      <button
-        @click="$router.push({ name: `alibaba-dashboard` }).catch(() => {})"
-      >
-        Alibaba
-      </button>
-      <button @click="$router.push({ name: `aws-dashboard` })">AWS</button>
-      <button @click="$router.push({ name: `vpc-crud` })">VPC CRUD</button>
-    </aside> -->
-    <!-- <section class="dashboard-page-main">
-      <h1>dashboard page</h1>
-      <router-view />
-    </section> -->
+    <h1>here</h1>
+    <router-view />
   </div>
 </template>
 
