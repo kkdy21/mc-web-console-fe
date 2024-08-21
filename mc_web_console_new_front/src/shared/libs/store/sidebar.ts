@@ -4,6 +4,7 @@ export const useSidebar = defineStore('sidebar', {
   state: () => ({
     isCollapsed: false,
     isMinimized: false,
+    breadCrumbs: [],
   }),
   getters: {},
   actions: {
@@ -12,6 +13,9 @@ export const useSidebar = defineStore('sidebar', {
     },
     toggleMinimize() {
       this.isMinimized = !this.isMinimized;
+    },
+    initState() {
+      this.breadCrumbs = [];
     },
   },
 });

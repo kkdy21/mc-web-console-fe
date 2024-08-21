@@ -20,18 +20,23 @@ preAutoLogin();
         :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
       >
         <template #main>
-          <p-sidebar>
+          <p-sidebar :visible="false">
             <div class="main-content">
+              <portal-target
+                ref="topNotiRef"
+                name="top-notification"
+                :slot-props="{ hasDefaultMessage: true }"
+              />
               <router-view />
             </div>
             <template #title>
-              <div>title</div>
+              <portal-target name="info-title" />
             </template>
             <template #sidebar>
-              <div>sidebar</div>
+              <portal-target name="handbook-contents" />
             </template>
             <template #footer>
-              <div>footer</div>
+              <portal-target name="widget-footer" />
             </template>
           </p-sidebar>
         </template>

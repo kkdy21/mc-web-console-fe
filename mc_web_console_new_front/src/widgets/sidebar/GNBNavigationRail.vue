@@ -1,41 +1,52 @@
 <script setup lang="ts">
-import { PTooltip, PI, PButton } from '@cloudforet-test/mirinae';
+import { PTooltip, PI } from '@cloudforet-test/mirinae';
 import { SIDEBAR_MENU } from './constant';
-import type { Menu, MenuCategory } from './constant';
+import type { MenuCategory } from './constant';
 import type { MenuWithSubMenu } from '@/entities/user/store/menuPerUserStore';
-import { ref, watch, watchEffect } from 'vue';
-import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import { reactive, ref, watch, watchEffect } from 'vue';
 import MenuCategorySet from './MenuCategory.vue';
+import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
 
 const sidebar = useSidebar();
+const menuPerUserStore = useMenuPerUserStore();
 
-const isSidebarExpanded = ref(false);
 const userMenuAuthorized = ref<null | MenuWithSubMenu[]>(null);
-const displayedMenu = ref<MenuCategory[]>([]);
+const displayedMenu = ref<MenuCategory[] | []>([]);
 
 const { isCollapsed, isMinimized } = storeToRefs(sidebar);
+
+const state = reactive({
+  isHovered: false,
+});
 
 const clickMinimizeBtn = () => {
   sidebar.toggleMinimize();
 };
 
+const handleMouseEvent = (value: boolean) => {
+  state.isHovered = value;
+};
+
+watch(
+  () => displayedMenu,
+  () => {
+    console.log(displayedMenu.value);
+    return menuPerUserStore.setProcessedUserMenuInfo(displayedMenu.value);
+  },
+),
+  { immediate: true };
+
 watchEffect(() => {
-  const menuPerUserStore = useMenuPerUserStore();
   userMenuAuthorized.value = menuPerUserStore.userMenuInfo.menus;
 });
-const arr = ref<any[]>([]);
 
 // TODO: SIDEBAR_MENU와 userMenuAuthorized를 비교하여 권한이 있는 메뉴만 렌더링 (✓)
 watch(
   [userMenuAuthorized, displayedMenu],
   () => {
     SIDEBAR_MENU.forEach(s_menu => {
-      // const userMenuAuthorizedSet = new Set(
-      //   userMenuAuthorized.value?.map(menu => menu.menuId),
-      // );
-
       const userMenuAuthorizedSubMenuSet = new Set(
         userMenuAuthorized.value?.map(menu => menu.subMenuList).flat(),
       );
@@ -87,6 +98,8 @@ watch(
   <div
     class="g-n-b-navigation-rail"
     :class="{ 'is-minimize': isMinimized, 'is-hide': isCollapsed }"
+    @mouseover="handleMouseEvent(true)"
+    @mouseleave="handleMouseEvent(false)"
   >
     <!-- <p-tooltip
 class="minimize-button-wrapper" position="bottom" /> -->

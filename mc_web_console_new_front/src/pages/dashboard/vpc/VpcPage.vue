@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { PButton } from '@cloudforet-test/mirinae';
-
-const fetch = async () => {};
-// onMounted(() => {
-
-//   fetch();
-// });
+import VerticalPageLayout from '@/widgets/mainLayout/VerticalPageLayout.vue';
+import VpcLSB from './VpcLSB.vue';
+import { PVerticalLayout } from '@cloudforet-test/mirinae';
 </script>
 
 <template>
-  <div>
-    <h1>vpc-crud</h1>
-    <p-button @click="fetch">Click Here!!!</p-button>
-  </div>
+  <fragment>
+    <div>Vpc Page</div>
+    <vpc-l-s-b />
+    <vertical-page-layout>
+      <template #sidebar>
+        <vpc-l-s-b />
+      </template>
+      <template #default>
+        <router-view />
+      </template>
+    </vertical-page-layout>
+  </fragment>
 </template>
-
-<style scoped lang="postcss"></style>

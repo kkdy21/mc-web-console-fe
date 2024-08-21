@@ -40,8 +40,14 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
         },
       ],
     },
+    processedUserMenuInfo: [],
   }),
-  actions: {},
+  actions: {
+    setProcessedUserMenuInfo(displayedMenu: any) {
+      console.log(displayedMenu);
+      this.processedUserMenuInfo = displayedMenu;
+    },
+  },
   getters: {
     // TODO: 로그인 후 userId를 통해 해당 유저의 userMenuInfo 불러오기 (1️⃣)
     async getUserMenuInfo() {

@@ -44,7 +44,7 @@ const state = reactive({
 </script>
 
 <template>
-  <div v-if="!isCollapsed">
+  <div>
     <div v-for="(filteredCategory, i) in filteredCategories" :key="i">
       <span v-if="!isMinimized" class="menu-category">{{
         filteredCategory
@@ -83,7 +83,7 @@ const state = reactive({
   </div>
 </template>
 
-<style scoped lang="pcss">
+<style scoped lang="postcss">
 .menu-category {
   font-size: 14px;
   color: #898995;
