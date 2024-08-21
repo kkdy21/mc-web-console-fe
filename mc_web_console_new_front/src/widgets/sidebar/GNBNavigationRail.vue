@@ -36,77 +36,51 @@ watch(
       //   userMenuAuthorized.value?.map(menu => menu.menuId),
       // );
 
-      const userMenuAuthorizedSet = new Set(
+      const userMenuAuthorizedSubMenuSet = new Set(
         userMenuAuthorized.value?.map(menu => menu.subMenuList).flat(),
+      );
+
+      const userMenuAuthorizedMenuSet = new Set(
+        userMenuAuthorized.value?.map(menu => menu.menuId).flat(),
       );
 
       const filteredMenuList = s_menu.menuList
         .map(s_menu_item => {
-          if (userMenuAuthorizedSet.has(s_menu_item.id)) {
-            let filteredSubMenusList = [];
-            if (s_menu_item.subMenuList && s_menu_item.subMenuList.length > 0) {
-              filteredSubMenusList = s_menu_item.subMenuList.filter(subMenu => {
-                return userMenuAuthorizedSet.has(subMenu.id);
-              });
-            }
-
+          let filteredMenu = '';
+          let filteredSubMenusList = [];
+          if (userMenuAuthorizedMenuSet.has(s_menu_item.id)) {
+            filteredMenu = s_menu_item.id;
+          }
+          if (
+            userMenuAuthorizedMenuSet.has(s_menu_item.id) &&
+            s_menu_item.subMenuList &&
+            s_menu_item.subMenuList.length > 0
+          ) {
+            filteredMenu = s_menu_item.id;
+            filteredSubMenusList = s_menu_item.subMenuList.filter(subMenu => {
+              return userMenuAuthorizedSubMenuSet.has(subMenu.id);
+            });
+          }
+          if (filteredMenu === '' && filteredSubMenusList.length === 0) {
+            return null;
+          } else {
             return {
               ...s_menu_item,
+              menuId: filteredMenu,
               subMenuList: filteredSubMenusList,
             };
           }
-          return null;
         })
         .filter(menu => menu !== null);
 
-      arr.value.push({ category: s_menu.category, menuList: filteredMenuList });
+      displayedMenu.value.push({
+        category: s_menu.category,
+        menuList: filteredMenuList,
+      });
     });
-
-    console.log(arr.value);
-
-    // SIDEBAR_MENU.forEach(menu => {
-    //   const { category, menuList } = menu;
-    //   menuList.forEach(s_menu => {
-    //     userMenuAuthorized.value?.forEach(u_menu => {
-    //       // // TODO: menu mapping
-    //       u_menu.menuId === s_menu.id
-    //         ? displayedMenu.value.push({ category, menuList: [s_menu] })
-    //         : null;
-    //       // TODO: submenu mapping
-    //       // Set 사용 (O(n))
-    //       // s_menu.subMenuList?.forEach(s_subMenu => {
-    //       //   const s_set = new Set(s_subMenu.id);
-    //       //   u_menu.subMenuList.forEach(u_subMenu => {
-    //       //     // TODO: menu mapping
-    //       //     u_menu.menuId === s_menu.id || s_set.has(u_subMenu)
-    //       //       ? displayedMenu.value.push({
-    //       //           category,
-    //       //           menuList: [
-    //       //             {
-    //       //               ...s_menu,
-    //       //               subMenuList: [s_subMenu],
-    //       //             },
-    //       //           ],
-    //       //         })
-    //       //       : null;
-    //       //     // s_set.has(u_subMenu) && u_menu.menuId === s_menu.id ? displayedMenu.value.push({
-    //       //     // })
-    //       //   });
-    //       // });
-    //     });
-    //     // userMenuAuthorized.value?.includes(s_menu.id)
-    //     //   ? displayedMenu.value.push({
-    //     //       category,
-    //     //       menuList: [s_menu],
-    //     //     })
-    //     //   : null;
-    //   });
-    // });
   },
   { immediate: true },
 );
-
-console.log(displayedMenu.value, 'displayedMenu');
 </script>
 
 <template>

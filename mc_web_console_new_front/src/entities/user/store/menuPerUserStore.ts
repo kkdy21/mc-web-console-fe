@@ -11,23 +11,12 @@ export interface UserMenuInfo {
 
 export const useMenuPerUserStore = defineStore('menuPerUser', {
   state: () => ({
-    // userMenuInfo: {
-    //   userId: 'demo_user-1',
-    //   menus: [
-    //     // TODO: api 구현 후 받아올 예정 (우선 임시 데이터) 1️⃣
-    //     'dashboard',
-    //     'workspaces',
-    //     'project',
-    //     'workflows',
-    //     'thirdPartyMonitoringTool',
-    //   ],
-    // },
     userMenuInfo: {
       userId: 'demo_user-1',
       menus: [
         {
           menuId: 'dashboard',
-          subMenuList: ['dashboard1', 'dashboard2'],
+          subMenuList: ['dashboard1'],
         },
         {
           menuId: 'workspaces',
@@ -43,6 +32,10 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
         },
         {
           menuId: 'thirdPartyMonitoringTool',
+          subMenuList: [],
+        },
+        {
+          menuId: 'cloudSps',
           subMenuList: [],
         },
       ],
