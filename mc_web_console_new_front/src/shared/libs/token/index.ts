@@ -62,7 +62,7 @@ export default class JwtTokenProvider {
 
   public async refreshTokens() {
     try {
-      const resLogin = await axios.post<IAxiosResponse<IUserResponse>>(
+      const refreshRes = await axios.post<IAxiosResponse<IUserResponse>>(
         url + `/${this.REFRESH_TOKEN_URL}`,
         {
           request: {
@@ -75,9 +75,14 @@ export default class JwtTokenProvider {
           },
         },
       );
-      return resLogin;
+
+      if (!refreshRes.data || !refreshRes.data.responseData) {
+        throw new Error('Token refresh error');
+      }
+      return refreshRes;
     } catch (error) {
       alert('사용자 인증 만료');
+      this.removeToken();
       McmpRouter.getRouter()
         .push({ name: AUTH_ROUTE.LOGIN._NAME })
         .catch(() => {});

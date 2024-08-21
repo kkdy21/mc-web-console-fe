@@ -42,16 +42,19 @@ axiosInstance.interceptors.response.use(
           .catch(() => {});
       }
 
-      const resLogin = await jwtTokenProvider.refreshTokens();
+      try {
+        const refreshRes = await jwtTokenProvider.refreshTokens();
+        const { refresh_token, access_token } = refreshRes.data.responseData!;
 
-      if (
-        resLogin.data.responseData?.refresh_token &&
-        resLogin.data.responseData?.access_token
-      ) {
-        jwtTokenProvider.setTokens({
-          refresh_token: resLogin.data.responseData?.refresh_token,
-          access_token: resLogin.data.responseData?.access_token,
-        });
+        if (refresh_token && access_token) {
+          jwtTokenProvider.setTokens({ refresh_token, access_token });
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${access_token}`;
+          }
+          return axiosInstance(originalRequest);
+        }
+      } catch (e) {
+        return Promise.reject(e);
       }
     }
     return Promise.reject(error);
