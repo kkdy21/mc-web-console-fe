@@ -18,7 +18,8 @@ export default ({ mode }: any) => {
     server: {
       proxy: {
         '/api': {
-          target: 'https://api.onecloudcon.com',
+          // target: 'https://api.onecloudcon.com',
+          target: 'http://dev.onecloudcon.com:3000',
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, '/api'),
         },

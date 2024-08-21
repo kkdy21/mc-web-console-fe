@@ -16,7 +16,7 @@ const url = import.meta.env.VITE_BACKEND_ENDPOINT;
 export default class JwtTokenProvider {
   private static tokenProvider: JwtTokenProvider | null = null;
   private localstorage: LocalStorageConnector<IJwtToken>;
-  private REFRESH_TOKEN_URL = 'LoginRefresh';
+  private REFRESH_TOKEN_URL = 'auth/refresh';
   private TOKEN_STORAGE = 'MCMP_TOEKN';
 
   private refresh_token = '';
