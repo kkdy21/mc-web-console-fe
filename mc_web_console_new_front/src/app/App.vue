@@ -12,6 +12,9 @@ auth.loadUser();
 </template>
 
 <style lang="postcss" scoped>
+#app {
+  @apply w-full h-full;
+}
 .test-class {
   @apply flex flex-row justify-center;
   border: 1px solid red;
