@@ -24,6 +24,7 @@ const tempMenuSet = computed(() => {
 
 <template>
   <l-s-b class="vpc-l-s-b" :menu-set="tempMenuSet">
+    {{ tempMenuSet }}
     <template #collapsible-contents-project>
       <p-text-input class="vpc-search" placeholder="Search VPC" />
     </template>

@@ -29,6 +29,7 @@ watch(
     await selectDropdownRef.value.reloadMenu();
   },
 );
+console.log(i18n.t('WORKSPACE.WORKSPACE'));
 
 const state = reactive({
   searchText: 'searchText Ex',

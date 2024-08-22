@@ -50,23 +50,16 @@ watch(
 
 <template>
   <p-vertical-layout
+    v-bind="$props"
     ref="contentRef"
     class="vertical-page-layout"
-    v-bind="$props"
     v-on="$listeners"
   >
     <template #sidebar="prop">
       <slot name="sidebar" :width="prop.width" />
     </template>
     <template #default>
-      <div
-        ref="containerRef"
-        class="right-container"
-        :style="{
-          height: `calc(100vh - ${styleVariables['top-bar-height']})`,
-          paddingRight: `${state.padding}px`,
-        }"
-      >
+      <div ref="containerRef" class="right-container">
         <div class="header">
           <slot name="handbook" />
         </div>
@@ -74,7 +67,7 @@ watch(
           <slot name="default" />
         </div>
         <div class="fnb">
-          <p>TODO: f-n-b</p>
+          <f-n-b />
         </div>
       </div>
     </template>

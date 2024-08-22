@@ -2,8 +2,11 @@
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
 import { SIDEBAR_MENU } from './constant';
 import type { MenuCategory } from './constant';
-import type { MenuWithSubMenu } from '@/entities/user/store/menuPerUserStore';
-import { reactive, ref, watch, watchEffect } from 'vue';
+import type {
+  MenuWithSubMenu,
+  MenuInfo,
+} from '@/entities/user/store/menuPerUserStore';
+import { computed, reactive, ref, watch, watchEffect } from 'vue';
 import MenuCategorySet from './MenuCategory.vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { useSidebar } from '@/shared/libs/store/sidebar';
@@ -13,13 +16,121 @@ const sidebar = useSidebar();
 const menuPerUserStore = useMenuPerUserStore();
 
 const userMenuAuthorized = ref<null | MenuWithSubMenu[]>(null);
-const displayedMenu = ref<MenuCategory[] | []>([]);
+const displayedMenu = ref<MenuInfo[] | []>([]);
 
 const { isCollapsed, isMinimized } = storeToRefs(sidebar);
 
-const state = reactive({
-  isHovered: false,
+const { userMenuInfo } = storeToRefs(menuPerUserStore);
+
+// TODO: userMenuInfo Mock Data (api yet)
+import testJson from '@/entities/user/store/test.json';
+
+watchEffect(() => {
+  menuPerUserStore.setUserMenuInfo(testJson);
 });
+
+// TODO: SIDEBAR_MENU와 userMenuAuthorized를 비교하여 권한이 있는 메뉴만 렌더링 (✓)
+// watch(
+//   [userMenuAuthorized, displayedMenu],
+//   () => {
+//     SIDEBAR_MENU.forEach(s_menu => {
+//       const userMenuAuthorizedSubMenuSet = new Set(
+//         userMenuAuthorized.value?.map(menu => menu.subMenuList).flat(),
+//       );
+
+//       const userMenuAuthorizedMenuSet = new Set(
+//         userMenuAuthorized.value?.map(menu => menu.menuId).flat(),
+//       );
+
+//       const filteredMenuList = s_menu.menuList
+//         .map(s_menu_item => {
+//           let filteredMenu = '';
+//           let filteredSubMenusList = [];
+//           if (userMenuAuthorizedMenuSet.has(s_menu_item.id)) {
+//             filteredMenu = s_menu_item.id;
+//           }
+//           if (
+//             userMenuAuthorizedMenuSet.has(s_menu_item.id) &&
+//             s_menu_item.subMenuList &&
+//             s_menu_item.subMenuList.length > 0
+//           ) {
+//             filteredMenu = s_menu_item.id;
+//             filteredSubMenusList = s_menu_item.subMenuList.filter(subMenu => {
+//               return userMenuAuthorizedSubMenuSet.has(subMenu.id);
+//             });
+//           }
+//           if (filteredMenu === '' && filteredSubMenusList.length === 0) {
+//             return null;
+//           } else {
+//             return {
+//               ...s_menu_item,
+//               menuId: filteredMenu,
+//               subMenuList: filteredSubMenusList,
+//             };
+//           }
+//         })
+//         .filter(menu => menu !== null);
+
+//       displayedMenu.value.push({
+//         category: s_menu.category,
+//         menuList: filteredMenuList,
+//       });
+//     });
+//   },
+//   { immediate: true },
+// );
+
+const findMenus = (menuList: MenuInfo[]) => {
+  const result: { category?: any; menus: any[] | undefined }[] = [];
+  menuList.forEach((menu: MenuInfo) => {
+    if (menu.isAction === 'false' && menu.menus.length > 0) {
+      const childMenus = findMenus(menu.menus);
+
+      result.push({
+        category: menu.displayname,
+        menus: childMenus?.length > 0 ? childMenus : undefined,
+      });
+    } else if (menu.isAction === 'true') {
+      result.push({
+        ...menu,
+      });
+    } else if (menu.menus.length < 1) {
+      return;
+    }
+  });
+  return result;
+};
+
+const state = reactive({
+  isInit: false as boolean | undefined,
+  isHovered: false,
+  isMenuDescription: undefined as boolean | undefined,
+  gnbMenuList: computed(() => {
+    const menuList = [...userMenuInfo.value];
+    return menuList;
+  }),
+  visibleGnbMenuList: computed(() => {
+    let result = [];
+
+    result = findMenus(state.gnbMenuList);
+    return result;
+  }),
+});
+
+console.log(state.visibleGnbMenuList);
+
+const refinedMenuList = (list: any[], value: string) => {
+  const index = list.findIndex(d => d.id === value);
+  if (index !== -1) {
+    const item = list.splice(index, 1)[0];
+    list.push({
+      ...item,
+      disabled: true,
+      subMenuList: [{}],
+    });
+  }
+  return list;
+};
 
 const clickMinimizeBtn = () => {
   sidebar.toggleMinimize();
@@ -28,70 +139,6 @@ const clickMinimizeBtn = () => {
 const handleMouseEvent = (value: boolean) => {
   state.isHovered = value;
 };
-
-watch(
-  () => displayedMenu,
-  () => {
-    console.log(displayedMenu.value);
-    return menuPerUserStore.setProcessedUserMenuInfo(displayedMenu.value);
-  },
-),
-  { immediate: true };
-
-watchEffect(() => {
-  userMenuAuthorized.value = menuPerUserStore.userMenuInfo.menus;
-});
-
-// TODO: SIDEBAR_MENU와 userMenuAuthorized를 비교하여 권한이 있는 메뉴만 렌더링 (✓)
-watch(
-  [userMenuAuthorized, displayedMenu],
-  () => {
-    SIDEBAR_MENU.forEach(s_menu => {
-      const userMenuAuthorizedSubMenuSet = new Set(
-        userMenuAuthorized.value?.map(menu => menu.subMenuList).flat(),
-      );
-
-      const userMenuAuthorizedMenuSet = new Set(
-        userMenuAuthorized.value?.map(menu => menu.menuId).flat(),
-      );
-
-      const filteredMenuList = s_menu.menuList
-        .map(s_menu_item => {
-          let filteredMenu = '';
-          let filteredSubMenusList = [];
-          if (userMenuAuthorizedMenuSet.has(s_menu_item.id)) {
-            filteredMenu = s_menu_item.id;
-          }
-          if (
-            userMenuAuthorizedMenuSet.has(s_menu_item.id) &&
-            s_menu_item.subMenuList &&
-            s_menu_item.subMenuList.length > 0
-          ) {
-            filteredMenu = s_menu_item.id;
-            filteredSubMenusList = s_menu_item.subMenuList.filter(subMenu => {
-              return userMenuAuthorizedSubMenuSet.has(subMenu.id);
-            });
-          }
-          if (filteredMenu === '' && filteredSubMenusList.length === 0) {
-            return null;
-          } else {
-            return {
-              ...s_menu_item,
-              menuId: filteredMenu,
-              subMenuList: filteredSubMenusList,
-            };
-          }
-        })
-        .filter(menu => menu !== null);
-
-      displayedMenu.value.push({
-        category: s_menu.category,
-        menuList: filteredMenuList,
-      });
-    });
-  },
-  { immediate: true },
-);
 </script>
 
 <template>

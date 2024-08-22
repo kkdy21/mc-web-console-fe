@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { PSidebar } from '@cloudforet-test/mirinae';
+import { PSidebar, PButton } from '@cloudforet-test/mirinae';
 
 import { preAutoLogin } from '@/app/providers/router/auth.ts';
 import LayoutHeader from '@/widgets/mainLayout/LayoutHeader.vue';
 import MainLayout from '@/widgets/mainLayout/MainLayout.vue';
 
 import { styleVariables } from '@cloudforet-test/mirinae';
+import { reactive } from 'vue';
 preAutoLogin();
+
+const state = reactive({});
 </script>
 
 <template>
@@ -20,7 +23,7 @@ preAutoLogin();
         :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
       >
         <template #main>
-          <p-sidebar :visible="false">
+          <p-sidebar>
             <div class="main-content">
               <portal-target
                 ref="topNotiRef"
