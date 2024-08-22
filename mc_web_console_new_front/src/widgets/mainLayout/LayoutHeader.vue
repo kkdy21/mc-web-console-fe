@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TopBarWorkspaces from './TopBarWorkspaces.vue';
 import TopBarToolset from './TopBarToolset.vue';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 
 const state = reactive({
   openedMenu: '',
@@ -23,7 +23,7 @@ const handleOpenMenu = (menuId: any) => {
 <template>
   <div class="top-bar">
     <!-- TODO: 1. topbar workspaces -->
-    <top-bar-workspaces class="top-bar-workspace" />
+    <top-bar-workspaces ref="topBarWorkspaceRef" class="top-bar-workspace" />
     <!-- TODO: 2. topbar toolset -->
     <top-bar-toolset
       ref="topBarToolsetRef"

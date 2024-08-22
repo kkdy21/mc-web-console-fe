@@ -3,6 +3,7 @@ import {
   PSelectDropdown,
   PTooltip,
   PI,
+  PEmpty,
   PTextHighlighting,
   PButton,
   PContextMenu,
@@ -29,7 +30,6 @@ watch(
     await selectDropdownRef.value.reloadMenu();
   },
 );
-console.log(i18n.t('WORKSPACE.WORKSPACE'));
 
 const state = reactive({
   searchText: 'searchText Ex',
@@ -201,11 +201,66 @@ const menu = ['a', 'b', 'c'];
 </script>
 
 <template>
-  <div class="top-bar-header">
+  <div class="top-bar-header" data-gtm="gtm-top-bar-logo">
     <!-- ref="selectDropdownRef"
         :class="{ 'workspace-dropdown': true }" -->
-    <p-select-dropdown :menu="menu" :page-size="5">
-      {{ menu[0] }}
+    <!-- <p-select-dropdown :menu="menu" :page-size="5"> -->
+    <p-select-dropdown
+      ref="selectDropdownRef"
+      :class="{ 'workspace-dropdown': true }"
+      style-type="transparent"
+      :handler="menuHandler"
+      :search-text.sync="state.searchText"
+      is-filterable
+      hide-header-without-items
+      show-delete-all-button
+    >
+      <template #dropdown-button-icon>
+        <p-i
+          name="ic_chevron-sort"
+          width="1rem"
+          height="1rem"
+          :color="gray[800]"
+        />
+      </template>
+      <template #dropdown-button>
+        <div>
+          <span class="selected-workspace">
+            <!-- TODO: storeState.selectedworkspaces.name -->
+            Selected Workspace
+          </span>
+          <span class="tablet-selected"> ... </span>
+        </div>
+      </template>
+      <template #menu-header>
+        <p-tooltip
+          class="menu-header-selected-workspace"
+          position="bottom"
+          contents="Selected Workspace Name"
+        >
+          <div class="workspace-wrapper">
+            <span class="workspace-name">Workspace name</span>
+          </div>
+          <p-i
+            name="ic_check"
+            :color="violet[600]"
+            width="1rem"
+            height="1rem"
+          />
+        </p-tooltip>
+      </template>
+      <!-- <template #menu-item--format="{item}">
+        <div class="menu-item-wrapper"></div>
+      </template> -->
+      <template #no-data-area>
+        <div class="no-data-wrapper">
+          <p class="title-wrapper">
+            <span class="title">WORKSPACES</span>
+            <span>0</span>
+          </p>
+          <p-empty class="empty"> No Results Found </p-empty>
+        </div>
+      </template>
     </p-select-dropdown>
   </div>
 </template>
