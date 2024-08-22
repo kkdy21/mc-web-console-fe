@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import TopBarWorkspaces from './TopBarWorkspaces.vue';
 import TopBarToolset from './TopBarToolset.vue';
+import { reactive } from 'vue';
+
+const state = reactive({
+  openedMenu: '',
+});
+
+const hideMenu = () => {
+  state.openedMenu = '';
+};
+
+const handleOpenMenu = (menuId: any) => {
+  if (state.openedMenu === menuId) {
+    hideMenu();
+  } else {
+    state.openedMenu = menuId;
+  }
+};
 </script>
 
 <template>
@@ -8,7 +25,13 @@ import TopBarToolset from './TopBarToolset.vue';
     <!-- TODO: 1. topbar workspaces -->
     <top-bar-workspaces class="top-bar-workspace" />
     <!-- TODO: 2. topbar toolset -->
-    <top-bar-toolset class="toolset" />
+    <top-bar-toolset
+      ref="topBarToolsetRef"
+      class="toolset"
+      :opened-menu="state.openedMenu"
+      @open-menu="handleOpenMenu"
+      @hide-menu="hideMenu"
+    />
   </div>
 </template>
 

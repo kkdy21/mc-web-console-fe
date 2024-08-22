@@ -7,8 +7,6 @@ import { computed } from 'vue';
 
 const menuPerUserStore = useMenuPerUserStore();
 
-const { processedUserMenuInfo } = storeToRefs(menuPerUserStore);
-
 const tempMenuSet = computed(() => {
   return [
     {

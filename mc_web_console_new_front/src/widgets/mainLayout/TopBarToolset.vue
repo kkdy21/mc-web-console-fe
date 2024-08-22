@@ -1,14 +1,40 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
-</script>
+import TopBarNotifications from './TopBarNotifications.vue';
 
-// TODO: TopBar
+const props = withDefaults(
+  defineProps<{
+    openedMenu?: string | null;
+  }>(),
+  {
+    openedMenu: null,
+  },
+);
+const emit = defineEmits<{
+  (event: 'hide-menu'): void;
+  (event: 'open-menu', menu: string): void;
+}>();
+
+const hideMenu = () => {
+  emit('hide-menu');
+};
+const openMenu = (menu: string) => {
+  emit('open-menu', menu);
+};
+const updateOpenedMenu = (menu: string, visible: boolean) => {
+  if (visible) openMenu(menu);
+  else hideMenu();
+};
+</script>
 
 <template>
   <div class="top-bar-toolset">
     <div class="top-bar-icons-wrapper">
-      <p-i name="ic_settings-filled" />
-      <p-i name="ic_service_my-page" />
+      <top-bar-notifications
+        :visible="props.openedMenu === 'notifications'"
+        @update:visible="updateOpenedMenu('notifications', $event)"
+      />
+      <p-i name="ic_gnb_bell" />
     </div>
     <p-tooltip position="bottom">
       <!-- TODO: TopBar Admin toggle button -->
