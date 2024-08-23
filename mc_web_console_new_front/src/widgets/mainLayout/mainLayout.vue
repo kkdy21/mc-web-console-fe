@@ -3,8 +3,8 @@ import { AUTH_ROUTE } from '../../pages/auth/auth.route.ts';
 import { AUTO_LOGIN, useLocalStorage } from '@/shared/libs/access-localstorage';
 import { ILoginData } from '@/shared/libs/access-localstorage/types.ts';
 import { McmpRouter } from '@/app/providers/router';
-import GNBToolbox from '../sidebar/GNBToolbox.vue';
-import GNBNavigationRail from '../sidebar/GNBNavigationRail.vue';
+import GNBToolbox from './ui/gnbToolset/GNBToolbox.vue';
+import GNBNavigationRail from './ui/gnbNavigationRail/GNBNavigationRail.vue';
 import { useSidebar } from '@/shared/libs/store/sidebar.ts';
 import { storeToRefs } from 'pinia';
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import TopBarWorkspaces from './TopBarWorkspaces.vue';
-import TopBarToolset from './TopBarToolset.vue';
-import { computed, reactive } from 'vue';
+import TopBarWorkspaces from './ui/topBarWorkspaces/TopBarWorkspaces.vue';
+import TopBarToolset from './ui/topBarToolset/TopBarToolset.vue';
+import { reactive } from 'vue';
 
 const state = reactive({
   openedMenu: '',

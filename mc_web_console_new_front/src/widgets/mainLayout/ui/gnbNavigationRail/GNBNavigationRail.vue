@@ -1,22 +1,32 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
-import { SIDEBAR_MENU } from './constant';
-import type { MenuCategory } from './constant';
-import type {
-  MenuWithSubMenu,
-  MenuInfo,
-} from '@/entities/user/store/menuPerUserStore';
-import { computed, reactive, ref, watch, watchEffect } from 'vue';
-import MenuCategorySet from './MenuCategory.vue';
+import type { MenuInfo } from '@/entities/user/store/menuPerUserStore';
+import { computed, reactive, ref, watchEffect } from 'vue';
+import MenuCategorySet from './components/MenuCategory.vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
 
+// TODO: type 파일로 분리
+interface MenuWithAction {
+  displayname: string;
+  id: string;
+  isAction: true;
+  menus: null[];
+  name: string;
+  parentMenuId: string;
+  priority: number;
+}
+
+interface MenuWithCategory {
+  category: string;
+  menus: MenuWithCategory[] | MenuWithAction[];
+}
+
 const sidebar = useSidebar();
 const menuPerUserStore = useMenuPerUserStore();
 
-const userMenuAuthorized = ref<null | MenuWithSubMenu[]>(null);
-const displayedMenu = ref<MenuInfo[] | []>([]);
+const displayedMenu = ref<any[] | MenuWithCategory[]>([]);
 
 const { isCollapsed, isMinimized } = storeToRefs(sidebar);
 
@@ -80,11 +90,11 @@ watchEffect(() => {
 //   { immediate: true },
 // );
 
-const findMenus = (menuList: MenuInfo[]) => {
+const processMenu = (menuList: MenuInfo[]) => {
   const result: { category?: any; menus: any[] | undefined }[] = [];
   menuList.forEach((menu: MenuInfo) => {
     if (menu.isAction === 'false' && menu.menus.length > 0) {
-      const childMenus = findMenus(menu.menus);
+      const childMenus = processMenu(menu.menus);
 
       result.push({
         category: menu.displayname,
@@ -110,14 +120,12 @@ const state = reactive({
     return menuList;
   }),
   visibleGnbMenuList: computed(() => {
-    let result = [];
+    let processedMenu = [];
 
-    result = findMenus(state.gnbMenuList);
-    return result;
+    processedMenu = processMenu(state.gnbMenuList);
+    return processedMenu;
   }),
 });
-
-console.log(state.visibleGnbMenuList);
 
 const refinedMenuList = (list: any[], value: string) => {
   const index = list.findIndex(d => d.id === value);
@@ -173,7 +181,7 @@ class="minimize-button-wrapper" position="bottom" /> -->
     </p-tooltip>
     <div class="navigation-rail-container">
       <div class="navigation-rail-wrapper">
-        <menu-category-set :displayed-menu="displayedMenu" />
+        <menu-category-set :displayed-menu="state.visibleGnbMenuList" />
       </div>
     </div>
   </div>

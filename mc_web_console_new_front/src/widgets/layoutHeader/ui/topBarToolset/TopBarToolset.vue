@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
-import TopBarNotifications from './TopBarNotifications.vue';
+import TopBarNotifications from './components/TopBarNotifications.vue';
 
 const props = withDefaults(
   defineProps<{

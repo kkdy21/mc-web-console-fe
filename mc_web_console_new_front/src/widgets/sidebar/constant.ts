@@ -1,3 +1,4 @@
+// TODO: 폴더 구조 정리 필요
 import { i18n } from '@/app/language';
 
 const { t } = i18n;

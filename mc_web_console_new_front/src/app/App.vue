@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { PSidebar, PButton } from '@cloudforet-test/mirinae';
+import { PSidebar } from '@cloudforet-test/mirinae';
 
 import { preAutoLogin } from '@/app/providers/router/auth.ts';
-import LayoutHeader from '@/widgets/mainLayout/LayoutHeader.vue';
+import LayoutHeader from '@/widgets/layoutHeader/LayoutHeader.vue';
 import MainLayout from '@/widgets/mainLayout/MainLayout.vue';
 
 import { styleVariables } from '@cloudforet-test/mirinae';

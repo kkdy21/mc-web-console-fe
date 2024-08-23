@@ -1,3 +1,4 @@
+// TODO: 폴더 구조 정리 필요
 export const MENU_ID = Object.freeze({
   MANAGE: 'manage',
   ANALYTICS: 'analytics',

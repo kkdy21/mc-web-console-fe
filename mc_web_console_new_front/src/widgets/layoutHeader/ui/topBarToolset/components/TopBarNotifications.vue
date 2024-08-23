@@ -17,7 +17,7 @@ const emit = defineEmits<{ (e: 'update:visible', value: boolean): void }>();
 
 const setVisible = (visible: boolean) => {
   emit('update:visible', visible);
-  visible ? (props.visible = false) : (props.visible = true);
+  // visible ? (props.visible = false) : (props.visible = true);
 };
 
 const state = reactive({

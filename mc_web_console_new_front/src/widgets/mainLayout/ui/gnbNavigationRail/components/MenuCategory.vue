@@ -1,15 +1,25 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import { PI } from '@cloudforet-test/mirinae';
-import type { MenuCategory } from './constant';
-import { MENU_ID, MenuId } from './sidebar-config';
+import { MENU_ID, MenuId } from '../../../../sidebar/sidebar-config';
 import { useRoute } from 'vue-router/composables';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { clone } from 'lodash';
 import { storeToRefs } from 'pinia';
 
+interface MenuWithCategory {
+  category?: string;
+  menus: null[] | MenuWithCategory[];
+  displayname?: string;
+  id?: string;
+  isAction?: true;
+  name?: string;
+  parentMenuId?: string;
+  priority?: number;
+}
+
 const props = defineProps<{
-  displayedMenu: MenuCategory[];
+  displayedMenu: MenuWithCategory[];
 }>();
 
 const route = useRoute();
@@ -36,30 +46,40 @@ const state = reactive({
     const reversedMatched = clone(route.matched).reverse();
     const closestRoute = reversedMatched.find((r: any) => r.name !== undefined);
     // TODO: temporary fix
-    const targetMenuId: MenuId | string =
-      closestRoute?.name || MENU_ID.DASHBOARD;
+    const targetMenuId: string = closestRoute?.name || MENU_ID.DASHBOARD;
     return targetMenuId;
   }),
 });
+
+console.log(props.displayedMenu);
 </script>
 
 <template>
   <div>
     <div v-for="(filteredCategory, i) in filteredCategories" :key="i">
-      <span v-if="!isMinimized" class="menu-category">{{
+      <!-- <span v-if="!isMinimized" class="menu-category">{{
         filteredCategory
       }}</span>
-      <span v-else>&nbsp;</span>
+      <span v-else>&nbsp;</span> -->
       <div
         v-for="(item, idx) in displayedMenu"
         :key="`navigation-rail-item-${idx}`"
       >
-        <div v-if="item.category === filteredCategory">
-          <div v-for="(menu, midx) in item.menuList" :key="`menu-list-${midx}`">
+        <div>
+          <div v-for="(menu, midx) in item.menus" :key="`menu-list-${midx}`">
+            <!-- TODO: 1️⃣ isAction === false && parentMenuId !== '' - setting&operation x manage~organization 같은 
+            category일 경우 span class="menu-category"로 텍스트 표시만!   -->
+            <!-- TODO: 2️⃣ isAction === true - 가장 아랫단 메뉴일 경우 router-link  -->
+
             <router-link
+              v-if="menu?.isAction"
+              class="service-menu"
+              :class="{ 'is-selected': menu.name === state.selectedMenuId }"
+            />
+            <!-- <router-link
               class="service-menu"
               :class="{
-                'is-selected': menu.to.name === state.selectedMenuId,
+                'is-selected': menu.c === state.selectedMenuId,
               }"
               :to="{ name: `${menu.to.name}` }"
             >
@@ -75,7 +95,7 @@ const state = reactive({
                   <span class="menu-title">{{ menu.label }}</span>
                 </div>
               </div>
-            </router-link>
+            </router-link> -->
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 import { PI, PLazyImg } from '@cloudforet-test/mirinae';
 import { computed, reactive } from 'vue';
 import { useRoute } from 'vue-router/composables';
-import LSBMenuItem from './LSBMenuItem.vue';
+import LSBMenuItem from './ui/LSBMenuItem.vue';
 
 interface Props {
   backLink?: any;
@@ -71,8 +71,8 @@ const handleSelect = (id: string, selected: string) => {
           :key="`${idx}-${Math.random() * 1000}`"
           :menu-data="menuData"
           :current-path="state.currentPath"
-          @select="handleSelect"
         >
+          <!-- @select="handleSelect" -->
           <template v-for="(_, slot) of $scopedSlots" #[slot]="scope">
             <slot :name="slot" v-bind="scope" />
           </template>

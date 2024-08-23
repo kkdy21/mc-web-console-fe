@@ -1,15 +1,6 @@
 <script setup lang="ts">
-import VerticalPageLayout from '@/widgets/mainLayout/VerticalPageLayout.vue';
+import VerticalPageLayout from '@/widgets/verticalPageLayout/VerticalPageLayout.vue';
 import VpcLSB from './VpcLSB.vue';
-import { PVerticalLayout, PBadge } from '@cloudforet-test/mirinae';
-import { ref } from 'vue';
-import { Breadcrumb } from '@/widgets/mainLayout/type';
-
-const breadCrumbs = ref<any[]>([
-  {
-    name: 'Dashboard',
-  },
-]);
 </script>
 
 <template>
