@@ -1,24 +1,51 @@
 import { i18n } from '@/app/i18n';
+import { IValidationResult } from '@/entities';
 
-export function validateEmail(email: string) {
+export function validateEmail(email: string): IValidationResult {
+  const result: IValidationResult = {
+    isValid: false,
+    message: null,
+  };
+
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailPattern.test(email) || i18n.t('AUTH.LOGIN.EMAIL_INVALID');
+
+  result.isValid = emailPattern.test(email);
+  result.message = result.isValid
+    ? null
+    : (i18n.t('AUTH.LOGIN.EMAIL_INVALID') as string);
+
+  return result;
 }
 
-export function validatePassword(password: string) {
-  if (!password.length) {
-    return i18n.t('AUTH.LOGIN.PASSWORD_REQUIRED');
+export function validatePassword(password: string): IValidationResult {
+  const result: IValidationResult = {
+    isValid: false,
+    message: null,
+  };
+
+  result.isValid = !!password.length;
+
+  if (!result.isValid) {
+    result.message = i18n.t('AUTH.LOGIN.PASSWORD_REQUIRED') as string;
   } else if (password.includes(' ')) {
-    return i18n.t('AUTH.LOGIN.PASSWORD_INCLUDE_SPACES');
+    result.message = i18n.t('AUTH.LOGIN.PASSWORD_INCLUDE_SPACES') as string;
   }
-
-  return true;
+  console.log(result);
+  return result;
 }
 
-export function validateId(id: string) {
-  if (!id.length) {
-    return i18n.t('AUTH.LOGIN.USER_ID_REQUIRED');
-  }
+export function validateId(id: string): IValidationResult {
+  const result: IValidationResult = {
+    isValid: false,
+    message: null,
+  };
 
-  return true;
+  result.isValid = !!id.length;
+
+  if (!result.isValid) {
+    result.message = i18n.t('AUTH.LOGIN.USER_ID_REQUIRED') as string;
+  }
+  console.log(result);
+
+  return result;
 }

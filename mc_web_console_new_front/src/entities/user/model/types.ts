@@ -1,3 +1,8 @@
+export interface IValidationResult {
+  isValid: boolean;
+  message?: string | null;
+}
+
 export interface IUser {
   id: string;
   password: string;
