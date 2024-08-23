@@ -30,7 +30,6 @@ export function validatePassword(password: string): IValidationResult {
   } else if (password.includes(' ')) {
     result.message = i18n.t('AUTH.LOGIN.PASSWORD_INCLUDE_SPACES') as string;
   }
-  console.log(result);
   return result;
 }
 
@@ -45,7 +44,6 @@ export function validateId(id: string): IValidationResult {
   if (!result.isValid) {
     result.message = i18n.t('AUTH.LOGIN.USER_ID_REQUIRED') as string;
   }
-  console.log(result);
 
   return result;
 }

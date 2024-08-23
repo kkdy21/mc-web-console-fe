@@ -4,18 +4,21 @@ import {
   IUser,
   IUserResponse,
   useGetLogin,
-  useGetUserRole,
   validateId,
   validatePassword,
 } from '@/entities';
 import { Ref, ref, watch } from 'vue';
 import { i18n } from '@/app/i18n';
 import { useInputModel } from '@/shared/hooks/input/useInputModel.ts';
-import { McmpRouter } from '@/app/providers/router';
-import { DASHBOARD_ROUTE } from '@/pages/dashboard/dashboard.route.ts';
-import { useAuth } from '@/features/auth/model/useAuth.ts';
+
+const emit = defineEmits(['handleLoginSuccess']);
 
 const validationMsg: Ref<string | null> = ref<string | null>('');
+
+const userId = useInputModel<string>('mcpsuper', validateId, 0);
+const userPW = useInputModel<string>('mcpuserpassword', validatePassword, 0);
+
+const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
 
 const handleLogin = async () => {
   if (!userId.touched.value || !userPW.touched.value) {
@@ -40,26 +43,19 @@ const handleLogin = async () => {
   }
 };
 
-const userId = useInputModel<string>('mcpsuper', validateId, 0);
-const userPW = useInputModel<string>('mcpuserpassword', validatePassword, 0);
-
-const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
-const resUserInfo = useGetUserRole<IUserResponse>();
-const auth = useAuth();
+const handleLoginSuccess = (props: IUserResponse & { id: string }) => {
+  emit('handleLoginSuccess', props);
+};
 
 watch(resLogin.data, () => {
-  auth.setUser({
+  handleLoginSuccess({
     ...resLogin.data.value?.responseData,
     id: userId.value.value,
     role: 'test',
   });
-  // McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
-
-  // resUserInfo.execute();
 });
 
 watch(resLogin.errorMsg, nv => {
-  console.log(nv);
   validationMsg.value = nv;
 });
 </script>

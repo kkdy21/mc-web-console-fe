@@ -23,7 +23,7 @@ const authRoutes: RouteConfig[] = [
     component: { template: '<router-view class="w-full h-full" />' },
     children: [
       {
-        path: '',
+        path: 'login',
         name: AUTH_ROUTE.LOGIN._NAME,
         component: LoginPage,
       },
