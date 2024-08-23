@@ -1,5 +1,25 @@
 <script setup lang="ts">
 import LoginForm from '@/features/auth/ui/LoginForm.vue';
+import { IUser, IUserResponse, useGetLogin, useGetUserRole } from '@/entities';
+import { watch } from 'vue';
+import { useAuth } from '@/features/auth/model/useAuth.ts';
+import { McmpRouter } from '@/app/providers/router';
+import { DASHBOARD_ROUTE } from '@/pages/dashboard/dashboard.route.ts';
+
+const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
+const resUserInfo = useGetUserRole<IUserResponse>();
+const auth = useAuth();
+
+watch(resLogin.data, () => {
+  auth.setUser({
+    ...resLogin.data.value?.responseData,
+    id: 'test',
+    role: 'test',
+  });
+  McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
+
+  resUserInfo.execute();
+});
 </script>
 
 <template>

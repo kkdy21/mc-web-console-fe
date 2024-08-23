@@ -1,70 +1,87 @@
 <script setup lang="ts">
-import { PButton, PTextInput, PFieldGroup } from '@cloudforet-test/mirinae';
+import { PButton, PTextInput, PFieldGroup, PI } from '@cloudforet-test/mirinae';
 import {
+  IUser,
+  IUserResponse,
   useGetLogin,
   useGetUserRole,
   validateId,
   validatePassword,
 } from '@/entities';
-import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
-import { reactive, Ref, ref, watch } from 'vue';
-import { useAuth } from '@/features/auth/model/useAuth.ts';
+import { Ref, ref, watch } from 'vue';
 import { i18n } from '@/app/i18n';
-import { TranslateResult } from 'vue-i18n';
 import { useInputModel } from '@/shared/hooks/input/useInputModel.ts';
+import { McmpRouter } from '@/app/providers/router';
+import { DASHBOARD_ROUTE } from '@/pages/dashboard/dashboard.route.ts';
+import { useAuth } from '@/features/auth/model/useAuth.ts';
 
-// const loginData: IUser = {
-//   id: 'mcpadmin',
-//   password: 'mcpuserpassword',
-// };
-
-// const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
-// const resUserInfo = useGetUserRole<IUserResponse>();
-// const auth = useAuth();
 const validationMsg: Ref<string | null> = ref<string | null>('');
-const handleLogin = async () => {
-  // resLogin.execute({ request: loginData });
-  /*
-   * TODO 1. validation
-   *  2. 통과하면 전송
-   * 3. validtation안되면직 실패 로직
-   * */
 
+const handleLogin = async () => {
   if (!userId.touched.value || !userPW.touched.value) {
     await Promise.all([
       userId.exeValidation(userId.value.value),
       userPW.exeValidation(userPW.value.value),
     ]);
   }
-  validationMsg.value = userId.errorMessage.value || userPW.errorMessage.value;
-  console.log(validationMsg);
+  validationMsg.value =
+    userId.errorMessage.value ||
+    userPW.errorMessage.value ||
+    validationMsg.value ||
+    null;
+
+  if (userId.isValid.value && userPW.isValid.value) {
+    resLogin.execute({
+      request: {
+        id: userId.value.value,
+        password: userPW.value.value,
+      },
+    });
+  }
 };
 
-const userId = useInputModel<string>('', validateId, 0);
-const userPW = useInputModel<string>('', validatePassword, 0);
-console.log(userId);
-console.log(userPW);
-// watch(resLogin.data, () => {
-//   auth.setUser({
-//     ...resLogin.data.value?.responseData,
-//     id: loginData.id,
-//     role: '',
-//   });
-//   // McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
-//
-//   resUserInfo.execute();
-// });
+const userId = useInputModel<string>('mcpsuper', validateId, 0);
+const userPW = useInputModel<string>('mcpuserpassword', validatePassword, 0);
+
+const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
+const resUserInfo = useGetUserRole<IUserResponse>();
+const auth = useAuth();
+
+watch(resLogin.data, () => {
+  auth.setUser({
+    ...resLogin.data.value?.responseData,
+    id: userId.value.value,
+    role: 'test',
+  });
+  // McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
+
+  // resUserInfo.execute();
+});
+
+watch(resLogin.errorMsg, nv => {
+  console.log(nv);
+  validationMsg.value = nv;
+});
 </script>
 
 <template>
   <section class="login-form-wrapper">
-    <header>
+    <header class="header">
       <p class="title">
         {{ i18n.t('AUTH.LOGIN._NAME') }}
       </p>
-      <p>
-        {{ validationMsg }}
-      </p>
+      <div v-if="validationMsg" class="error-msg-box">
+        <span class="error-msg">{{ validationMsg }}</span>
+        <p-i
+          name="ic_close"
+          width="1.5rem"
+          height="1.5rem"
+          class="cursor-pointer"
+          color="inherit"
+          @click="validationMsg = ''"
+        >
+        </p-i>
+      </div>
     </header>
     <section class="section">
       <p-field-group
@@ -96,6 +113,7 @@ console.log(userPW);
             :placeholder="i18n.t('AUTH.LOGIN.PASSWORD')"
             block
             @blur="userPW.onBlur"
+            @keydown.prevent.enter="handleLogin"
           ></p-text-input>
         </template>
       </p-field-group>
@@ -106,6 +124,7 @@ console.log(userPW);
         type="submit"
         size="md"
         class="login-in-btn"
+        :loading="resLogin.isLoading.value"
         @click="handleLogin"
       >
         {{ i18n.t('AUTH.LOGIN._NAME') }}
@@ -124,9 +143,29 @@ console.log(userPW);
   padding: 2rem;
   background-color: white;
 
-  .title {
-    @apply text-display-md text-gray-900 font-bold;
-    margin-bottom: 1.5rem;
+  .header {
+    position: relative;
+
+    .title {
+      @apply text-display-md text-gray-900 font-bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-msg-box {
+      @apply absolute bg-red-100 text-red-500;
+      display: flex;
+      justify-content: space-between;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2.25rem;
+      padding: 0.5rem;
+
+      .error-msg {
+        font-size: 0.875rem;
+        line-height: 140%;
+      }
+    }
   }
 
   .section {
@@ -151,60 +190,3 @@ console.log(userPW);
   }
 }
 </style>
-<!--  <div class="login-box">-->
-<!--    <fieldset-->
-<!--      style="-->
-<!--        border: 3px solid black;-->
-<!--        border-radius: 20px;-->
-<!--        padding: 20px;-->
-<!--        margin: 20px 0 20px 0;-->
-<!--      "-->
-<!--    >-->
-<!--      <legend>Login</legend>-->
-<!--      <div-->
-<!--        style="-->
-<!--          display: flex;-->
-<!--          flex-direction: column;-->
-<!--          align-items: center;-->
-<!--          justify-content: center;-->
-<!--          gap: 20px;-->
-<!--        "-->
-<!--      >-->
-<!--        <div style="display: flex; flex-direction: column; align-items: start">-->
-<!--          <label>id</label>-->
-<!--          <p-text-input v-model="loginData.id" />-->
-<!--        </div>-->
-<!--        <div style="display: flex; flex-direction: column; align-items: start">-->
-<!--          <label>password</label>-->
-<!--          <p-text-input v-model="loginData.password" />-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <p-button-->
-<!--        style="margin-top: 20px"-->
-<!--        styleType="primary"-->
-<!--        size="md"-->
-<!--        :loading="false"-->
-<!--        href="#"-->
-<!--        :iconLeft="null"-->
-<!--        :iconRight="null"-->
-<!--        :block="false"-->
-<!--        :disabled="false"-->
-<!--        :readonly="false"-->
-<!--        @click="handleLogin"-->
-<!--      >-->
-<!--        Login-->
-<!--      </p-button>-->
-<!--    </fieldset>-->
-<!--    <div class="res-test-box">-->
-<!--      <p v-if="resLogin.status.value === 'idle'">idle</p>-->
-<!--      <p v-if="resLogin.status.value === 'loading'">Loading</p>-->
-<!--      <p v-if="resLogin.status.value === 'success'">-->
-<!--        {{ resLogin.data }}-->
-<!--      </p>-->
-<!--      <p v-if="resLogin.status.value === 'error'">{{ resLogin.errorMsg }}</p>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <p>{{ auth.getUser() }}</p>-->
-<!--    </div>-->
-<!--  </div>-->

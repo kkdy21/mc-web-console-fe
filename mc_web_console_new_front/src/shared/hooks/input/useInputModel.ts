@@ -34,7 +34,6 @@ export function useInputModel<T = string>(
 
   watch(value, newValue => {
     debouncedValidate(newValue);
-    console.log(errorMessage.value);
   });
 
   const onBlur = async () => {

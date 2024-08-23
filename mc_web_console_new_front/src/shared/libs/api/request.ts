@@ -32,9 +32,11 @@ export function useAxiosWrapper<T, D = any>(
     status.value = 'loading';
     try {
       const result = await apiCall(payload, config);
+      reset();
       data.value = result.data;
       status.value = 'success';
     } catch (e: any) {
+      reset();
       error.value = e;
       errorMsg.value = extractErrorMessage(e);
       status.value = 'error';
@@ -67,8 +69,8 @@ function extractErrorMessage(error: any): string {
   if (error.response) {
     // 서버가 반환한 에러 응답에서 메시지 추출
     const errorData = error.response.data;
-    if (errorData.responseData?.error) {
-      return errorData.responseData.error;
+    if (errorData.responseData?.message) {
+      return errorData.responseData.message;
     }
     if (errorData.status?.message) {
       return errorData.status.message;
