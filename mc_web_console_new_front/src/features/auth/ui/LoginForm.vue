@@ -47,16 +47,18 @@ const handleLoginSuccess = (props: IUserResponse & { id: string }) => {
   emit('handleLoginSuccess', props);
 };
 
+//FIXME role 처리
 watch(resLogin.data, () => {
   handleLoginSuccess({
     ...resLogin.data.value?.responseData,
     id: userId.value.value,
-    role: 'test',
+    role: 'admin',
   });
 });
 
-watch(resLogin.errorMsg, nv => {
-  validationMsg.value = nv;
+watch([resLogin.error, resLogin.errorMsg], nv => {
+  validationMsg.value = nv[1];
+  userPW.value.value = '';
 });
 </script>
 
