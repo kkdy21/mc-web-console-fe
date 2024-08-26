@@ -24,8 +24,8 @@ const handleLogout = () => {
           </router-link>
         </li>
         <li>
-          <router-link to="/main/auth/cookie">
-            <button>Go to cookie</button>
+          <router-link to="/main/accountandaccess/users">
+            <button>Go to users</button>
           </router-link>
         </li>
         <li>

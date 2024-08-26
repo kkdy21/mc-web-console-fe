@@ -5,6 +5,7 @@ import authRoutes, { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
 import NotFound from '@/pages/error/404/NotFound.vue';
 import MainPage from '@/pages/main/MainPage.vue';
 import { AuthorizationType, useAuthStore } from '@/shared/libs/store/auth';
+import accountAndAccessRoute from '@/pages/account&access/account&access.route.ts';
 
 //TODO admin부분 고려
 
@@ -20,7 +21,7 @@ export class McmpRouter {
     {
       path: '/main',
       component: MainPage,
-      children: [...dashboardRoutes],
+      children: [...dashboardRoutes, ...accountAndAccessRoute],
     },
     ...authRoutes,
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },

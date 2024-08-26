@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { PVerticalLayout } from '@cloudforet-test/mirinae';
+</script>
 
 <template>
-  <h1>alibaba page</h1>
+  <div>
+    <p-vertical-layout />
+  </div>
 </template>
 
 <style scoped lang="postcss"></style>
