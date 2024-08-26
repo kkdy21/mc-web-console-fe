@@ -2,8 +2,8 @@
 import { PSidebar } from '@cloudforet-test/mirinae';
 
 import { preAutoLogin } from '@/app/providers/router/auth.ts';
-import LayoutHeader from '@/widgets/layoutHeader/LayoutHeader.vue';
-import MainLayout from '@/widgets/mainLayout/MainLayout.vue';
+import LayoutHeader from './Layouts/layoutHeader/ui/LayoutHeader.vue';
+import MainLayout from './Layouts/mainLayout/ui/MainLayout.vue';
 
 import { styleVariables } from '@cloudforet-test/mirinae';
 import { reactive } from 'vue';
@@ -23,7 +23,7 @@ const state = reactive({});
         :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
       >
         <template #main>
-          <p-sidebar>
+          <p-sidebar :visible="false">
             <div class="main-content">
               <portal-target
                 ref="topNotiRef"
@@ -98,16 +98,11 @@ const state = reactive({});
     }
   }
 }
-/* .test-class {
-  @apply flex flex-row justify-center;
-  border: 1px solid red;
-} */
+:deep(.sidebar-container) {
+  @apply bg-gray-100;
+}
 
-.top-bar {
-  width: 100%;
-  height: $top-bar-height;
-  z-index: 100;
-  flex-shrink: 0;
-  top: 0;
+:deep(.non-sidebar-wrapper) {
+  min-height: 100%;
 }
 </style>

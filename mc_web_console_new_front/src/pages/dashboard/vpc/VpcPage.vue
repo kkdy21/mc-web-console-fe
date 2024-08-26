@@ -1,18 +1,36 @@
 <script setup lang="ts">
-import VerticalPageLayout from '@/widgets/verticalPageLayout/VerticalPageLayout.vue';
+import { useRoute } from 'vue-router/composables';
+import { computed, reactive } from 'vue';
+import VerticalPageLayout from '@/app/Layouts/verticalPageLayout/VerticalPageLayout.vue';
 import VpcLSB from './VpcLSB.vue';
+import { useLSBStore } from '@/shared/libs/store/lsb-store';
+import { storeToRefs } from 'pinia';
+
+const route = useRoute();
+
+const lsbStore = useLSBStore();
+const { submenuInfo } = storeToRefs(lsbStore);
+
+const state = reactive({
+  lsbVisible: computed<boolean>(() => route.meta?.lsbVisible),
+});
 </script>
 
 <template>
   <fragment>
-    <vertical-page-layout>
+    <vertical-page-layout v-if="state.lsbVisible">
       <template #sidebar>
-        <vpc-l-s-b />
-        <router-view />
+        <vpc-l-s-b
+          :parent-menu-name="submenuInfo.parentMenuName"
+          :submenus="submenuInfo.submenus"
+        />
       </template>
       <template #default>
         <router-view />
       </template>
     </vertical-page-layout>
+    <general-page-layout v-else>
+      <router-view />
+    </general-page-layout>
   </fragment>
 </template>

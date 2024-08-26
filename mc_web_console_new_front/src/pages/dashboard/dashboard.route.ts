@@ -37,7 +37,7 @@ const dashboardRoutes: RouteConfig[] = [
       },
       {
         path: 'aws',
-        name: DASHBOARD_ROUTE.AWS._NAME,
+        name: 'organizations',
         component: AwsPage,
         // meta: {
         //   roles: ['client'],
@@ -45,8 +45,24 @@ const dashboardRoutes: RouteConfig[] = [
       },
       {
         path: 'vpc-crud',
-        name: DASHBOARD_ROUTE.VPC_CRUD._NAME,
+        name: 'cloudResources',
         component: () => import('./vpc/VpcPage.vue'),
+        meta: {
+          lsbVisible: true,
+        },
+        // redirect: () => ({
+        //   name: 'Networks',
+        // }),
+        // children: [
+        //   {
+        //     path: 'preferences',
+        //     name: 'Networks',
+        //     meta: {
+        //       lsbVisible: true,
+        //     },
+        //     component: () => import('./aws/AwsPage.vue'),
+        //   },
+        // ],
         // meta: {
         //   roles: ['client'],
         // },

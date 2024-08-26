@@ -56,7 +56,7 @@
     {
       "id": "b8a3b531-c4fd-4faa-91e4-33296d5922ed",
       "parentMenuId": "7e51e786-80de-4fbf-b17c-326523cf50f3",
-      "name": "environment",
+      "name": "Environment",
       "displayname": "Environment category",
       "isAction": "false",
       "priority": "0",
@@ -65,7 +65,7 @@
           "id": "7f757269-fc8a-448e-accb-53cf922973f2",
           "parentMenuId": "b8a3b531-c4fd-4faa-91e4-33296d5922ed",
           "name": "cloudResources",
-          "displayname": "Cloud Resources category",
+          "displayname": "Cloud Resources",
           "isAction": "false",
           "priority": "0",
           "menus": [
