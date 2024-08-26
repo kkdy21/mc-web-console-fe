@@ -20,8 +20,9 @@ export class McmpRouter {
     {
       path: '/main',
       component: MainPage,
-      children: [...dashboardRoutes, ...authRoutes],
+      children: [...dashboardRoutes],
     },
+    ...authRoutes,
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ];
 
@@ -76,7 +77,6 @@ export class McmpRouter {
       //     next();
       //   }
       // });
-
     }
   }
 }

@@ -19,7 +19,7 @@ const handleLogout = () => {
           </router-link>
         </li>
         <li>
-          <router-link to="/main/auth">
+          <router-link to="/auth/login">
             <button>Go to login</button>
           </router-link>
         </li>

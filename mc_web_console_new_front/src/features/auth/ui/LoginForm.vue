@@ -1,110 +1,190 @@
 <script setup lang="ts">
-import { PButton, PTextInput } from '@cloudforet-test/mirinae';
-import { useGetLogin, useGetUserRole } from '@/entities';
-import { IUser, IUserResponse } from '@/entities/user/model/types.ts';
-import { watch } from 'vue';
-import { useAuth } from '@/features/auth/model/useAuth.ts';
-import { McmpRouter } from '@/app/providers/router';
-import { DASHBOARD_ROUTE } from '@/pages/dashboard/dashboard.route.ts';
+import { PButton, PTextInput, PFieldGroup, PI } from '@cloudforet-test/mirinae';
+import {
+  IUser,
+  IUserResponse,
+  useGetLogin,
+  validateId,
+  validatePassword,
+} from '@/entities';
+import { Ref, ref, watch } from 'vue';
+import { i18n } from '@/app/i18n';
+import { useInputModel } from '@/shared/hooks/input/useInputModel.ts';
 
-const loginData: IUser = {
-  id: 'mcpadmin',
-  password: 'mcpuserpassword',
-};
+const emit = defineEmits(['handleLoginSuccess']);
+
+const validationMsg: Ref<string | null> = ref<string | null>('');
+
+const userId = useInputModel<string>('mcpsuper', validateId, 0);
+const userPW = useInputModel<string>('mcpuserpassword', validatePassword, 0);
 
 const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
-const resUserInfo = useGetUserRole<IUserResponse>();
-const auth = useAuth();
 
-const handleLogin = () => {
-  resLogin.execute({ request: loginData });
+const handleLogin = async () => {
+  if (!userId.touched.value || !userPW.touched.value) {
+    await Promise.all([
+      userId.exeValidation(userId.value.value),
+      userPW.exeValidation(userPW.value.value),
+    ]);
+  }
+  validationMsg.value =
+    userId.errorMessage.value ||
+    userPW.errorMessage.value ||
+    validationMsg.value ||
+    null;
+
+  if (userId.isValid.value && userPW.isValid.value) {
+    resLogin.execute({
+      request: {
+        id: userId.value.value,
+        password: userPW.value.value,
+      },
+    });
+  }
 };
 
-watch(resLogin.data, () => {
-  auth.setUser({
-    ...resLogin.data.value?.responseData,
-    id: loginData.id,
-    role: '',
-  });
-  McmpRouter.getRouter().push({ name: DASHBOARD_ROUTE.AWS._NAME });
+const handleLoginSuccess = (props: IUserResponse & { id: string }) => {
+  emit('handleLoginSuccess', props);
+};
 
-  resUserInfo.execute();
+//FIXME role 처리
+watch(resLogin.data, () => {
+  handleLoginSuccess({
+    ...resLogin.data.value?.responseData,
+    id: userId.value.value,
+    role: 'admin',
+  });
+});
+
+watch([resLogin.error, resLogin.errorMsg], nv => {
+  validationMsg.value = nv[1];
+  userPW.value.value = '';
 });
 </script>
 
 <template>
-  <div class="login-box">
-    <fieldset
-      style="
-        border: 3px solid black;
-        border-radius: 20px;
-        padding: 20px;
-        margin: 20px 0 20px 0;
-      "
-    >
-      <legend>Login</legend>
-      <div
-        style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 20px;
-        "
-      >
-        <div style="display: flex; flex-direction: column; align-items: start">
-          <label>id</label>
-          <p-text-input v-model="loginData.id" />
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: start">
-          <label>password</label>
-          <p-text-input v-model="loginData.password" />
-        </div>
+  <section class="login-form-wrapper">
+    <header class="header">
+      <p class="title">
+        {{ i18n.t('AUTH.LOGIN._NAME') }}
+      </p>
+      <div v-if="validationMsg" class="error-msg-box">
+        <span class="error-msg">{{ validationMsg }}</span>
+        <p-i
+          name="ic_close"
+          width="1.5rem"
+          height="1.5rem"
+          class="cursor-pointer"
+          color="inherit"
+          @click="validationMsg = ''"
+        >
+        </p-i>
       </div>
-
+    </header>
+    <section class="section">
+      <p-field-group
+        :label="i18n.t('AUTH.LOGIN.USER_ID')"
+        :invalid="!userId.isValid.value"
+        required
+      >
+        <template #default="{ invalid }">
+          <p-text-input
+            v-model="userId.value.value"
+            :invalid="invalid"
+            :placeholder="'id'"
+            block
+            @blur="userId.onBlur"
+          ></p-text-input>
+        </template>
+      </p-field-group>
+      <p-field-group
+        :label="i18n.t('AUTH.LOGIN.PASSWORD')"
+        :invalid="!userPW.isValid.value"
+        required
+      >
+        <template #default="{ invalid }">
+          <p-text-input
+            type="password"
+            appearance-type="masking"
+            v-model="userPW.value.value"
+            :invalid="invalid"
+            :placeholder="i18n.t('AUTH.LOGIN.PASSWORD')"
+            block
+            @blur="userPW.onBlur"
+            @keydown.prevent.enter="handleLogin"
+          ></p-text-input>
+        </template>
+      </p-field-group>
+    </section>
+    <footer class="footer">
       <p-button
-        style="margin-top: 20px"
-        styleType="primary"
+        style-type="primary"
+        type="submit"
         size="md"
-        :loading="false"
-        href="#"
-        :iconLeft="null"
-        :iconRight="null"
-        :block="false"
-        :disabled="false"
-        :readonly="false"
+        class="login-in-btn"
+        :loading="resLogin.isLoading.value"
         @click="handleLogin"
       >
-        Login
+        {{ i18n.t('AUTH.LOGIN._NAME') }}
       </p-button>
-    </fieldset>
-    <div class="res-test-box">
-      <p v-if="resLogin.status.value === 'idle'">idle</p>
-      <p v-if="resLogin.status.value === 'loading'">Loading</p>
-      <p v-if="resLogin.status.value === 'success'">
-        {{ resLogin.data }}
-      </p>
-      <p v-if="resLogin.status.value === 'error'">{{ resLogin.errorMsg }}</p>
-    </div>
-    <div>
-      <p>{{ auth.getUser() }}</p>
-    </div>
-  </div>
+    </footer>
+  </section>
 </template>
 
 <style scoped lang="postcss">
-.login-box {
-  display: flex;
-  gap: 20px;
-}
+.login-form-wrapper {
+  @apply rounded-lg border-gray-200 border;
 
-.login-buttons {
-  display: flex;
-  gap: 5px;
-}
+  width: 28.5rem;
+  position: relative;
+  align-self: center;
+  padding: 2rem;
+  background-color: white;
 
-.res-test-box {
-  width: 400px;
-  border: 1px solid red;
+  .header {
+    position: relative;
+
+    .title {
+      @apply text-display-md text-gray-900 font-bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-msg-box {
+      @apply absolute bg-red-100 text-red-500;
+      display: flex;
+      justify-content: space-between;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2.25rem;
+      padding: 0.5rem;
+
+      .error-msg {
+        font-size: 0.875rem;
+        line-height: 140%;
+      }
+    }
+  }
+
+  .section {
+    @apply flex flex-col;
+    gap: 1.25rem;
+
+    .p-field-group {
+      margin-bottom: 0;
+    }
+
+    :deep(.invalid-feedback) {
+      display: block !important;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .footer {
+    .login-in-btn {
+      width: 100%;
+      margin-top: 40px;
+    }
+  }
 }
 </style>
