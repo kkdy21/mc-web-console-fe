@@ -1,5 +1,5 @@
 // src/shared/hooks/useInputModel.ts
-import { ref, UnwrapRef, watch } from 'vue';
+import { Ref, ref, UnwrapRef, watch } from 'vue';
 import { debounce } from 'lodash';
 import { IValidationResult } from '@/entities/index.ts';
 
@@ -10,7 +10,7 @@ export function useInputModel<T = string>(
   ) => Promise<IValidationResult> | IValidationResult,
   debounceTime = 100,
 ) {
-  const value = ref<T>(initialValue);
+  const value: Ref<T> = ref<T>(initialValue) as Ref<T>;
   const touched = ref(false);
   const errorMessage = ref<string | null>(null);
   const isValid = ref<boolean>(true);

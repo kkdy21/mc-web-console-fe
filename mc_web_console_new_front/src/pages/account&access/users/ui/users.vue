@@ -143,16 +143,95 @@ const state = reactive({
   options: options,
   data: data,
 });
+
+const keyItemSets = [
+  {
+    title: 'Keys',
+    items: [
+      {
+        label: 'Hello',
+        name: 'hello',
+      },
+      {
+        label: 'World',
+        name: 'world',
+      },
+    ],
+  },
+];
+const valueItemsMap = {
+  hello: [
+    {
+      label: 'This is suggestion for hello',
+      name: 'hello1',
+    },
+    {
+      label: 'Pick me!',
+      name: 'hello2',
+    },
+  ],
+  world: [
+    {
+      label: 'This is suggestion for world',
+      name: 'world1',
+    },
+    {
+      label: 'If input value contains any of these items,',
+      name: 'world2',
+    },
+    {
+      label: 'you can see on the menu!',
+      name: 'world3',
+    },
+  ],
+};
+
+const valueHandler = (inputText, rootKey) => {
+  let results = valueItemsMap[rootKey.name];
+  // if (inputText) {
+  //   const regex = getTextHighlightRegex(inputText);
+  //   results = results.filter(d => regex.test(d.label));
+  // }
+  return {
+    results,
+    totalCount: results.length,
+  };
+};
+
+const valueHandlerMap = {
+  hello: valueHandler,
+  world: valueHandler,
+};
+
+function temp(e: any) {
+  console.log(e);
+}
+
+function tempSelect(e: any) {
+  console.log(e);
+}
 </script>
 
 <template>
   <div>
-    <p-horizontal-layout :height="400" :minHeight="400" :maxHeight="500">
+    <p-horizontal-layout :height="400" :minHeight="400" :maxHeight="1000">
       <template #container="{ height }">
         <p-dynamic-layout
           type="query-search-table"
           :options="state.options"
-          :data="state.data"
+          :type-options="{
+            loading: false,
+            selectable: true,
+            colCopy: false,
+            settingsVisible: true,
+            keyItemSets: keyItemSets,
+            valueHandlerMap: valueHandlerMap,
+          }"
+          @fetch="temp"
+          @select="tempSelect"
+          :style="{ height: `${height}px` }"
+          :data="data"
+          :filed-handler="temp"
         >
           <template #toolbox-left>
             <p-button style-type="secondary" icon-right="ic_external-link">

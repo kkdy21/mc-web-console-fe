@@ -14,6 +14,9 @@
     "TEXT_INPUT": {
         "SHOW" : "SHOW",
         "HIDE" : "HIDE"
+    },
+    "QUERY_SEARCH_TAGS": {
+      "CLEAR_ALL": "CLEAR"
     }
   }
 }
