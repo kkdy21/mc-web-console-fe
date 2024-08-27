@@ -4,12 +4,16 @@ import { computed, reactive } from 'vue';
 import VerticalPageLayout from '@/app/Layouts/verticalPageLayout/VerticalPageLayout.vue';
 import VpcLSB from './VpcLSB.vue';
 import { useLSBStore } from '@/shared/libs/store/lsb-store';
+import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 
 const lsbStore = useLSBStore();
 const { submenuInfo } = storeToRefs(lsbStore);
+
+const menuPerUserStore = useMenuPerUserStore();
+const { flattendMenus } = storeToRefs(menuPerUserStore);
 
 const state = reactive({
   lsbVisible: computed<boolean>(() => route.meta?.lsbVisible),

@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue';
-import { MENU_ID } from '@/widgets/menuCategory/ui/sidebar-config';
 import { useRoute } from 'vue-router/composables';
-import { clone } from 'lodash';
+import { clone, flatten } from 'lodash';
 import { PI } from '@cloudforet-test/mirinae';
 import { i18n } from '@/app/i18n';
 import { useLSBStore } from '@/shared/libs/store/lsb-store';
 import { useGnbStore } from '@/shared/libs/store/gnb-store';
 import { storeToRefs } from 'pinia';
 import { DisplayMenu } from '@/entities/menu';
+import type { MenuInfo } from '@/entities/user/store/menuPerUserStore';
+import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+
+const menuPerUserStore = useMenuPerUserStore();
 
 const gnbStore = useGnbStore();
 
@@ -36,7 +39,7 @@ interface MenuWithCategory {
 }
 
 const props = defineProps<{
-  displayedMenu: MenuWithCategory;
+  displayedMenu: MenuInfo[];
 }>();
 
 const route = useRoute();
@@ -51,45 +54,12 @@ const menuCategory = {
   accountAndAccess: i18n.t('MENU.ACCOUNT_AND_ACCESS'),
 };
 
-const menuCategoryArr = Object.values(menuCategory);
-
-const parentMenu = {
-  cloudResources: i18n.t('MENU.ENVIRONMENT_CLOUD_RESOURCES'),
-};
-
-const parentMenuArr = Object.values(parentMenu);
-
 const state = reactive({
   isInit: false as boolean | undefined,
   isHovered: false,
-  gnbMenuList: computed<GNBMenuType[] | undefined>(() => {
-    let results = [] as GNBMenuType[];
-    const menuList = props.displayedMenu;
-    if (state.isInit) {
-      console.log(menuList);
-    }
-    // TODO: menuList.forEach
-    // 1. menu.name === 'settings'
-    // menu-category = menu.menus
-    // submenulist => menu.menus
-    //
-    // 2. menu.name === 'operation'
-    results = [
-      {
-        type: 'category',
-        name: 'manage',
-        disabled: false,
-        show: true,
-        label: i18n.t('MENU.MANAGE'),
-        icon: 'ic_service_server',
-        to: {
-          href: '',
-        },
-        subMenuList: [],
-        href: '',
-      },
-    ];
-    return results;
+  category: '',
+  gnbMenuList: computed<MenuInfo[]>(() => {
+    return flattenMenusWithCategory(props.displayedMenu);
   }),
   selectedMenuId: computed(() => {
     const reversedMatched = clone(route.matched).reverse();
@@ -102,67 +72,113 @@ const state = reactive({
   }),
 });
 
+const flattenMenusWithCategory = (menu: MenuInfo[]) => {
+  let flatMenu = [] as any[];
+
+  // menuArray 배열을 순회
+  for (let m of menu) {
+    // menu의 menus 배열을 재귀적으로 평면화
+    flatMenu = flatMenu.concat(flattenMenu(m, m.displayname));
+  }
+
+  return flatMenu;
+};
+
+const flattenMenu = (menu: MenuInfo, majorCategory?: string) => {
+  let flatMenu = [] as any[];
+  // 현재 메뉴를 flatMenu에 추가하고, 현재 메뉴의 displayname을 category로 사용
+  if (menu.menus && menu.menus.length > 0) {
+    for (let subMenu of menu.menus) {
+      if (subMenu.isAction === 'false') {
+        // 하위 메뉴가 있을 경우 재귀적으로 탐색
+        flatMenu = flatMenu.concat(flattenMenu(subMenu, majorCategory));
+      } else {
+        // isAction이 true인 경우
+        flatMenu.push({
+          majorCategory: majorCategory,
+          category: menu.displayname,
+          id: subMenu.id,
+          parentMenuId: subMenu.parentMenuId,
+          name: subMenu.name,
+          displayname: subMenu.displayname,
+          isAction: subMenu.isAction,
+          priority: subMenu.priority,
+        });
+      }
+    }
+  }
+
+  return flatMenu;
+};
+
 onMounted(() => {
-  props.displayedMenu.menus.forEach((menu, idx) => {
-    menu?.menus.forEach((submenu, sidx) => {
-      submenu?.isAction === 'false' && submenu.menus.length > 1
-        ? lsbStore.setSubmenuInfo(submenu.displayname, submenu.menus)
-        : null;
-    });
-  });
+  // props.displayedMenu.menus.forEach((menu, idx) => {
+  //   menu?.menus.forEach((submenu, sidx) => {
+  //     submenu?.isAction === 'false' && submenu.menus.length > 1
+  //       ? lsbStore.setSubmenuInfo(submenu.displayname, submenu.menus)
+  //       : null;
+  //   });
+  // });
 });
+
+const { flattendMenus } = storeToRefs(menuPerUserStore);
 
 onMounted(async () => {
   state.isInit = true;
-  state.gnbMenuList;
+  menuPerUserStore.setFlattendMenus(state.gnbMenuList);
 });
 
-const refinedMenuList = (list, value) => {
-  const index = list.findIndex(d => d.id === value);
-  if (index !== -1) {
-    const item = list.splice(index, 1)[0];
-    list.push({
-      ...item,
-      disabled: true,
-      subMenuList: [{}],
-    });
-  }
-  return list;
-};
+// const refinedMenuList = (list, value) => {
+//   const index = list.findIndex(d => d.id === value);
+//   if (index !== -1) {
+//     const item = list.splice(index, 1)[0];
+//     list.push({
+//       ...item,
+//       disabled: true,
+//       subMenuList: [{}],
+//     });
+//   }
+//   return list;
+// };
 </script>
 
 <template>
+  <!-- displayedMenu.parentMenuId === '' && displayedMenu.isAction === 'false' -->
   <div>
-    <div
-      v-if="
-        displayedMenu.parentMenuId === '' && displayedMenu.isAction === 'false'
-      "
-    >
-      <div v-for="(menu, idx) in displayedMenu.menus" :key="idx">
-        <span class="menu-category">{{ menu?.displayname }}</span>
-        <div v-for="(submenu, sidx) in menu?.menus" :key="sidx">
-          <router-link
-            class="service-menu"
-            :to="{ name: `${submenu?.name}` }"
-            :class="{
-              'is-selected': state.selectedMenuId === submenu?.name,
-              'is-only-label': menu?.isAction === 'true',
-            }"
-          >
-            <div class="menu-wrapper">
-              <p-i
-                name="ic_service_user"
-                class="menu-button"
-                height="1.25rem"
-                width="1.25rem"
-                color="inherit"
-              />
-              <div class="menu-container">
-                <span class="menu-title">{{ submenu?.displayname }}</span>
-              </div>
+    <div v-if="state.gnbMenuList.length > 0">
+      <div v-for="(menu, idx) in state.gnbMenuList" :key="menu.id">
+        <span
+          v-if="
+            idx === 0 ||
+            menu.majorCategory !== state.gnbMenuList[idx - 1].majorCategory
+          "
+          class="menu-category"
+          >{{ menu.majorCategory }}</span
+        >
+        <router-link
+          v-if="
+            idx === 0 || menu.category !== state.gnbMenuList[idx - 1].category
+          "
+          class="service-menu"
+          :to="{ name: `${menu?.name}` }"
+          :class="{
+            'is-selected': state.selectedMenuId === menu?.name,
+          }"
+        >
+          <!-- 'is-only-label': menu?.isAction === 'true', -->
+          <div class="menu-wrapper">
+            <p-i
+              name="ic_service_user"
+              class="menu-button"
+              height="1.25rem"
+              width="1.25rem"
+              color="inherit"
+            />
+            <div class="menu-container">
+              <span class="menu-title">{{ menu.category }}</span>
             </div>
-          </router-link>
-        </div>
+          </div>
+        </router-link>
       </div>
     </div>
     <!-- <div v-for="(item, idx) in displayedMenu" :key="idx">

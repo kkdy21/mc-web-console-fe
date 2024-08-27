@@ -16,11 +16,10 @@ export interface MenuInfo {
   displayname: string;
   isAction: string;
   priority: string;
-  menus: MenuInfo[];
-}
-
-export interface UserMenuInfo {
-  userMenuInfo: MenuInfo[];
+  menus?: MenuInfo[];
+  category?: string;
+  majorCategory?: string;
+  flattendMenus?: MenuInfo[];
 }
 
 export const useMenuPerUserStore = defineStore('menuPerUser', {
@@ -56,30 +55,49 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
   //   // processedUserMenuInfo: [],
 
   // }),
-  state: (): UserMenuInfo => ({
-    userMenuInfo: [
-      {
-        id: '',
-        parentMenuId: '',
-        name: '',
-        displayname: '',
-        isAction: '',
-        priority: '',
-        menus: [],
-      },
-    ],
+  state: (): MenuInfo => ({
+    id: '',
+    parentMenuId: '',
+    name: '',
+    displayname: '',
+    isAction: '',
+    priority: '',
+    menus: [],
+    flattendMenus: [],
+
+    // userMenuInfo: [
+    //   {
+    //     id: '',
+    //     parentMenuId: '',
+    //     name: '',
+    //     displayname: '',
+    //     isAction: '',
+    //     priority: '',
+    //     menus: [],
+    //   },
+    // ],
   }),
   actions: {
     setUserMenuInfo(menu: MenuInfo) {
-      this.userMenuInfo.push({
-        id: menu.id,
-        parentMenuId: menu.parentMenuId,
-        name: menu.name,
-        displayname: menu.displayname,
-        isAction: menu.isAction,
-        priority: menu.priority,
-        menus: menu.menus,
-      });
+      this.id = menu.id;
+      this.parentMenuId = menu.parentMenuId;
+      this.name = menu.name;
+      this.displayname = menu.displayname;
+      this.isAction = menu.isAction;
+      this.priority = menu.priority;
+      this.menus = menu.menus;
+      // this.userMenuInfo.push({
+      //   id: menu.id,
+      //   parentMenuId: menu.parentMenuId,
+      //   name: menu.name,
+      //   displayname: menu.displayname,
+      //   isAction: menu.isAction,
+      //   priority: menu.priority,
+      //   menus: menu.menus,
+      // });
+    },
+    setFlattendMenus(menu: MenuInfo[]) {
+      this.flattendMenus = menu;
     },
     // setProcessedUserMenuInfo(displayedMenu: any) {
     //   this.processedUserMenuInfo = displayedMenu;

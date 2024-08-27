@@ -4,7 +4,7 @@ export const MENU_ID = Object.freeze({
   MANAGE: 'manage',
   ANALYTICS: 'analytics',
   ENVIRONMENT: 'environment',
-  ACCOUNT_AND_ACCESS: 'account_and_access',
+  ACCOUNT_AND_ACCESS: 'accountAccess',
   DASHBOARD: 'dashboard',
   WORKSPACES: 'workspaces',
   ENVIRONMENT_CLOUD_RESOURCES: 'cloudResources',
@@ -13,7 +13,7 @@ export const MENU_ID = Object.freeze({
 export type MenuId = (typeof MENU_ID)[keyof typeof MENU_ID];
 
 export interface Menu {
-  id: MenuId;
+  id: MenuId | string;
   needPermissionByRole?: boolean;
   subMenuList?: Menu[];
   hideOnSidebar?: boolean;

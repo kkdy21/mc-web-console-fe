@@ -3,9 +3,11 @@ import LSB from '@/features/LSB/LSB/ui/LSB.vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { storeToRefs } from 'pinia';
 import { PTextInput } from '@cloudforet-test/mirinae';
-import { computed } from 'vue';
+import { computed, reactive } from 'vue';
 
-const menuPerUserStore = useMenuPerUserStore();
+// const menuPerUserStore = useMenuPerUserStore();
+
+// const { flattendMenus } = storeToRefs(menuPerUserStore);
 
 interface Props {
   parentMenuName: string;
@@ -16,6 +18,14 @@ const props = withDefaults(defineProps<Props>(), {
   parentMenuName: '',
   submenus: () => [],
 });
+
+const state = reactive({
+  menuSet: computed(() => {
+    const baseMenuSet = [{}];
+    return baseMenuSet;
+  }),
+});
+
 const tempMenuSet = computed(() => {
   return props.submenus;
   // return [

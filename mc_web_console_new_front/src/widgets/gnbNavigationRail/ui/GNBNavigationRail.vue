@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
-import type { MenuInfo } from '@/entities/user/store/menuPerUserStore';
+import type { DisplayMenu } from '@/entities/menu';
 import { computed, reactive, ref, watchEffect } from 'vue';
 import MenuCategorySet from '@/widgets/menuCategory/ui/MenuCategory.vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
@@ -18,9 +18,15 @@ interface MenuWithAction {
   priority: number;
 }
 
-interface MenuWithCategory {
-  category: string;
-  menus: MenuWithCategory[] | MenuWithAction[];
+// interface MenuWithCategory {
+//   category: string;
+//   menus: MenuWithCategory[] | MenuWithAction[];
+// }
+
+interface GNBMenuType extends DisplayMenu {
+  type: string;
+  name?: string;
+  disabled?: boolean;
 }
 
 const sidebar = useSidebar();
@@ -31,136 +37,33 @@ const displayedMenu = ref<any>();
 
 const { isCollapsed, isMinimized } = storeToRefs(sidebar);
 
-const { userMenuInfo } = storeToRefs(menuPerUserStore);
-
 // TODO: userMenuInfo Mock Data (api yet)
 import testJson from '@/entities/user/store/test.json';
+import { ContextMenuType } from '@cloudforet-test/mirinae/types/inputs/context-menu/type';
 
 watchEffect(() => {
   menuPerUserStore.setUserMenuInfo(testJson);
 });
 
-// TODO: SIDEBAR_MENU와 userMenuAuthorized를 비교하여 권한이 있는 메뉴만 렌더링 (✓)
-// watch(
-//   [userMenuAuthorized, displayedMenu],
-//   () => {
-//     SIDEBAR_MENU.forEach(s_menu => {
-//       const userMenuAuthorizedSubMenuSet = new Set(
-//         userMenuAuthorized.value?.map(menu => menu.subMenuList).flat(),
-//       );
+const { id, parentMenuId, name, displayname, isAction, priority, menus } =
+  storeToRefs(menuPerUserStore);
 
-//       const userMenuAuthorizedMenuSet = new Set(
-//         userMenuAuthorized.value?.map(menu => menu.menuId).flat(),
-//       );
-
-//       const filteredMenuList = s_menu.menuList
-//         .map(s_menu_item => {
-//           let filteredMenu = '';
-//           let filteredSubMenusList = [];
-//           if (userMenuAuthorizedMenuSet.has(s_menu_item.id)) {
-//             filteredMenu = s_menu_item.id;
-//           }
-//           if (
-//             userMenuAuthorizedMenuSet.has(s_menu_item.id) &&
-//             s_menu_item.subMenuList &&
-//             s_menu_item.subMenuList.length > 0
-//           ) {
-//             filteredMenu = s_menu_item.id;
-//             filteredSubMenusList = s_menu_item.subMenuList.filter(subMenu => {
-//               return userMenuAuthorizedSubMenuSet.has(subMenu.id);
-//             });
-//           }
-//           if (filteredMenu === '' && filteredSubMenusList.length === 0) {
-//             return null;
-//           } else {
-//             return {
-//               ...s_menu_item,
-//               menuId: filteredMenu,
-//               subMenuList: filteredSubMenusList,
-//             };
-//           }
-//         })
-//         .filter(menu => menu !== null);
-
-//       displayedMenu.value.push({
-//         category: s_menu.category,
-//         menuList: filteredMenuList,
-//       });
-//     });
-//   },
-//   { immediate: true },
-// );
-
-const processMenu = (menuList: MenuInfo[]) => {
-  const result: { category?: any; menus: any[] | undefined }[] = [];
-  menuList.forEach((menu: MenuInfo) => {
-    if (menu.isAction === 'false' && menu.menus.length > 0) {
-      const childMenus = processMenu(menu.menus);
-
-      result.push({
-        category: menu.displayname,
-        menus: childMenus?.length > 0 ? childMenus : undefined,
-      });
-    } else if (menu.isAction === 'true') {
-      result.push({
-        ...menu,
-      });
-    } else if (menu.menus.length < 1) {
-      return;
-    }
-  });
-  return result;
-};
-
-function flattenMenuArray(menuArray: MenuWithAction[]): MenuWithAction[] {
-  const result: MenuWithAction[] = [];
-
-  function recursiveFlatten(
-    menus: MenuWithAction[],
-    parentMenuId: string | null,
-  ) {
-    for (const menu of menus) {
-      // 현재 메뉴를 복사하고 중첩된 menus를 제거
-      const { menus: childMenus, ...menuWithoutChildren } = menu;
-      menuWithoutChildren.parentMenuId = parentMenuId;
-
-      // 현재 메뉴를 결과에 추가
-      result.push(menuWithoutChildren);
-
-      // 자식 menus를 재귀적으로 탐색
-      if (childMenus.length > 0) {
-        recursiveFlatten(childMenus, menu.id);
-      }
-    }
-  }
-
-  // 모든 루트 메뉴 배열에 대해 재귀적 호출
-  recursiveFlatten(menuArray, null);
-
-  return result;
-}
+const convertGNBMenuToMenuItem = (
+  menuList: DisplayMenu[],
+  menuType: ContextMenuType = 'item',
+): GNBMenuType[] =>
+  menuList.map(menu => ({
+    ...menu,
+    name: menu.id,
+    type: menuType,
+    disabled: menuType === 'header' && menu.id.includes('cost'),
+  }));
 
 const state = reactive({
   isInit: false as boolean | undefined,
   isHovered: false,
   isMenuDescription: undefined as boolean | undefined,
-  gnbMenuList: computed(() => {
-    const menuList = [...userMenuInfo.value];
-    return menuList;
-  }),
-  visibleGnbMenuList: computed(() => {
-    let processedMenu = [];
-
-    processedMenu = processMenu(state.gnbMenuList);
-    return processedMenu;
-  }),
-  flattendMenuList: computed(() => {
-    const menuList = [...userMenuInfo.value];
-    return flattenMenuArray(menuList);
-  }),
 });
-
-console.log(state.flattendMenuList);
 
 const refinedMenuList = (list: any[], value: string) => {
   const index = list.findIndex(d => d.id === value);
@@ -216,7 +119,7 @@ class="minimize-button-wrapper" position="bottom" /> -->
     </p-tooltip>
     <div class="navigation-rail-container">
       <div class="navigation-rail-wrapper">
-        <menu-category-set :displayed-menu="userMenuInfo[1]" />
+        <menu-category-set :displayed-menu="menus" />
       </div>
     </div>
   </div>

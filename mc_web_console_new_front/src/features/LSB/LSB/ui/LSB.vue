@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PI, PLazyImg } from '@cloudforet-test/mirinae';
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router/composables';
 import LSBMenuItem from '../../LSBMenuItem/ui/LSBMenuItem.vue';
 

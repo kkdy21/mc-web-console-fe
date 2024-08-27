@@ -3,6 +3,7 @@ import { PLazyImg, PI, PTooltip } from '@cloudforet-test/mirinae';
 import { computed, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
+import { useRouter } from 'vue-router/composables';
 interface Props {
   submenu: string;
   currentPath?: string;
@@ -27,22 +28,23 @@ const state = reactive({
   // ),
 });
 
+const router = useRouter();
+
 // TODO: Route 완료 후 수정 필요
 const isSelectedMenu = (selectedMenuRoute?: Location): boolean => {
-  // let currentPath = props.currentPath;
-  // if (!currentPath || !selectedMenuRoute) return false;
+  let currentPath = props.currentPath;
+  if (!currentPath || !selectedMenuRoute) return false;
 
-  return true;
-  // const resolved =
+  return currentPath === router.currentRoute.path;
 };
 </script>
 
 <template>
-  <!-- :class="[{'selected': isSelectedMenu}]" -->
   <router-link
     ref="itemEl"
     class="l-s-b-router-menu-item"
     :to="{ name: 'Networks' }"
+    :class="[{ selected: isSelectedMenu({ name: ' Networks' }) }]"
     @click.native="$event.stopImmediatePropagation()"
   >
     <slot name="before-text" />
