@@ -6,12 +6,23 @@ import { clone } from 'lodash';
 import { PI } from '@cloudforet-test/mirinae';
 import { i18n } from '@/app/i18n';
 import { useLSBStore } from '@/shared/libs/store/lsb-store';
-// import { useSidebar } from '@/shared/libs/store/sidebar';
+import { useGnbStore } from '@/shared/libs/store/gnb-store';
 import { storeToRefs } from 'pinia';
+import { DisplayMenu } from '@/entities/menu';
+
+const gnbStore = useGnbStore();
+
+const { menuId } = storeToRefs(gnbStore);
 
 // const { t } = i18n;
 
 const lsbStore = useLSBStore();
+
+interface GNBMenuType extends DisplayMenu {
+  type: string;
+  name?: string;
+  disabled?: boolean;
+}
 
 interface MenuWithCategory {
   category?: string;
@@ -49,20 +60,47 @@ const parentMenu = {
 const parentMenuArr = Object.values(parentMenu);
 
 const state = reactive({
+  isInit: false as boolean | undefined,
+  isHovered: false,
+  gnbMenuList: computed<GNBMenuType[] | undefined>(() => {
+    let results = [] as GNBMenuType[];
+    const menuList = props.displayedMenu;
+    if (state.isInit) {
+      console.log(menuList);
+    }
+    // TODO: menuList.forEach
+    // 1. menu.name === 'settings'
+    // menu-category = menu.menus
+    // submenulist => menu.menus
+    //
+    // 2. menu.name === 'operation'
+    results = [
+      {
+        type: 'category',
+        name: 'manage',
+        disabled: false,
+        show: true,
+        label: i18n.t('MENU.MANAGE'),
+        icon: 'ic_service_server',
+        to: {
+          href: '',
+        },
+        subMenuList: [],
+        href: '',
+      },
+    ];
+    return results;
+  }),
   selectedMenuId: computed(() => {
     const reversedMatched = clone(route.matched).reverse();
     const closestRoute = reversedMatched.find((r: any) => r.name !== undefined);
+    console.log(closestRoute, 'closestRoute');
     // TODO: temporary fix
-    const targetMenuId: string = closestRoute?.name || MENU_ID.DASHBOARD;
+    const targetMenuId: string | any = closestRoute?.meta.menuId;
+    console.log('targetMenuId', targetMenuId);
     return targetMenuId;
   }),
 });
-
-const displayedNames = computed(() => new Set());
-
-const addToDisplayedNames = (name: string) => {
-  displayedNames.value.add(name);
-};
 
 onMounted(() => {
   props.displayedMenu.menus.forEach((menu, idx) => {
@@ -73,6 +111,24 @@ onMounted(() => {
     });
   });
 });
+
+onMounted(async () => {
+  state.isInit = true;
+  state.gnbMenuList;
+});
+
+const refinedMenuList = (list, value) => {
+  const index = list.findIndex(d => d.id === value);
+  if (index !== -1) {
+    const item = list.splice(index, 1)[0];
+    list.push({
+      ...item,
+      disabled: true,
+      subMenuList: [{}],
+    });
+  }
+  return list;
+};
 </script>
 
 <template>

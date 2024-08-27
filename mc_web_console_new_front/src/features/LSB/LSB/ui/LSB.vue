@@ -58,7 +58,7 @@ const handleSelect = (id: string, selected: string) => {
         </div>
       </div>
       <!-- TODO: submenu click css  -->
-      <template v-for="(menuData, idx) in props.menuSet">
+      <template v-for="(menuData, idx) in menuSet">
         <!-- v-if="menuData.type === 'slot'" -->
         <div :key="`${idx}-${menuData.id}`" class="slot-menu-wrapper">
           <slot :name="`slot-${menuData.id}`" v-bind="menuData" />

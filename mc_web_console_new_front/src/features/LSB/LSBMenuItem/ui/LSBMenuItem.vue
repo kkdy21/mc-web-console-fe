@@ -30,7 +30,6 @@ const handleSelect = (id: string, selected: string) => {
 <template>
   <div class="l-s-b-menu-list">
     <div class="l-s-b-menu-item">
-      <!-- {{ menuData.displayname }} -->
       <l-s-b-router-menu-item :sub-menus="menuData.displayname">
         {{ menuData.displayname }}
       </l-s-b-router-menu-item>

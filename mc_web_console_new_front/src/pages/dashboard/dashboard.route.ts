@@ -4,6 +4,7 @@ import DashboardPage from './DashboardPage.vue';
 import AlibabaPage from './alibaba/AlibabaPage.vue';
 import AwsPage from './aws/AwsPage.vue';
 import VpcCrudPage from './vpc/VpcPage.vue';
+import { MENU_ID } from '@/widgets/menuCategory/ui/sidebar-config';
 
 export const DASHBOARD_ROUTE = {
   _NAME: 'mciDashboard',
@@ -49,7 +50,19 @@ const dashboardRoutes: RouteConfig[] = [
         component: () => import('./vpc/VpcPage.vue'),
         meta: {
           lsbVisible: true,
+          menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
         },
+        children: [
+          {
+            path: 'networks',
+            name: 'Networks',
+            meta: {
+              lsbVisible: true,
+              menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
+            },
+            component: () => import('./vpc/Network.vue'),
+          },
+        ],
         // redirect: () => ({
         //   name: 'Networks',
         // }),

@@ -5,10 +5,12 @@ import type { Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
 interface Props {
   submenu: string;
+  currentPath?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   submenu: '',
+  currentPath: '',
 });
 
 const itemEl = ref<HTMLElement | null>(null);
@@ -24,10 +26,25 @@ const state = reactive({
   //     state.itemWidth.value - 20 === state.textWidth.value,
   // ),
 });
+
+// TODO: Route 완료 후 수정 필요
+const isSelectedMenu = (selectedMenuRoute?: Location): boolean => {
+  // let currentPath = props.currentPath;
+  // if (!currentPath || !selectedMenuRoute) return false;
+
+  return true;
+  // const resolved =
+};
 </script>
 
 <template>
-  <router-link ref="itemEl" class="l-s-b-router-menu-item">
+  <!-- :class="[{'selected': isSelectedMenu}]" -->
+  <router-link
+    ref="itemEl"
+    class="l-s-b-router-menu-item"
+    :to="{ name: 'Networks' }"
+    @click.native="$event.stopImmediatePropagation()"
+  >
     <slot name="before-text" />
     <div ref="textEl" class="text-wrapper">
       <p-i
@@ -41,7 +58,6 @@ const state = reactive({
       <slot>
         <div class="text">
           <p-tooltip position="bottom-start"> {{ submenu }} </p-tooltip>
-          <span>{{ submenu }}</span>
         </div>
       </slot>
     </div>

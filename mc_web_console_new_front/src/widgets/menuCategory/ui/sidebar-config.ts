@@ -1,3 +1,5 @@
+import { i18n } from '@/app/i18n';
+
 // TODO: 폴더 구조 정리 필요
 export const MENU_ID = Object.freeze({
   MANAGE: 'manage',
@@ -6,6 +8,7 @@ export const MENU_ID = Object.freeze({
   ACCOUNT_AND_ACCESS: 'account_and_access',
   DASHBOARD: 'dashboard',
   WORKSPACES: 'workspaces',
+  ENVIRONMENT_CLOUD_RESOURCES: 'cloudResources',
 });
 
 export type MenuId = (typeof MENU_ID)[keyof typeof MENU_ID];
