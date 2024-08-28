@@ -1,15 +1,14 @@
 import { useAxiosPost } from '@/shared/libs/api/request.ts';
-import { IAxiosResponse } from '@/shared/libs';
+import { IAxiosResponse, RequestBodyWrapper } from '@/shared/libs';
 
 const LOGIN_URL = 'auth/login';
 const GET_USER_INFO = 'Getuserinfo';
-
-interface RequestBodyWrapper<D> {
-  request: D;
-}
+const GET_USER_LIST = 'getusers';
 
 export function useGetLogin<T, D>(loginData: D | null) {
-  const requestBodyWrapper: RequestBodyWrapper<D | null> = {
+  const requestBodyWrapper: Required<
+    Pick<RequestBodyWrapper<D | null>, 'request'>
+  > = {
     request: loginData,
   };
   return useAxiosPost<IAxiosResponse<T>, RequestBodyWrapper<D | null>>(
@@ -20,4 +19,17 @@ export function useGetLogin<T, D>(loginData: D | null) {
 
 export function useGetUserRole<T, D = any>() {
   return useAxiosPost<T, D | null>(GET_USER_INFO, null);
+}
+
+export function getUserList<T, D>(userId: D | null) {
+  const requestBodyWrapper: Required<
+    Pick<RequestBodyWrapper<D | null>, 'queryParams'>
+  > = {
+    queryParams: userId,
+  };
+
+  return useAxiosPost<IAxiosResponse<T>, RequestBodyWrapper<D | null>>(
+    GET_USER_LIST,
+    requestBodyWrapper,
+  );
 }

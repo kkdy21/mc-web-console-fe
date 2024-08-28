@@ -16,6 +16,11 @@ export interface IAxiosResponse<T> {
   };
 }
 
+export interface RequestBodyWrapper<D> {
+  request?: D;
+  queryParams?: D;
+}
+
 export type AsyncStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export interface IUseAxiosWrapperReturnType<T, D> {
