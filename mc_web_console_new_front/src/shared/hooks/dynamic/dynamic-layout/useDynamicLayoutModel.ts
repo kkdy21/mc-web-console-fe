@@ -37,30 +37,8 @@ export const useDynamicLayoutModel = () => {
     }),
     defaultSearchQuery: [],
     tableHeight: 400,
-    type: 'query-search-table',
+    type: 'query',
   });
-  const tableSort = (sortBy: string, sortDesc: boolean) => {
-    tableState.items = [
-      ...tableState.items.sort((a: any, b: any) => {
-        const valA = a[sortBy];
-        const valB = b[sortBy];
-
-        let comparison = 0;
-
-        if (typeof valA === 'number' && typeof valB === 'number') {
-          comparison = valA - valB;
-        } else if (typeof valA === 'string' && typeof valB === 'string') {
-          comparison = valA.localeCompare(valB);
-        } else if (valA instanceof Date && valB instanceof Date) {
-          comparison = valA.getTime() - valB.getTime();
-        } else {
-          comparison = JSON.stringify(valA).localeCompare(JSON.stringify(valB));
-        }
-
-        return sortDesc ? -comparison : comparison;
-      }),
-    ];
-  };
 
   // const handleSelect: DynamicLayoutEventListener['select'] = selectIndex => {
   //   typeOptionState.selectIndex = selectIndex;

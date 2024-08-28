@@ -33,3 +33,23 @@ export function getUserList<T, D>(userId: D | null) {
     requestBodyWrapper,
   );
 }
+export const tempGetUserList = () => {
+  return [
+    {
+      name: 'Van',
+      userid: 'emailid@megazone.co.kr',
+      description: 'description',
+      company: 'Megazone',
+      department: 'OneCloud Dev',
+      approved: { state: true, data: 'Datatemp' },
+    },
+    {
+      name: 'testName',
+      userid: 'emailid@megazone.co.kr',
+      description: 'description',
+      company: 'Megazone',
+      department: 'OneCloud Dev',
+      approved: { state: false, data: 'name' },
+    },
+  ];
+};

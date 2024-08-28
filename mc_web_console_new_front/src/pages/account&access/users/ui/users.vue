@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {
   PHorizontalLayout,
-  PDynamicLayout,
+  PToolboxTable,
   PButton,
 } from '@cloudforet-test/mirinae';
 import { onMounted, reactive, Ref, ref, watch } from 'vue';
-import { getUserList } from '@/entities';
+import { getUserList, tempGetUserList } from '@/entities';
 import { useDynamicLayoutModel } from '@/shared/hooks/dynamic/dynamic-layout/useDynamicLayoutModel.ts';
 import {
   DynamicLayout,
@@ -15,114 +15,62 @@ import {
   SearchEnums,
   SearchKeyOptions,
 } from '@/shared/hooks/dynamic/dynamic-layout/types.ts';
+import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 
-const tableModel = useDynamicLayoutModel();
+const tableModel = useToolboxTableModel();
 
-const getUserList = () => {
-  return [
-    {
-      name: 'Van',
-      userid: 'emailid@megazone.co.kr',
-      description: 'description',
-      company: 'Megazone',
-      department: 'OneCloud Dev',
-      approved: { state: true, data: 'Datatemp' },
-    },
-    {
-      name: 'testName',
-      userid: 'emailid@megazone.co.kr',
-      description: 'description',
-      company: 'Megazone',
-      department: 'OneCloud Dev',
-      approved: { state: false, data: 'name' },
-    },
-  ];
-};
-tableModel.tableState.items = getUserList();
-tableModel.tableState.options = {
-  fields: [
-    { key: 'userid', name: 'User Id', type: 'text' },
-    {
-      key: 'name',
-      name: 'Name',
-      type: 'text',
-    },
-    { key: 'description', name: 'Description', type: 'text' },
-    { key: 'company', name: 'Company', type: 'text' },
-    { key: 'department', name: 'Department', type: 'text' },
-    { key: 'approved', name: 'Approved', type: 'text' },
-  ],
-  default_sort: { key: 'userid', desc: false },
-};
+tableModel.tableState.items = tempGetUserList();
+tableModel.tableState.sortedItems = tableModel.tableState.items;
+tableModel.tableState.fields = [
+  { name: 'userid', label: 'User Id' },
+  { name: 'name', label: 'Name' },
+  { name: 'description', label: 'Description' },
+  { name: 'company', label: 'Company' },
+  { name: 'department', label: 'Department' },
+  { name: 'approved', label: 'Approved' },
+];
 
-const handleFetch = (e: any) => {
-  // sortBy, sortDesc, pageStart
-  console.log(e);
-
-  if (e.queryTags) {
-    tableModel.tableState.items = tableModel.tableState.items.filter(row => {
-      console.log(row);
-      return e.queryTags.every(queryTag => {
-        console.log(queryTag);
-        return row[queryTag.key.key]
-          .toUpperCase()
-          .includes(queryTag.value.name.toUpperCase());
-      });
-    });
-  } else {
-    tableModel.tableState.items = getUserList();
-  }
-
-  if (e.sortBy && e.sortDesc) {
-    tableModel.tableSort(e.sortBy, e.sortDesc);
-  }
-};
-const keyItemSet = [
-  // name: 'Van',
-  //   userid: 'emailid@megazone.co.kr',
-  //   description: 'description',
-  //   company: 'Megazone',
-  //   department: 'OneCloud Dev',
-  //   approved: { state: true, data: 'Datatemp' },
-
+tableModel.querySearchState.keyItemSet = [
   {
     title: 'columns',
     items: [
-      { key: 'userid', label: 'User Id' },
+      { name: 'userid', label: 'User Id' },
       {
-        key: 'name',
+        name: 'name',
         label: 'Name',
       },
-      { key: 'description', label: 'Description' },
-      { key: 'company', label: 'Company' },
-      { key: 'department', label: 'Department' },
+      { name: 'description', label: 'Description' },
+      { name: 'company', label: 'Company' },
+      { name: 'department', label: 'Department' },
     ],
   },
 ];
 
-// p-toolbox-table으로 넘기는 옵션이 type-options
+onMounted(() => {
+  tableModel.handleFetch(null);
+});
 </script>
 
 <template>
   <div>
     <p-horizontal-layout :height="400" :minHeight="400" :maxHeight="1000">
       <template #container="{ height }">
-        <p-dynamic-layout
-          type="query-search-table"
-          :data="tableModel.tableState.items"
-          :options="tableModel.tableState.options"
-          :type-options="{
-            loading: false,
-            selectable: true,
-            colCopy: false,
-            settingsVisible: true,
-            sortable: true,
-            keyItemSets: keyItemSet,
-          }"
-          @fetch="handleFetch"
-          @select="() => {}"
+        <p-toolbox-table
+          :loading="tableModel.tableState.loading"
+          :items="tableModel.tableState.sortedItems"
+          :fields="tableModel.tableState.fields"
           :style="{ height: `${height}px` }"
-          :filed-handler="() => {}"
+          :sortable="tableModel.tableOptions.sortable"
+          :sort-by="tableModel.tableOptions.sortBy"
+          :selectable="tableModel.tableOptions.selectable"
+          :multi-select="tableModel.tableOptions.multiSelect"
+          :search-type="tableModel.tableOptions.searchType"
+          :key-item-sets="tableModel.querySearchState.keyItemSet"
+          :value-handler-map="tableModel.querySearchState.valueHandlerMap"
+          :query-tag="tableModel.querySearchState.queryTag"
+          :exportable="true"
+          @changeSort="tableModel.tableSort"
+          @change="tableModel.handleFetch"
         >
           <template #toolbox-left>
             <p-button style-type="secondary" icon-right="ic_external-link">
@@ -132,7 +80,7 @@ const keyItemSet = [
           <template #col-approved-format="{ item }">
             <div>test!!!{{ item.approved.state }}</div>
           </template>
-        </p-dynamic-layout>
+        </p-toolbox-table>
       </template>
     </p-horizontal-layout>
   </div>
