@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LSB from '@/widgets/LSB/ui/LSB.vue';
+import { LSB } from '@/widgets/LSB';
 import { PTextInput } from '@cloudforet-test/mirinae';
 
 interface Props {
@@ -12,18 +12,23 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <l-s-b class="vpc-l-s-b" :menu-set="props.menus">
-    <p-text-input class="vpc-search" placeholder="Search VPC" />
-
+  <l-s-b class="organizations-l-s-b" :menu-set="menus">
+    <p-text-input
+      class="organizations-search"
+      placeholder="Search Organizations"
+    />
     <template #collapsible-contents-project>
-      <p-text-input class="vpc-search" placeholder="Search VPC" />
+      <p-text-input
+        class="organizations-search"
+        placeholder="Search Organizations"
+      />
     </template>
   </l-s-b>
 </template>
 
 <style scoped lang="postcss">
-.vpc-l-s-b {
-  .vpc-search {
+.organizations-l-s-b {
+  .organizations-search {
     @apply w-full;
     margin-bottom: 0.5rem;
   }

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
-import { PDivider, PBoardItem } from '@cloudforet-test/mirinae';
-import LSBRouterMenuItem from '../../LSBRouterMenuItem/ui/LSBRouterMenuItem.vue';
+import { LSBRouterMenuItem } from '../../LSBRouterMenuItem';
 
 interface Props {
   menuData: any;
@@ -16,25 +14,29 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   (e: 'select', id: string, selected: string | number): void;
 }>();
-const state = reactive({
-  processedMenuData: computed(() =>
-    Array.isArray(props.menuData) ? props.menuData : [props.menuData],
-  ),
-});
+// const state = reactive({
+//   processedMenuData: computed(() =>
+//     Array.isArray(props.menuData) ? props.menuData : [props.menuData],
+//   ),
+//   hoveredItem: '',
+// });
 
-const handleSelect = (id: string, selected: string) => {
-  emit('select', id, selected);
-};
+// const handleSelect = (id: string, selected: string) => {
+//   emit('select', id, selected);
+// };
 </script>
 
 <template>
   <div class="l-s-b-menu-list">
     <div class="l-s-b-menu-item">
       <l-s-b-router-menu-item
-        :sub-menus="menuData.displayname"
+        :submenu="menuData.displayname"
         :current-path="currentPath"
+        :item="menuData"
       >
-        {{ menuData.displayname }}
+        <template #after-text>
+          <slot :name="`after-text-${menuData.id}`" />
+        </template>
       </l-s-b-router-menu-item>
     </div>
   </div>

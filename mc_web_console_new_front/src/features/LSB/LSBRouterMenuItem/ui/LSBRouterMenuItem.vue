@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import { PLazyImg, PI, PTooltip } from '@cloudforet-test/mirinae';
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { useRouter } from 'vue-router/composables';
+import { McmpRouter } from '@/app/providers/router';
+import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+
+const menuPerUserStore = useMenuPerUserStore();
+
 interface Props {
   submenu: string;
   currentPath?: string;
+  item: any;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   submenu: '',
   currentPath: '',
+  item: () => {},
 });
 
 const itemEl = ref<HTMLElement | null>(null);
@@ -28,40 +35,52 @@ const state = reactive({
   // ),
 });
 
-const router = useRouter();
+onMounted(() => {
+  if (props.item.category && props.item.majorCategory) {
+    menuPerUserStore.setBreadcrumbs(
+      props.item.category,
+      props.item.majorCategory,
+    );
+  }
+});
 
 // TODO: Route 완료 후 수정 필요
-const isSelectedMenu = (selectedMenuRoute?: Location): boolean => {
+const isSelectedMenu = (selectedMenuRoute: string): boolean => {
   let currentPath = props.currentPath;
+  const resolvedHref = McmpRouter.router?.resolve({
+    name: selectedMenuRoute,
+  });
   if (!currentPath || !selectedMenuRoute) return false;
 
-  return currentPath === router.currentRoute.path;
+  return currentPath === resolvedHref?.href;
+};
+const setSelectedSubmenus = (submenu: string) => {
+  menuPerUserStore.setSelectedSubmenu(submenu);
 };
 </script>
 
 <template>
+  <!-- @click.native="$event.stopImmediatePropagation()" -->
   <router-link
     ref="itemEl"
     class="l-s-b-router-menu-item"
-    :to="{ name: 'Networks' }"
-    :class="[{ selected: isSelectedMenu({ name: ' Networks' }) }]"
-    @click.native="$event.stopImmediatePropagation()"
+    :class="{ selected: isSelectedMenu(item.name) }"
+    :to="{ name: item.name }"
+    @click.native="setSelectedSubmenus(submenu)"
+    @mouseenter.native="state.hoveredItem = item.name"
+    @mouseleave.native="state.hoveredItem = ''"
   >
-    <slot name="before-text" />
+    <slot name="before-text" v-bind="{ ...props, item, index: item?.id }" />
     <div ref="textEl" class="text-wrapper">
-      <p-i
-        name="ic_service_server"
-        color="inherit"
-        width="1rem"
-        height="1rem"
-        class="icon"
-      />
-      <!-- <p-lazy-img /> -->
       <slot>
         <div class="text">
-          <p-tooltip position="bottom-start"> {{ submenu }} </p-tooltip>
+          <!-- <p-tooltip position="bottom-start" :contents="item.displayname">
+            {{ item.displayname }}
+          </p-tooltip> -->
+          <span>{{ item.displayname.split(' ')[0] }}</span>
         </div>
       </slot>
+      <slot name="after-text" v-bind="{ ...props, item, index: item?.id }" />
     </div>
   </router-link>
 </template>
@@ -101,9 +120,9 @@ const isSelectedMenu = (selectedMenuRoute?: Location): boolean => {
     @apply bg-blue-100 cursor-pointer;
   }
   .text-wrapper {
-    /* @apply inline-flex items-center overflow-hidden whitespace-no-wrap; */
+    @apply inline-flex items-center overflow-hidden whitespace-nowrap;
     .text {
-      /* @apply overflow-hidden whitespace-no-wrap; */
+      @apply overflow-hidden whitespace-nowrap;
       text-overflow: ellipsis;
     }
     .icon {

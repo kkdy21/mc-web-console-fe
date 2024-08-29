@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router/composables';
-import { computed, reactive } from 'vue';
+import { OrganizationsLSB } from '@/features/organizationsLSB';
 import { VerticalPageLayout } from '@/app/Layouts';
-import VpcLSB from './VpcLSB.vue';
+import { GeneralPageLayout } from '@/app/Layouts/generalPageLayout';
+import { useRoute } from 'vue-router/composables';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { storeToRefs } from 'pinia';
-import GeneralPageLayout from '@/app/Layouts/generalPageLayout/ui/GeneralPageLayout.vue';
+import { computed, reactive } from 'vue';
 
 const route = useRoute();
-
 const menuPerUserStore = useMenuPerUserStore();
 
-const { flattendMenus } = storeToRefs(menuPerUserStore);
+const { flattenedMenus } = storeToRefs(menuPerUserStore);
 
 const state = reactive({
   menuSet: computed(() => {
     let baseMenuSet = [] as any[];
-    flattendMenus?.value?.forEach(flattendMenu => {
-      flattendMenu.category === 'Cloud Resources'
-        ? baseMenuSet.push(flattendMenu)
+    flattenedMenus?.value?.forEach(flattenedMenu => {
+      // TODO: api 받아온 후 수정 필요
+      flattenedMenu.category === 'Organizations'
+        ? baseMenuSet.push(flattenedMenu)
         : null;
     });
+    console.log(baseMenuSet);
     return baseMenuSet;
   }),
   lsbVisible: computed<boolean>(() => route.meta?.lsbVisible),
@@ -31,14 +32,16 @@ const state = reactive({
   <fragment>
     <vertical-page-layout v-if="state.lsbVisible">
       <template #sidebar>
-        <vpc-l-s-b :menus="state.menuSet" />
+        <organizations-l-s-b :menus="state.menuSet" />
       </template>
       <template #default>
         <router-view />
       </template>
     </vertical-page-layout>
-    <general-page-layout v-else>
+    <general-page-layout>
       <router-view />
     </general-page-layout>
   </fragment>
 </template>
+
+<style scoped lang="postcss"></style>

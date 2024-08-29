@@ -1,39 +1,14 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
 import type { DisplayMenu } from '@/entities/menu';
-import { computed, reactive, ref, watchEffect } from 'vue';
+import { reactive, watchEffect } from 'vue';
 import MenuCategorySet from '@/widgets/menuCategory/ui/MenuCategory.vue';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
 
-// TODO: type 파일로 분리
-interface MenuWithAction {
-  displayname: string;
-  id: string;
-  isAction: true;
-  menus: MenuWithAction[];
-  name: string;
-  parentMenuId: string;
-  priority: number;
-}
-
-// interface MenuWithCategory {
-//   category: string;
-//   menus: MenuWithCategory[] | MenuWithAction[];
-// }
-
-interface GNBMenuType extends DisplayMenu {
-  type: string;
-  name?: string;
-  disabled?: boolean;
-}
-
 const sidebar = useSidebar();
 const menuPerUserStore = useMenuPerUserStore();
-
-// const displayedMenu = ref<any[] | MenuWithCategory[]>([]);
-const displayedMenu = ref<any>();
 
 const { isCollapsed, isMinimized } = storeToRefs(sidebar);
 
@@ -45,38 +20,13 @@ watchEffect(() => {
   menuPerUserStore.setUserMenuInfo(testJson);
 });
 
-const { id, parentMenuId, name, displayname, isAction, priority, menus } =
-  storeToRefs(menuPerUserStore);
-
-const convertGNBMenuToMenuItem = (
-  menuList: DisplayMenu[],
-  menuType: ContextMenuType = 'item',
-): GNBMenuType[] =>
-  menuList.map(menu => ({
-    ...menu,
-    name: menu.id,
-    type: menuType,
-    disabled: menuType === 'header' && menu.id.includes('cost'),
-  }));
+const { menus } = storeToRefs(menuPerUserStore);
 
 const state = reactive({
   isInit: false as boolean | undefined,
   isHovered: false,
   isMenuDescription: undefined as boolean | undefined,
 });
-
-const refinedMenuList = (list: any[], value: string) => {
-  const index = list.findIndex(d => d.id === value);
-  if (index !== -1) {
-    const item = list.splice(index, 1)[0];
-    list.push({
-      ...item,
-      disabled: true,
-      subMenuList: [{}],
-    });
-  }
-  return list;
-};
 
 const clickMinimizeBtn = () => {
   sidebar.toggleMinimize();
@@ -100,7 +50,7 @@ class="minimize-button-wrapper" position="bottom" /> -->
     <p-tooltip
       class="minimize-button-wrapper"
       position="bottom"
-      :contents="isMinimized ? 'Minimize menu' : 'Expand menu'"
+      :contents="!isMinimized ? 'Minimize menu' : 'Expand menu'"
       @click="clickMinimizeBtn"
     >
       <!-- @click="isSidebarExpanded = !isSidebarExpanded" -->

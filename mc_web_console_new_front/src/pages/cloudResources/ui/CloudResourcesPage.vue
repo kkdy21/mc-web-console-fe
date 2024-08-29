@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router/composables';
-import { computed, reactive } from 'vue';
+import { CloudResourcesLSB } from '@/features/cloudResourcesLSB';
 import { VerticalPageLayout } from '@/app/Layouts';
-import VpcLSB from './VpcLSB.vue';
+import { computed, reactive } from 'vue';
+import { useRoute } from 'vue-router/composables';
+
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { storeToRefs } from 'pinia';
-import GeneralPageLayout from '@/app/Layouts/generalPageLayout/ui/GeneralPageLayout.vue';
+import { GeneralPageLayout } from '@/app/Layouts/generalPageLayout';
 
 const route = useRoute();
 
 const menuPerUserStore = useMenuPerUserStore();
 
-const { flattendMenus } = storeToRefs(menuPerUserStore);
+const { flattenedMenus } = storeToRefs(menuPerUserStore);
 
 const state = reactive({
   menuSet: computed(() => {
     let baseMenuSet = [] as any[];
-    flattendMenus?.value?.forEach(flattendMenu => {
-      flattendMenu.category === 'Cloud Resources'
-        ? baseMenuSet.push(flattendMenu)
+    flattenedMenus?.value?.forEach(flattenedMenu => {
+      flattenedMenu.category === 'Cloud Resources'
+        ? baseMenuSet.push(flattenedMenu)
         : null;
     });
     return baseMenuSet;
@@ -31,7 +32,7 @@ const state = reactive({
   <fragment>
     <vertical-page-layout v-if="state.lsbVisible">
       <template #sidebar>
-        <vpc-l-s-b :menus="state.menuSet" />
+        <cloud-resources-l-s-b :menus="state.menuSet" />
       </template>
       <template #default>
         <router-view />
@@ -42,3 +43,5 @@ const state = reactive({
     </general-page-layout>
   </fragment>
 </template>
+
+<style scoped lang="postcss"></style>

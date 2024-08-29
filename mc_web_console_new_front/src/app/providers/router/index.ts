@@ -1,19 +1,14 @@
-import VueRouter, { Route, RouteConfig } from 'vue-router';
-import { ROOT_ROUTE } from '@/app/providers/router/constants.ts';
-import dashboardRoutes from '@/pages/dashboard/dashboard.route.ts';
-import authRoutes, { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
+import VueRouter, { RouteConfig } from 'vue-router';
+import { ROOT_ROUTE } from '@/app/providers/router/routes/constants';
+import authRoutes from '@/pages/auth/auth.route.ts';
 import NotFound from '@/pages/error/404/NotFound.vue';
-import {
-  useAuthenticationStore,
-  useAuthorizationStore,
-} from '@/entities/user/store';
-import { AuthorizationType } from '@/entities/user/store/authorizationStore.ts';
-import MainPage from '@/pages/main/MainPage.vue';
+import { environmentRoutes } from './routes/environment';
+import { accountAndAccessRoutes } from './routes/accountAndAccess';
 
 //TODO admin부분 고려
 
 export class McmpRouter {
-  private static router: VueRouter | null = null;
+  static router: VueRouter | null = null;
 
   private static rootRoute: RouteConfig[] = [
     {
@@ -25,7 +20,7 @@ export class McmpRouter {
     {
       path: '/main',
       component: { template: '<router-view/>' },
-      children: [...dashboardRoutes],
+      children: [...environmentRoutes, ...accountAndAccessRoutes],
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ];

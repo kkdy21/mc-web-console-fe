@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { PTooltip, PIconButton, PBreadcrumbs } from '@cloudforet-test/mirinae';
 import { useSidebar } from '@/shared/libs/store/sidebar';
+import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { storeToRefs } from 'pinia';
 
 const sidebar = useSidebar();
+const menuPerUserStore = useMenuPerUserStore();
 
 const { isCollapsed } = storeToRefs(sidebar);
+const { category, majorCategory, selectedSubmenu } =
+  storeToRefs(menuPerUserStore);
 
 const handleClickMenuButton = () => {
   sidebar.toggleCollapse();
@@ -29,8 +33,12 @@ const handleClickMenuButton = () => {
           @click="handleClickMenuButton"
         />
       </p-tooltip>
-      <!-- TODO: p-breadcrumbs: selected menu path text -->
-      <p-breadcrumbs />
+      <!-- <p-breacrumbs :routes="" /> -->
+      <p-breadcrumbs
+        v-if="category && majorCategory"
+        :routes="[{ name: majorCategory }, { name: category }]"
+        :copiable="false"
+      />
     </div>
   </div>
 </template>

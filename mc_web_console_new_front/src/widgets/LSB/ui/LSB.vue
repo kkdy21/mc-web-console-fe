@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { PI, PLazyImg } from '@cloudforet-test/mirinae';
-import { computed, onMounted, reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { useRoute } from 'vue-router/composables';
-import LSBMenuItem from '../../LSBMenuItem/ui/LSBMenuItem.vue';
+import { LSBMenuItem } from '@/features/LSB';
 
 interface Props {
   backLink?: any;
@@ -48,7 +48,6 @@ const handleSelect = (id: string, selected: string) => {
       <slot />
       <div v-if="props.topTitle.label" class="top-title">
         <div class="icon-label-wrapper">
-          <!-- <p-lazy-img :src=""/> -->
           <span :class="{ 'icon-label': props.topTitle.icon }" class="label">{{
             props.topTitle.label
           }}</span>
@@ -57,9 +56,7 @@ const handleSelect = (id: string, selected: string) => {
           </router-link>
         </div>
       </div>
-      <!-- TODO: submenu click css  -->
       <template v-for="(menuData, idx) in menuSet">
-        <!-- v-if="menuData.type === 'slot'" -->
         <div :key="`${idx}-${menuData.id}`" class="slot-menu-wrapper">
           <slot :name="`slot-${menuData.id}`" v-bind="menuData" />
         </div>
@@ -68,7 +65,6 @@ const handleSelect = (id: string, selected: string) => {
           :menu-data="menuData"
           :current-path="state.currentPath"
         >
-          <!-- @select="handleSelect" -->
           <template v-for="(_, slot) of $scopedSlots" #[slot]="scope">
             <slot :name="slot" v-bind="scope" />
           </template>

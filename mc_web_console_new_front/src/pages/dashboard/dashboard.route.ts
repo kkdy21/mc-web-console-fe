@@ -1,9 +1,7 @@
 //기본라우터는 dashboard이고 하위폴더에 속한 폴더 경로를 여기서 정의
 import { RouteConfig } from 'vue-router';
-import DashboardPage from './DashboardPage.vue';
 import AlibabaPage from './alibaba/AlibabaPage.vue';
 import AwsPage from './aws/AwsPage.vue';
-import VpcCrudPage from './vpc/VpcPage.vue';
 import { MENU_ID } from '@/widgets/menuCategory/ui/sidebar-config';
 
 export const DASHBOARD_ROUTE = {

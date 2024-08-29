@@ -1,4 +1,4 @@
-import { McmpRouter } from './index.ts';
+import { McmpRouter } from '../index.ts';
 import { ILoginData } from '@/shared/libs/access-localstorage/types.ts';
 import { useLocalStorage } from '@/shared/libs/access-localstorage/useLocalStorage.ts';
 import { AUTO_LOGIN } from '@/shared/libs/access-localstorage/constant.ts';

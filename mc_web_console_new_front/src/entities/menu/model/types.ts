@@ -4,10 +4,11 @@ export const MENU_ID = Object.freeze({
   MANAGE: 'manage',
   ANALYTICS: 'analytics',
   ENVIRONMENT: 'environment',
+  ENVIRONMENT_CLOUD_RESOURCES: 'cloudResources',
   ACCOUNT_AND_ACCESS: 'accountAccess',
+  ACCOUNT_AND_ACCESS_ORGANIZATIONS: 'organizations',
   DASHBOARD: 'dashboard',
   WORKSPACES: 'workspaces',
-  ENVIRONMENT_CLOUD_RESOURCES: 'cloudResources',
 });
 
 export type MenuId = (typeof MENU_ID)[keyof typeof MENU_ID];

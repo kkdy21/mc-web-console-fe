@@ -12,18 +12,23 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <l-s-b class="vpc-l-s-b" :menu-set="props.menus">
-    <p-text-input class="vpc-search" placeholder="Search VPC" />
-
+  <l-s-b class="cloud-resources-l-s-b" :menu-set="menus">
+    <p-text-input
+      class="cloud-resources-search"
+      placeholder="Search Cloud Resources"
+    />
     <template #collapsible-contents-project>
-      <p-text-input class="vpc-search" placeholder="Search VPC" />
+      <p-text-input
+        class="cloud-resources-search"
+        placeholder="Search Cloud Resources"
+      />
     </template>
   </l-s-b>
 </template>
 
 <style scoped lang="postcss">
-.vpc-l-s-b {
-  .vpc-search {
+.cloud-resources-l-s-b {
+  .cloud-resources-search {
     @apply w-full;
     margin-bottom: 0.5rem;
   }
