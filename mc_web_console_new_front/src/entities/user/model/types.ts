@@ -15,3 +15,15 @@ export interface IUserResponse {
   refresh_expires_in?: number;
   refresh_token?: string;
 }
+
+export type UserInformationTableType =
+  | 'userId'
+  | 'name'
+  | 'description'
+  | 'company'
+  | 'department'
+  | 'group'
+  | 'approved'
+  | 'callInvite'
+  | 'receiveInvite'
+  | 'defaultRoles';

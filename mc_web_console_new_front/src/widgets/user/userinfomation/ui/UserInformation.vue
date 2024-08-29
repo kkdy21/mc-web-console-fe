@@ -6,8 +6,18 @@ import {
   PButton,
   PStatus,
 } from '@cloudforet-test/mirinae';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
+import { UserInformationTableType } from '@/entities';
 
+interface IProps {
+  tableItems: Partial<Record<UserInformationTableType, any>>;
+}
+
+const props = defineProps<IProps>();
+const isSelected = computed(() => {
+  if (!props.tableItems) return false;
+  return Object.values(props.tableItems).length;
+});
 const tabs = [
   {
     name: 'detail',
@@ -32,30 +42,14 @@ const defineTableField = [
   { label: 'Default Roles', name: 'defaultRoles', disableCopy: true },
 ];
 
-const defineTableItems = {
-  userId: 'emailId@mz.co.kr',
-  name: '김이름',
-  description: 'description',
-  company: 'company',
-  department: 'department',
-  group: ['group1', 'group2', 'group3'],
-  approved: { state: true, data: 'Approved' },
-  callInvite: 'callInvite',
-  receiveInvite: 'receiveInvite',
-  defaultRoles: ['role1', 'role2', 'role3'],
-};
-
 const tabState = reactive({
   activeTab: 'detail',
 });
-const temp = (e: any) => {
-  console.log(e);
-};
 </script>
 
 <template>
-  <div>
-    <p-tab :tabs="tabs" v-model="tabState.activeTab" @update="temp">
+  <div v-if="isSelected">
+    <p-tab :tabs="tabs" v-model="tabState.activeTab">
       <template #detail>
         <div class="tab-section-header">
           <p>User Information</p>
@@ -63,7 +57,7 @@ const temp = (e: any) => {
         </div>
         <p-definition-table
           :fields="defineTableField"
-          :data="defineTableItems"
+          :data="props.tableItems"
           :loading="false"
           style-type="primary"
           :block="false"

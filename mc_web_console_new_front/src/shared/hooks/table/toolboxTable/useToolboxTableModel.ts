@@ -1,5 +1,4 @@
-import { onMounted, reactive } from 'vue';
-import { tempGetUserList } from '@/entities';
+import { reactive } from 'vue';
 
 export const useToolboxTableModel = () => {
   const tableState = reactive({
@@ -49,22 +48,27 @@ export const useToolboxTableModel = () => {
     // sortBy, sortDesc, pageStart
     tableState.loading = true;
     if (e?.queryTags) {
-      tableState.sortedItems = tableState.items.filter(row => {
-        return e.queryTags.every(queryTag => {
-          if (queryTag.key === null) {
-            return Object.values(row).some(value => {
-              if (typeof value === 'string') {
-                return value
-                  .toUpperCase()
-                  .includes(queryTag.value.name.toUpperCase());
-              } else return false;
-            });
-          }
+      tableState.sortedItems = tableState.items.filter((row: any) => {
+        return e.queryTags.every(
+          (queryTag: {
+            key: { name: string | number } | null;
+            value: { name: string };
+          }) => {
+            if (queryTag.key === null) {
+              return Object.values(row).some(value => {
+                if (typeof value === 'string') {
+                  return value
+                    .toUpperCase()
+                    .includes(queryTag.value.name.toUpperCase());
+                } else return false;
+              });
+            }
 
-          return row[queryTag.key.name]
-            .toUpperCase()
-            .includes(queryTag.value.name.toUpperCase());
-        });
+            return row[queryTag.key.name]
+              .toUpperCase()
+              .includes(queryTag.value.name.toUpperCase());
+          },
+        );
       });
     } else {
       tableState.sortedItems = tableState.items;
