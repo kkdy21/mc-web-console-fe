@@ -3,18 +3,10 @@ import {
   PHorizontalLayout,
   PToolboxTable,
   PButton,
+  PStatus,
 } from '@cloudforet-test/mirinae';
-import { onMounted, reactive, Ref, ref, watch } from 'vue';
+import { onMounted } from 'vue';
 import { getUserList, tempGetUserList } from '@/entities';
-import { useDynamicLayoutModel } from '@/shared/hooks/dynamic/dynamic-layout/useDynamicLayoutModel.ts';
-import {
-  DynamicLayout,
-  DynamicLayoutFetchOptions,
-  QuerySearchTableOptions,
-  SearchDataType,
-  SearchEnums,
-  SearchKeyOptions,
-} from '@/shared/hooks/dynamic/dynamic-layout/types.ts';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 
 const tableModel = useToolboxTableModel();
@@ -68,17 +60,21 @@ onMounted(() => {
           :key-item-sets="tableModel.querySearchState.keyItemSet"
           :value-handler-map="tableModel.querySearchState.valueHandlerMap"
           :query-tag="tableModel.querySearchState.queryTag"
-          :exportable="true"
           @changeSort="tableModel.tableSort"
           @change="tableModel.handleFetch"
+          @refresh="() => {}"
         >
           <template #toolbox-left>
-            <p-button style-type="secondary" icon-right="ic_external-link">
-              test
+            <p-button style-type="primary" icon-left="ic_external-link">
+              Add user
             </p-button>
           </template>
           <template #col-approved-format="{ item }">
-            <div>test!!!{{ item.approved.state }}</div>
+            <p-status
+              :iconColor="`${item.approved.state ? '#60b731' : '#ea4646'}`"
+              :text="`${item.approved.data}`"
+              :style="{ margin: '1rem' }"
+            />
           </template>
         </p-toolbox-table>
       </template>
