@@ -57,16 +57,14 @@ export const useToolboxTableModel = () => {
             if (queryTag.key === null) {
               return Object.values(row).some(value => {
                 if (typeof value === 'string') {
-                  return value
-                    .toUpperCase()
-                    .includes(queryTag.value.name.toUpperCase());
+                  return value.includes(queryTag.value.name.toUpperCase());
                 } else return false;
               });
             }
 
-            return row[queryTag.key.name]
-              .toUpperCase()
-              .includes(queryTag.value.name.toUpperCase());
+            return row[queryTag.key.name].includes(
+              queryTag.value.name.toUpperCase(),
+            );
           },
         );
       });

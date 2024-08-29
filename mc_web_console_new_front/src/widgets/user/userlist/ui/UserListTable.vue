@@ -24,7 +24,7 @@ const tableModel = useToolboxTableModel();
 tableModel.tableState.items = props.tableItems;
 tableModel.tableState.sortedItems = tableModel.tableState.items;
 tableModel.tableState.fields = [
-  { name: 'userid', label: 'User Id' },
+  { name: 'userId', label: 'User Id' },
   { name: 'name', label: 'Name' },
   { name: 'description', label: 'Description' },
   { name: 'company', label: 'Company' },
