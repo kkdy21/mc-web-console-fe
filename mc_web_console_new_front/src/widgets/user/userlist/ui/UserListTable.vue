@@ -51,6 +51,7 @@ onMounted(() => {
           :loading="tableModel.tableState.loading"
           :items="tableModel.tableState.sortedItems"
           :fields="tableModel.tableState.fields"
+          :totalCount="tableModel.tableState.items.length"
           :style="{ height: `${height}px` }"
           :sortable="tableModel.tableOptions.sortable"
           :sort-by="tableModel.tableOptions.sortBy"
@@ -65,13 +66,13 @@ onMounted(() => {
           @refresh="() => {}"
         >
           <template #toolbox-left>
-            <p-button style-type="primary" icon-left="ic_external-link">
+            <p-button style-type="primary" icon-left="ic_plus_bold">
               Add user
             </p-button>
           </template>
           <template #col-approved-format="{ item }">
             <p-status
-              :iconColor="`${item.approved.state ? '#60b731' : '#ea4646'}`"
+              :icon-color="`${item.approved.state ? '#60b731' : '#C2C2C6'}`"
               :text="`${item.approved.data}`"
               :style="{ margin: '1rem' }"
             />
