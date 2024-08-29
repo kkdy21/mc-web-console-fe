@@ -48,7 +48,7 @@ const defineTableItems = {
 const tabState = reactive({
   activeTab: 'detail',
 });
-const temp = e => {
+const temp = (e: any) => {
   console.log(e);
 };
 </script>
@@ -65,17 +65,15 @@ const temp = e => {
           :fields="defineTableField"
           :data="defineTableItems"
           :loading="false"
-          :skeletonRows="8"
-          :disableCopy="false"
-          styleType="primary"
+          style-type="primary"
           :block="false"
-          customKeyWidth=""
         >
           <template #data-group="scope">
             <p-badge
-              v-for="datum in scope.data"
-              :badgeType="'subtle'"
-              :styleType="'gray200'"
+              v-for="(datum, i) in scope.data"
+              :key="i"
+              :badge-type="'subtle'"
+              :style-type="'gray200'"
               :shape="'square'"
               :style="{ marginRight: '5px' }"
             >
@@ -90,9 +88,10 @@ const temp = e => {
           </template>
           <template #data-defaultRoles="scope">
             <p-badge
-              v-for="datum in scope.data"
-              :badgeType="'subtle'"
-              :styleType="'gray200'"
+              v-for="(datum, i) in scope.data"
+              :key="i"
+              :badge-type="'subtle'"
+              :style-type="'gray200'"
               :shape="'square'"
               :style="{ marginRight: '5px' }"
             >
@@ -115,6 +114,7 @@ const temp = e => {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+
   p {
     font-size: 24px;
     font-weight: 400;
