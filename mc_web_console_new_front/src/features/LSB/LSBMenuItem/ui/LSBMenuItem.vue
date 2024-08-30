@@ -6,24 +6,10 @@ interface Props {
   currentPath: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   menuData: () => ({}),
   currentPath: undefined,
 });
-
-const emit = defineEmits<{
-  (e: 'select', id: string, selected: string | number): void;
-}>();
-// const state = reactive({
-//   processedMenuData: computed(() =>
-//     Array.isArray(props.menuData) ? props.menuData : [props.menuData],
-//   ),
-//   hoveredItem: '',
-// });
-
-// const handleSelect = (id: string, selected: string) => {
-//   emit('select', id, selected);
-// };
 </script>
 
 <template>

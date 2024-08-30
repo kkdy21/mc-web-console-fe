@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
-import type { DisplayMenu } from '@/entities/menu';
 import { reactive, watchEffect } from 'vue';
-import MenuCategorySet from '@/widgets/menuCategory/ui/MenuCategory.vue';
-import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import { MenuCategory } from '@/widgets/menuCategory';
+import { useMenuPerUserStore } from '@/entities';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
 
@@ -14,10 +13,9 @@ const { isCollapsed, isMinimized } = storeToRefs(sidebar);
 
 // TODO: userMenuInfo Mock Data (api yet)
 import testJson from '@/entities/user/store/test.json';
-import { ContextMenuType } from '@cloudforet-test/mirinae/types/inputs/context-menu/type';
 
 watchEffect(() => {
-  menuPerUserStore.setUserMenuInfo(testJson);
+  return menuPerUserStore.setUserMenuInfo(testJson);
 });
 
 const { menus } = storeToRefs(menuPerUserStore);
@@ -69,7 +67,7 @@ class="minimize-button-wrapper" position="bottom" /> -->
     </p-tooltip>
     <div class="navigation-rail-container">
       <div class="navigation-rail-wrapper">
-        <menu-category-set :displayed-menu="menus" />
+        <menu-category :displayed-menu="menus" />
       </div>
     </div>
   </div>

@@ -33,7 +33,6 @@ const handleClickMenuButton = () => {
           @click="handleClickMenuButton"
         />
       </p-tooltip>
-      <!-- <p-breacrumbs :routes="" /> -->
       <p-breadcrumbs
         v-if="category && majorCategory"
         :routes="[{ name: majorCategory }, { name: category }]"

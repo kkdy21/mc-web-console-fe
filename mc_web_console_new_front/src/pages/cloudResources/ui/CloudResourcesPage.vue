@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { CloudResourcesLSB } from '@/features/cloudResourcesLSB';
+import { CloudResourcesLSB } from '@/features/console';
 import { VerticalPageLayout } from '@/app/Layouts';
 import { computed, reactive } from 'vue';
 import { useRoute } from 'vue-router/composables';
 
-import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import { useMenuPerUserStore } from '@/entities';
 import { storeToRefs } from 'pinia';
 import { GeneralPageLayout } from '@/app/Layouts/generalPageLayout';
 

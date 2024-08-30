@@ -5,6 +5,7 @@ import { UsersPage } from '@/pages/users';
 
 export const ORGANIZATIONS_ROUTE = {
   _NAME: 'Organizations',
+  // _NAME: MENU_ID.ACCOUNT_AND_ACCESS_ORGANIZATIONS,
   USERS: {
     _NAME: 'users',
   },

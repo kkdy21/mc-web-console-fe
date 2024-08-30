@@ -2,7 +2,7 @@ import Vue from 'vue';
 import MirinaeDesignSystem from '@cloudforet-test/mirinae';
 import '@cloudforet-test/mirinae/css/style.css';
 import '@cloudforet-test/mirinae/dist/style.css';
-import App from './app/App.vue';
+import { App } from './app';
 // import './app/style/reset.css';
 import './app/style/style.pcss';
 import { createPinia, PiniaVuePlugin } from 'pinia';

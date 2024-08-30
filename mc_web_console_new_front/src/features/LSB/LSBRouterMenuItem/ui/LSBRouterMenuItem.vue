@@ -5,7 +5,7 @@ import type { Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { useRouter } from 'vue-router/composables';
 import { McmpRouter } from '@/app/providers/router';
-import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import { useMenuPerUserStore } from '@/entities';
 
 const menuPerUserStore = useMenuPerUserStore();
 

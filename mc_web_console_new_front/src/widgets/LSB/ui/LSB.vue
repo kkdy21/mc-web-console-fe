@@ -32,30 +32,7 @@ const handleSelect = (id: string, selected: string) => {
 <template>
   <aside class="l-s-b">
     <div class="menu-wrapper">
-      <router-link
-        v-if="props.backLink.label"
-        class="back-link"
-        :to="props.backLink.to"
-      >
-        <p-i
-          name="ic_chevron-left"
-          width="1rem"
-          height="1rem"
-          color="inherit transparent"
-        />
-        {{ props.backLink.label }}
-      </router-link>
       <slot />
-      <div v-if="props.topTitle.label" class="top-title">
-        <div class="icon-label-wrapper">
-          <span :class="{ 'icon-label': props.topTitle.icon }" class="label">{{
-            props.topTitle.label
-          }}</span>
-          <router-link v-if="props.topTitle.visibleAddButton">
-            <p-i name="ic_plus" width="1rem" height="1rem" class="add-button" />
-          </router-link>
-        </div>
-      </div>
       <template v-for="(menuData, idx) in menuSet">
         <div :key="`${idx}-${menuData.id}`" class="slot-menu-wrapper">
           <slot :name="`slot-${menuData.id}`" v-bind="menuData" />

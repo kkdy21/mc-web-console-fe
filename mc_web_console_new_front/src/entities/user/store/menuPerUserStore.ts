@@ -1,14 +1,4 @@
 import { defineStore } from 'pinia';
-
-export interface MenuWithSubMenu {
-  // menuId: string;
-  // subMenuList: string[];
-}
-// export interface UserMenuInfo {
-//   userId: string;
-//   menus: MenuWithSubMenu[];
-// }
-
 export interface MenuInfo {
   id: string;
   parentMenuId: string;
@@ -17,8 +7,10 @@ export interface MenuInfo {
   isAction: string;
   priority: string;
   menus?: MenuInfo[];
+
   category?: string;
   majorCategory?: string;
+  icon: string;
   flattenedMenus?: MenuInfo[];
   selectedSubmenu?: string;
 }
@@ -32,9 +24,11 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
     isAction: '',
     priority: '',
     menus: [],
-    flattenedMenus: [],
-    majorCategory: '',
+
     category: '',
+    majorCategory: '',
+    icon: '',
+    flattenedMenus: [],
     selectedSubmenu: '',
   }),
   actions: {

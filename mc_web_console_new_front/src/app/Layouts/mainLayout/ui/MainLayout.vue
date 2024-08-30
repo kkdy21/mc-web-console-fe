@@ -14,9 +14,7 @@ const handleLogout = () => {
   const loginDataLocalStorage = useLocalStorage<ILoginData>(AUTO_LOGIN);
   loginDataLocalStorage.setItem({ role: null, autoLogin: false });
 
-  McmpRouter.getRouter()
-    .push({ name: AUTH_ROUTE.LOGIN._NAME })
-    .catch(() => {});
+  // McmpRouter.router.push({ name: AUTH_ROUTE.LOGIN._NAME }).catch(() => {});
 };
 
 const { isMinimized, isCollapsed } = storeToRefs(sidebar);

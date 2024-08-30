@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { OrganizationsLSB } from '@/features/organizationsLSB';
+import { OrganizationsLSB } from '@/features/console';
 import { VerticalPageLayout } from '@/app/Layouts';
 import { GeneralPageLayout } from '@/app/Layouts/generalPageLayout';
 import { useRoute } from 'vue-router/composables';
-import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import { useMenuPerUserStore } from '@/entities';
 import { storeToRefs } from 'pinia';
 import { computed, reactive } from 'vue';
 
@@ -21,7 +21,6 @@ const state = reactive({
         ? baseMenuSet.push(flattenedMenu)
         : null;
     });
-    console.log(baseMenuSet);
     return baseMenuSet;
   }),
   lsbVisible: computed<boolean>(() => route.meta?.lsbVisible),

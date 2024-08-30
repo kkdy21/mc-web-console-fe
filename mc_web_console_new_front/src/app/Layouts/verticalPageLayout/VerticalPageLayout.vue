@@ -46,7 +46,6 @@ watch(
     }
   },
 );
-console.log('here!!');
 </script>
 
 <template>

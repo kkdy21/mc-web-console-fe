@@ -4,9 +4,10 @@ import { useRoute } from 'vue-router/composables';
 import { clone, toLower } from 'lodash';
 import { PI } from '@cloudforet-test/mirinae';
 import type { MenuInfo } from '@/entities/user/store/menuPerUserStore';
-import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
+import { useMenuPerUserStore } from '@/entities';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
+import { MENU_ID } from '@/entities/menu';
 
 const menuPerUserStore = useMenuPerUserStore();
 const sidebar = useSidebar();
@@ -31,6 +32,18 @@ const state = reactive({
     const closestRoute = reversedMatched.find((r: any) => r.name !== undefined);
     const targetMenuId: string | any = closestRoute?.meta.menuId;
     return targetMenuId;
+  }),
+  // TODO: icon set 어떻게 하지?????
+  selectedIconId: computed(() => {
+    let iconId;
+    Object.keys(MENU_ID).forEach((key: string) => {
+      const targetMenu = MENU_ID[`${key}`];
+      const targetMenuKeys = Object.keys(targetMenu);
+      if (targetMenuKeys.includes('_ICON')) {
+        iconId = targetMenu['_ICON'];
+      }
+    });
+    return iconId;
   }),
 });
 
@@ -78,7 +91,7 @@ onMounted(async () => {
   <!-- displayedMenu.parentMenuId === '' && displayedMenu.isAction === 'false' -->
   <div v-if="!isCollapsed">
     <div v-if="state.gnbMenuList.length > 0">
-      <div v-for="(menu, idx) in state.gnbMenuList" :key="menu.id">
+      <div v-for="(menu, idx) in state.gnbMenuList" :key="idx" class="menu">
         <span
           v-if="
             (idx === 0 ||
@@ -115,7 +128,7 @@ onMounted(async () => {
           <!-- 'is-only-label': menu?.isAction === 'true', -->
           <div class="menu-wrapper">
             <p-i
-              name="ic_service_user"
+              :name="state.selectedIconId"
               class="menu-button"
               height="1.25rem"
               width="1.25rem"
@@ -132,13 +145,15 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="postcss">
+.menu {
+  @apply mb-[1.7rem];
+}
 .menu-category {
   font-size: 14px;
   color: #898995;
-  /* padding-top: 8px; */
 }
 .service-menu {
-  @apply flex items-center justify-between text-label-md;
+  @apply flex items-center justify-between text-label-md mt-[8px];
   width: 100%;
   height: 2rem;
   padding-right: 0.5rem;
