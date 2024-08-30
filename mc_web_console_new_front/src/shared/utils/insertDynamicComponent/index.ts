@@ -5,7 +5,6 @@ type InsertMethod = 'append' | 'prepend';
 /**
  * @param {Object} component - 동적으로 생성할 Vue 컴포넌트
  */
-동적으로 Vue 컴포넌트를 생성하고 특정 DOM 요소에 삽입하는 함수
 export function insertDynamicComponent(
   component: any,
   propsData: object = {},
