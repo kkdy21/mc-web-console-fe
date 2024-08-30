@@ -51,15 +51,16 @@ tableModel.querySearchState.keyItemSet = [
   },
 ];
 const handleSelectedIndex = (index: number[]) => {
+  console.log(index);
   const selectedData = tableModel.tableState.sortedItems[index];
   emit('selectRow', selectedData);
 };
 
 onMounted(function () {
-  tableModel.handleFetch(null);
+  tableModel.handleChange(null);
 
-  const childComp = this.$refs.childcomp.$el;
-  const targetElement = childComp.querySelector('.right-tool-group');
+  const toolboxTable = this.$refs.toolboxTable.$el;
+  const targetElement = toolboxTable.querySelector('.right-tool-group');
   const instance = insertDynamicComponent(
     Testui,
     {
@@ -81,11 +82,11 @@ onMounted(function () {
     <p-horizontal-layout :height="400" :minHeight="400" :maxHeight="1000">
       <template #container="{ height }">
         <p-toolbox-table
-          ref="childcomp"
+          ref="toolboxTable"
           :loading="tableModel.tableState.loading"
-          :items="tableModel.tableState.sortedItems"
+          :items="tableModel.tableState.displayItems"
           :fields="tableModel.tableState.fields"
-          :total-count="tableModel.tableState.items.length"
+          :total-count="tableModel.tableState.tableCount"
           :style="{ height: `${height}px` }"
           :sortable="tableModel.tableOptions.sortable"
           :sort-by="tableModel.tableOptions.sortBy"
@@ -96,8 +97,7 @@ onMounted(function () {
           :value-handler-map="tableModel.querySearchState.valueHandlerMap"
           :query-tag="tableModel.querySearchState.queryTag"
           :select-index.sync="tableModel.tableState.selectIndex"
-          @changeSort="tableModel.tableSort"
-          @change="tableModel.handleFetch"
+          @change="tableModel.handleChange"
           @refresh="() => {}"
           @select="handleSelectedIndex"
         >

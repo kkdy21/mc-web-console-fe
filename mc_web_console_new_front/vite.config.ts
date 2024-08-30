@@ -6,6 +6,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default ({ mode }: any) => {
   const env = loadEnv(mode, process.cwd(), '');
+  console.log(env);
   return defineConfig({
     plugins: [vue(), viteCommonjs()],
     resolve: {
@@ -18,8 +19,7 @@ export default ({ mode }: any) => {
     server: {
       proxy: {
         '/api': {
-          // target: 'https://api.onecloudcon.com',
-          target: 'http://dev.onecloudcon.com:3000',
+          target: env['VITE_BACKEND_URL'],
           changeOrigin: true,
           rewrite: path => path.replace(/^\/api/, '/api'),
         },
