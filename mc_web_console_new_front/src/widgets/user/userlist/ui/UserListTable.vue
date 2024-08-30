@@ -12,6 +12,9 @@ import {
   UserInformationTableType,
 } from '@/entities';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
+import Testui from '@/pages/account&access/users/ui/testui.vue';
+import Vue from 'vue';
+import { insertDynamicComponent } from '@/shared/utils/insertDynamicComponent';
 
 interface IProps {
   tableItems: Partial<Record<UserInformationTableType, any>>[];
@@ -52,8 +55,24 @@ const handleSelectedIndex = (index: number[]) => {
   emit('selectRow', selectedData);
 };
 
-onMounted(() => {
+onMounted(function () {
   tableModel.handleFetch(null);
+
+  const childComp = this.$refs.childcomp.$el;
+  const targetElement = childComp.querySelector('.right-tool-group');
+  const instance = insertDynamicComponent(
+    Testui,
+    {
+      label: 'Dynamic Button',
+    },
+    {
+      'button-click': message => {
+        console.log(message); // 'Button was clicked!' 출력
+      },
+    },
+    targetElement,
+    'prepend',
+  );
 });
 </script>
 
@@ -62,6 +81,7 @@ onMounted(() => {
     <p-horizontal-layout :height="400" :minHeight="400" :maxHeight="1000">
       <template #container="{ height }">
         <p-toolbox-table
+          ref="childcomp"
           :loading="tableModel.tableState.loading"
           :items="tableModel.tableState.sortedItems"
           :fields="tableModel.tableState.fields"
