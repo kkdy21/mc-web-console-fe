@@ -10,10 +10,9 @@ const emit = defineEmits(['button-click']);
 
 <template>
   <div class="tool">
-    ##컴포넌트 동적 생성 TEST##
     <p-icon-button
-      name="ic_delete"
-      @click="$emit('button-click', 'Button was clicked!')"
+        name="ic_delete"
+        @click="$emit('button-click', 'Button was clicked!')"
     >
     </p-icon-button>
   </div>

@@ -1,30 +1,35 @@
-import { computed, reactive } from 'vue';
+import { computed, ComputedRef, reactive } from 'vue';
+import {
+  ChangeEvent,
+  ITableField,
+  ITableItems,
+} from '@/shared/hooks/table/toolboxTable/types.ts';
 
-type QueryTag = {
-  key: { name: string | number } | null;
-  value: { name: string };
+type ITableState<T> = {
+  loading: boolean;
+  fields: ITableField<ITableItems<T>>[];
+  items: ITableItems<T>[];
+  selectIndex: number[];
+  sortedItems: ITableItems<T>[];
+  displayItems: ITableItems<T>[];
+  currentPage: number;
+  startPage: number;
+  tableCount: ComputedRef<number>;
 };
 
-type ChangeEvent = {
-  pageStart?: number;
-  pageLimit?: number;
-  queryTags?: QueryTag[];
-  sortBy?: string;
-  sortDesc?: boolean;
-};
-
-export const useToolboxTableModel = () => {
-  const tableState = reactive(<any>{
+export const useToolboxTableModel = <T>(): any => {
+  const tableState = reactive(<ITableState<T>>{
     loading: true,
     fields: [],
     items: [],
     selectIndex: [],
     sortedItems: [],
     displayItems: [],
-    thisPage: 1,
+    currentPage: 1,
     startPage: 1,
     tableCount: computed((): number => tableState.sortedItems.length),
   });
+
   const tableOptions = reactive({
     sortable: true,
     sortBy: 'name',
@@ -70,6 +75,7 @@ export const useToolboxTableModel = () => {
   const updatePagination = (e: ChangeEvent) => {
     if (e?.pageStart) {
       tableState.startPage = e.pageStart;
+      tableState.currentPage = Math.floor(e.pageStart / tableOptions.pageSize) + 1;
     }
     if (e?.pageLimit) {
       tableOptions.pageSize = e.pageLimit;
@@ -77,26 +83,25 @@ export const useToolboxTableModel = () => {
   };
 
   const applyQueryTags = (e: ChangeEvent) => {
-    if (e?.queryTags) {
+    if (e?.queryTags?.length) {
       tableState.sortedItems = tableState.items.filter((row: any) =>
-          e.queryTags!.every((queryTag) => {
-            const regex = new RegExp(queryTag.value.name, 'gi');
+        e.queryTags!.every(queryTag => {
+          const regex = new RegExp(queryTag.value.name, 'gi');
 
-            if (queryTag.key === null) {
-              return Object.values(row).some(value =>
-                  typeof value === 'string' && regex.test(value)
-              );
-            }
+          if (queryTag.key === null) {
+            return Object.values(row).some(
+              value => typeof value === 'string' && regex.test(value),
+            );
+          }
 
-            const fieldValue = row[queryTag.key.name];
-            return typeof fieldValue === 'string' && regex.test(fieldValue);
-          })
+          const fieldValue = row[queryTag.key.name];
+          return typeof fieldValue === 'string' && regex.test(fieldValue);
+        }),
       );
-    } else {
+    } else if (e?.queryTags?.length === 0) {
       tableState.sortedItems = tableState.items;
     }
   };
-
 
   const applySorting = (e: ChangeEvent) => {
     if (!isNullOrUndefined(e?.sortBy) && !isNullOrUndefined(e?.sortDesc)) {
@@ -109,12 +114,11 @@ export const useToolboxTableModel = () => {
   };
   const handleChange = (e: any) => {
     tableState.loading = true;
-
     updatePagination(e);
     applyQueryTags(e);
     applySorting(e);
 
-    const startIdx = tableState.startPage - 1;
+    const startIdx = tableOptions.pageSize * (tableState.currentPage - 1);
     const endIdx = tableState.startPage + tableOptions.pageSize - 1;
 
     tableState.displayItems = tableState.sortedItems.slice(startIdx, endIdx);
