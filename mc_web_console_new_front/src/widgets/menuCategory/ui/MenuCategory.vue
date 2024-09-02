@@ -12,6 +12,7 @@ import { MENU_ID } from '@/entities/menu';
 const menuPerUserStore = useMenuPerUserStore();
 const sidebar = useSidebar();
 
+const { category } = storeToRefs(menuPerUserStore);
 const { isMinimized, isCollapsed } = storeToRefs(sidebar);
 
 const props = defineProps<{
@@ -32,18 +33,6 @@ const state = reactive({
     const closestRoute = reversedMatched.find((r: any) => r.name !== undefined);
     const targetMenuId: string | any = closestRoute?.meta.menuId;
     return targetMenuId;
-  }),
-  // TODO: icon set 어떻게 하지?????
-  selectedIconId: computed(() => {
-    let iconId;
-    Object.keys(MENU_ID).forEach((key: string) => {
-      const targetMenu = MENU_ID[`${key}`];
-      const targetMenuKeys = Object.keys(targetMenu);
-      if (targetMenuKeys.includes('_ICON')) {
-        iconId = targetMenu['_ICON'];
-      }
-    });
-    return iconId;
   }),
 });
 
@@ -128,7 +117,7 @@ onMounted(async () => {
           <!-- 'is-only-label': menu?.isAction === 'true', -->
           <div class="menu-wrapper">
             <p-i
-              :name="state.selectedIconId"
+              name="ic_member"
               class="menu-button"
               height="1.25rem"
               width="1.25rem"

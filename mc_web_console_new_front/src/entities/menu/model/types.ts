@@ -2,17 +2,11 @@ export const MENU_ID = Object.freeze({
   // Setting
   // Account & Access
   ACCOUNT_AND_ACCESS: 'accountAccess',
-  ACCOUNT_AND_ACCESS_ORGANIZATIONS: {
-    _NAME: 'organizations',
-    _ICON: 'ic_member',
-  },
+  ACCOUNT_AND_ACCESS_ORGANIZATIONS: 'organizations',
 
   // Environment
   ENVIRONMENT: 'environment',
-  ENVIRONMENT_CLOUD_RESOURCES: {
-    _NAME: 'cloudResources',
-    _ICON: 'ic_service_asset-inventory',
-  },
+  ENVIRONMENT_CLOUD_RESOURCES: 'cloudResources',
   // ENVIRONMENT_
 
   // Operations

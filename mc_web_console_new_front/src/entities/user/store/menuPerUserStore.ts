@@ -8,11 +8,11 @@ export interface MenuInfo {
   priority: string;
   menus?: MenuInfo[];
 
-  category?: string;
-  majorCategory?: string;
+  category: string;
+  majorCategory: string;
   icon: string;
-  flattenedMenus?: MenuInfo[];
-  selectedSubmenu?: string;
+  flattenedMenus: MenuInfo[];
+  selectedSubmenu: string;
 }
 
 export const useMenuPerUserStore = defineStore('menuPerUser', {
@@ -50,6 +50,9 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
     },
     setSelectedSubmenu(submenu: string) {
       this.selectedSubmenu = submenu;
+    },
+    setIconId(iconId: string) {
+      this.icon = iconId;
     },
   },
   getters: {},
