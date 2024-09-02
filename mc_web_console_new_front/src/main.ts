@@ -16,6 +16,7 @@ Vue.use(MirinaeDesignSystem);
 Vue.use(VueRouter);
 
 new Vue({
+  i18n,
   pinia,
   i18n,
   router: McmpRouter.getRouter(),

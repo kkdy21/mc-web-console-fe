@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { PSidebar } from '@cloudforet-test/mirinae';
 
-import { preAutoLogin } from '@/app/providers/router/routes/auth';
 import LayoutHeader from './Layouts/layoutHeader/ui/LayoutHeader.vue';
 import MainLayout from './Layouts/mainLayout/ui/MainLayout.vue';
 
 import { styleVariables } from '@cloudforet-test/mirinae';
 import { reactive } from 'vue';
-// preAutoLogin();
-
-const state = reactive({});
 </script>
 
 <template>

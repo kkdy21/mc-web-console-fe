@@ -14,3 +14,4 @@ export interface Breadcrumb {
     name: string;
   };
 }
+export type Union<T> = T[keyof T];

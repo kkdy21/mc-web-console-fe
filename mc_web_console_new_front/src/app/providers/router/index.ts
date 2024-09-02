@@ -22,6 +22,7 @@ export class McmpRouter {
       component: { template: '<router-view/>' },
       children: [...environmentRoutes, ...accountAndAccessRoutes],
     },
+    ...authRoutes,
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ];
 

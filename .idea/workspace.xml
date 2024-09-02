@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element">
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.env" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/vite.config.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Vue Composition API Component" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/login-token" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2kabDqLxOfnFo34mdfCH2oTz8QG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;page/user&quot;,
+    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/src/widgets/user/userlist/ui&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/eslint&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/prettier&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.20603015&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.vue&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/shared/asset/image" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/node_modules/@cloudforet-test/mirinae/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/dynamic/dynamic-layout" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="" />
+      <created>1723524517902</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723524517902</updated>
+      <workItem from="1723524518988" duration="45022000" />
+      <workItem from="1723796989685" duration="202000" />
+      <workItem from="1723797207262" duration="5000" />
+      <workItem from="1723797222718" duration="1519000" />
+      <workItem from="1724024894064" duration="31000" />
+      <workItem from="1724024943481" duration="16000" />
+      <workItem from="1724024967495" duration="79353000" />
+      <workItem from="1724373461583" duration="83595000" />
+      <workItem from="1724909085833" duration="19517000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat/temp : jwt-decode 추가">
+      <option name="closed" value="true" />
+      <created>1723537034791</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723537034791</updated>
+    </task>
+    <task id="LOCAL-00002" summary="chore: docker file 추가">
+      <option name="closed" value="true" />
+      <created>1723769076313</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723769076313</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refactor : setting proxy, api logic">
+      <option name="closed" value="true" />
+      <created>1723773444994</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1723773444994</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactor : login get token logic">
+      <option name="closed" value="true" />
+      <created>1723781785252</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723781785252</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refactor : shared api logic (add config)">
+      <option name="closed" value="true" />
+      <created>1723795766181</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723795766181</updated>
+    </task>
+    <task id="LOCAL-00006" summary="ADD : env file, apply">
+      <option name="closed" value="true" />
+      <created>1724044481377</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724044481377</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: logic for user authentication information expire">
+      <option name="closed" value="true" />
+      <created>1724047514859</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1724047514859</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: logic for user authentication information expire">
+      <option name="closed" value="true" />
+      <created>1724047547764</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1724047547764</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: get user info when refreshing">
+      <option name="closed" value="true" />
+      <created>1724050856008</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724050856008</updated>
+    </task>
+    <task id="LOCAL-00010" summary="refactor : add property to localstorage">
+      <option name="closed" value="true" />
+      <created>1724051685478</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1724051685478</updated>
+    </task>
+    <task id="LOCAL-00011" summary="refactor : CRUD method">
+      <option name="closed" value="true" />
+      <created>1724056314217</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1724056314217</updated>
+    </task>
+    <task id="LOCAL-00012" summary="refactor : token class , localstorage class">
+      <option name="closed" value="true" />
+      <created>1724144023540</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724144023541</updated>
+    </task>
+    <task id="LOCAL-00013" summary="refactor : refresh error handle">
+      <option name="closed" value="true" />
+      <created>1724199789712</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724199789712</updated>
+    </task>
+    <task id="LOCAL-00014" summary="refactor : change api-type file location">
+      <option name="closed" value="true" />
+      <created>1724203741460</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1724203741460</updated>
+    </task>
+    <task id="LOCAL-00015" summary="refactor : change api-type file location">
+      <option name="closed" value="true" />
+      <created>1724203933476</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1724203933476</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactor : 초기구조">
+      <option name="closed" value="true" />
+      <created>1724231035187</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1724231035187</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add: login page">
+      <option name="closed" value="true" />
+      <created>1724315537245</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1724315537245</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add: lodash, InputModel">
+      <option name="closed" value="true" />
+      <created>1724387505849</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1724387505849</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: login logic + login ui">
+      <option name="closed" value="true" />
+      <created>1724390535807</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1724390535807</updated>
+    </task>
+    <task id="LOCAL-00020" summary="feat: Login UI, input validator, Login success callback">
+      <option name="closed" value="true" />
+      <created>1724401714616</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1724401714616</updated>
+    </task>
+    <task id="LOCAL-00021" summary="feat: login error handling">
+      <option name="closed" value="true" />
+      <created>1724632934532</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1724632934532</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add: login page - logo, logo name">
+      <option name="closed" value="true" />
+      <created>1724635273170</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1724635273170</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add: user page">
+      <option name="closed" value="true" />
+      <created>1724660932335</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1724660932335</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add : DynamicLayoutModel">
+      <option name="closed" value="true" />
+      <created>1724747492110</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1724747492110</updated>
+    </task>
+    <task id="LOCAL-00025" summary="feat : query search, sorting, show datatable list">
+      <option name="closed" value="true" />
+      <created>1724832977502</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1724832977502</updated>
+    </task>
+    <task id="LOCAL-00026" summary="refactor : file position">
+      <option name="closed" value="true" />
+      <created>1724892770819</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1724892770819</updated>
+    </task>
+    <task id="LOCAL-00027" summary="feat: Basic publishing for user page">
+      <option name="closed" value="true" />
+      <created>1724907351168</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1724907351168</updated>
+    </task>
+    <task id="LOCAL-00028" summary="temp: temp">
+      <option name="closed" value="true" />
+      <created>1724919045277</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1724919045277</updated>
+    </task>
+    <task id="LOCAL-00029" summary="feat : connection between UserTable and userListTable">
+      <option name="closed" value="true" />
+      <created>1724923790526</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1724923790526</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat : connection between UserTable and userListTable">
+      <option name="closed" value="true" />
+      <created>1724924257971</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1724924257971</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element">
+      <option name="closed" value="true" />
+      <created>1724979602754</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1724979602754</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element">
+      <option name="closed" value="true" />
+      <created>1724979608839</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1724979608839</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="refactor : login get token logic" />
+    <MESSAGE value="refactor : shared api logic (add config)" />
+    <MESSAGE value="ADD : env file, apply" />
+    <MESSAGE value="feat: logic for user authentication information expire" />
+    <MESSAGE value="feat: get user info when refreshing" />
+    <MESSAGE value="refactor : add property to localstorage" />
+    <MESSAGE value="refactor : CRUD method" />
+    <MESSAGE value="refactor : token class , localstorage class" />
+    <MESSAGE value="refactor : refresh error handle" />
+    <MESSAGE value="refactor : change api-type file location" />
+    <MESSAGE value="refactor : 초기구조" />
+    <MESSAGE value="add: login page" />
+    <MESSAGE value="add: lodash, InputModel" />
+    <MESSAGE value="feat: login logic + login ui" />
+    <MESSAGE value="feat: Login UI, input validator, Login success callback" />
+    <MESSAGE value="feat: login error handling" />
+    <MESSAGE value="add: login page - logo, logo name" />
+    <MESSAGE value="add: user page" />
+    <MESSAGE value="add : DynamicLayoutModel" />
+    <MESSAGE value="feat : query search, sorting, show datatable list" />
+    <MESSAGE value="refactor : file position" />
+    <MESSAGE value="feat: Basic publishing for user page" />
+    <MESSAGE value="temp: temp" />
+    <MESSAGE value="feat : connection between UserTable and userListTable" />
+    <MESSAGE value="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element" />
+  </component>
+  <component name="VueSettings">
+    <option name="innerServiceType" value="DISABLED" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

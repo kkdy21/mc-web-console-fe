@@ -19,5 +19,23 @@
   },
   "WORKSPACE": {
     "WORKSPACE": "Workspace"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "_NAME": "LOGIN",
+      "USER_ID": "User ID",
+      "USER_ID_REQUIRED" : "please enter id",
+      "PASSWORD": "Password",
+      "PASSWORD_REQUIRED" : "please enter password",
+      "PASSWORD_INCLUDE_SPACES" : "Password must not contain spaces",
+      "EMAIL_INVALID" : "Invalid email address"
+    }
+  },
+  "COMPONENT": {
+    "TEXT_INPUT": {
+        "SHOW" : "SHOW",
+        "HIDE" : "HIDE"
+    }
   }
 }
+

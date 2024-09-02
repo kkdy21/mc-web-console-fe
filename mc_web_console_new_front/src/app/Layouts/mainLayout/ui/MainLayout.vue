@@ -1,22 +1,10 @@
 <script setup lang="ts">
-import { AUTH_ROUTE } from '../../../../pages/auth/auth.route.ts';
-import { AUTO_LOGIN, useLocalStorage } from '@/shared/libs/access-localstorage';
-import { ILoginData } from '@/shared/libs/access-localstorage/types.ts';
-import { McmpRouter } from '@/app/providers/router';
 import GNBToolbox from '@/widgets/gnbToolbox/ui/GNBToolbox.vue';
 import GNBNavigationRail from '@/widgets/gnbNavigationRail/ui/GNBNavigationRail.vue';
 import { useSidebar } from '@/shared/libs/store/sidebar.ts';
 import { storeToRefs } from 'pinia';
 
 const sidebar = useSidebar();
-
-const handleLogout = () => {
-  const loginDataLocalStorage = useLocalStorage<ILoginData>(AUTO_LOGIN);
-  loginDataLocalStorage.setItem({ role: null, autoLogin: false });
-
-  // McmpRouter.router.push({ name: AUTH_ROUTE.LOGIN._NAME }).catch(() => {});
-};
-
 const { isMinimized, isCollapsed } = storeToRefs(sidebar);
 </script>
 

@@ -1,18 +1,23 @@
 import { useAxiosPost } from '@/shared/libs/api/request.ts';
-import { IUserResponse } from '@/entities/user/model/types.ts';
+import { IAxiosResponse } from '@/shared/libs';
 
-// const LOGIN_URL = 'api/auth/login';
+const LOGIN_URL = 'auth/login';
+const GET_USER_INFO = 'Getuserinfo';
 
-const LOGIN_URL = 'api/auth/login';
+interface RequestBodyWrapper<D> {
+  request: D;
+}
 
-export function useGetLogin<T extends IUserResponse, D>(loginData: D) {
-  interface RequestWrapper<D> {
-    request: D;
-  }
-
-  const requestWrapper: RequestWrapper<D> = {
+export function useGetLogin<T, D>(loginData: D | null) {
+  const requestBodyWrapper: RequestBodyWrapper<D | null> = {
     request: loginData,
   };
-  const res = useAxiosPost<T, RequestWrapper<D>>(LOGIN_URL, requestWrapper, {});
-  return res;
+  return useAxiosPost<IAxiosResponse<T>, RequestBodyWrapper<D | null>>(
+    LOGIN_URL,
+    requestBodyWrapper,
+  );
+}
+
+export function useGetUserRole<T, D = any>() {
+  return useAxiosPost<T, D | null>(GET_USER_INFO, null);
 }

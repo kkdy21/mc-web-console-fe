@@ -1,3 +1,8 @@
+export interface IValidationResult {
+  isValid: boolean;
+  message?: string | null;
+}
+
 export interface IUser {
   id: string;
   password: string;
@@ -5,5 +10,8 @@ export interface IUser {
 
 export interface IUserResponse {
   role: string;
-  accessToken: string;
+  access_token?: string;
+  expires_in?: number;
+  refresh_expires_in?: number;
+  refresh_token?: string;
 }

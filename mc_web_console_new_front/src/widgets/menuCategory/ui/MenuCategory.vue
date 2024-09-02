@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive, watch } from 'vue';
 import { useRoute } from 'vue-router/composables';
 import { clone, toLower } from 'lodash';
 import { PI } from '@cloudforet-test/mirinae';
@@ -70,10 +70,13 @@ const flattenMenu = (menu: MenuInfo, majorCategory?: string) => {
   return flatMenu;
 };
 
-onMounted(async () => {
+onMounted(() => {
   state.isInit = true;
-  menuPerUserStore.setFlattendMenus(state.gnbMenuList);
 });
+
+watch(() => state.gnbMenuList, () => {
+  menuPerUserStore.setFlattendMenus(state.gnbMenuList);
+})
 </script>
 
 <template>
