@@ -18,7 +18,8 @@ interface IProps {
 const props = defineProps<IProps>();
 const emit = defineEmits(['selectRow']);
 
-const tableModel = useToolboxTableModel<UserInformationTableType>();
+const tableModel =
+  useToolboxTableModel<Partial<Record<UserInformationTableType, any>>>();
 
 tableModel.tableState.items = props.tableItems;
 tableModel.tableState.sortedItems = tableModel.tableState.items;
@@ -30,7 +31,6 @@ tableModel.tableState.fields = [
   { name: 'company', label: 'Company' },
   { name: 'department', label: 'Department' },
   { name: 'approved', label: 'Approved' },
-  { name: 'asd', label: 'be' },
 ];
 
 tableModel.querySearchState.keyItemSet = [

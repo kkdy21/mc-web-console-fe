@@ -17,7 +17,7 @@ type ITableState<T> = {
   tableCount: ComputedRef<number>;
 };
 
-export const useToolboxTableModel = <T>(): any => {
+export const useToolboxTableModel = <T>() => {
   const tableState = reactive(<ITableState<T>>{
     loading: true,
     fields: [],
@@ -28,7 +28,7 @@ export const useToolboxTableModel = <T>(): any => {
     currentPage: 1,
     startPage: 1,
     tableCount: computed((): number => tableState.sortedItems.length),
-  });
+  }) as ITableState<T>;
 
   const tableOptions = reactive({
     sortable: true,
@@ -75,7 +75,8 @@ export const useToolboxTableModel = <T>(): any => {
   const updatePagination = (e: ChangeEvent) => {
     if (e?.pageStart) {
       tableState.startPage = e.pageStart;
-      tableState.currentPage = Math.floor(e.pageStart / tableOptions.pageSize) + 1;
+      tableState.currentPage =
+        Math.floor(e.pageStart / tableOptions.pageSize) + 1;
     }
     if (e?.pageLimit) {
       tableOptions.pageSize = e.pageLimit;
