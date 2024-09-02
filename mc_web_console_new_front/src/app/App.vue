@@ -89,6 +89,7 @@ import { reactive } from 'vue';
       flex-direction: column;
       height: 100%;
       margin: 0;
+      padding: 20px 10px;
       overflow-x: hidden;
       overflow-y: hidden;
     }

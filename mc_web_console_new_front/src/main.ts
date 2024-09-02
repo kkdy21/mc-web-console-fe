@@ -18,7 +18,6 @@ Vue.use(VueRouter);
 new Vue({
   i18n,
   pinia,
-  i18n,
   router: McmpRouter.getRouter(),
   render: h => h(App),
 }).$mount('#app');
