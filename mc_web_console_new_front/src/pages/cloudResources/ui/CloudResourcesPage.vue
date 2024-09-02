@@ -1,47 +1,43 @@
 <script setup lang="ts">
-import { CloudResourcesLSB } from '@/features/console';
-import { VerticalPageLayout } from '@/app/Layouts';
-import { computed, reactive } from 'vue';
-import { useRoute } from 'vue-router/composables';
-
-import { useMenuPerUserStore } from '@/entities';
-import { storeToRefs } from 'pinia';
-import { GeneralPageLayout } from '@/app/Layouts/generalPageLayout';
-
-const route = useRoute();
-
-const menuPerUserStore = useMenuPerUserStore();
-
-const { flattenedMenus } = storeToRefs(menuPerUserStore);
-
-const state = reactive({
-  menuSet: computed(() => {
-    let baseMenuSet = [] as any[];
-    flattenedMenus?.value?.forEach(flattenedMenu => {
-      flattenedMenu.category === 'Cloud Resources'
-        ? baseMenuSet.push(flattenedMenu)
-        : null;
-    });
-    return baseMenuSet;
-  }),
-  lsbVisible: computed<boolean>(() => route.meta?.lsbVisible),
-});
+import { PDynamicLayout } from '@cloudforet-test/mirinae';
 </script>
 
 <template>
-  <fragment>
-    <vertical-page-layout v-if="state.lsbVisible">
-      <template #sidebar>
-        <cloud-resources-l-s-b :menus="state.menuSet" />
-      </template>
-      <template #default>
-        <router-view />
-      </template>
-    </vertical-page-layout>
-    <general-page-layout v-else>
-      <router-view />
-    </general-page-layout>
-  </fragment>
+  <div>
+    <p-dynamic-layout
+      name="VPC Page"
+      type="query-search-table"
+      :options="{
+        fields: [
+          { key: 'id', name: 'Key (id)', type: 'text' },
+          {
+            key: 'test',
+            name: 'Test',
+            type: 'text',
+            options: { postfix: ' num.' },
+          },
+          { key: 'basic', name: 'Basic', type: 'badge' },
+          { key: 'advanced', name: 'Advanced', type: 'badge' },
+        ],
+        default_sort: { key: 'id', desc: false },
+      }"
+      :data="getAllTestBasicDataAxios"
+      :type-options="{
+        loading: false,
+        totalCount: 0,
+        timezone: 'UTC',
+        selectIndex: [],
+        selectable: false,
+        multiSelect: true,
+        invalid: false,
+        colCopy: false,
+        excelVisible: false,
+        settingsVisible: false,
+        keyItemSets: [],
+        valueHandlerMap: {},
+      }"
+    />
+  </div>
 </template>
 
 <style scoped lang="postcss"></style>

@@ -23,7 +23,7 @@ const cloudResourcesRoutes: RouteConfig[] = [
     name: CLOUD_RESOURCES_ROUTE._NAME,
     component: CloudResourcesPage,
     meta: {
-      lsbVisible: true,
+      // lsbVisible: true,
       menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
     },
     children: [
