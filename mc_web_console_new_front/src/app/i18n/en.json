@@ -10,6 +10,11 @@
       "EMAIL_INVALID": "Invalid email address"
     }
   },
+  "USER": {
+    "REGISTER": {
+      "PASSWORD_CONFIRM" : "Please check confirm password"
+    }
+  },
   "COMPONENT": {
     "TEXT_INPUT": {
       "SHOW": "SHOW",

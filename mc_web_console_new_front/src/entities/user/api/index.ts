@@ -37,7 +37,16 @@ export function getUserList<T, D>(userId: D | null) {
 }
 
 export function useAddUser<T, D>(userData: D | null) {
-  return useAxiosPost<IAxiosResponse<T>, D | null>(ADD_USER, userData);
+  const requestBodyWrapper: Required<
+    Pick<RequestBodyWrapper<D | null>, 'request'>
+  > = {
+    request: userData,
+  };
+
+  return useAxiosPost<IAxiosResponse<T>, RequestBodyWrapper<D | null>>(
+    ADD_USER,
+    requestBodyWrapper,
+  );
 }
 
 export const tempGetUserList = (): Partial<

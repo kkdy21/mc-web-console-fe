@@ -16,6 +16,11 @@ export interface IUserResponse {
   refresh_token?: string;
 }
 
+export interface IPasswordConfirm {
+  password: string;
+  comparedPassword: string;
+}
+
 export type UserInformationTableType =
   | 'userId'
   | 'name'

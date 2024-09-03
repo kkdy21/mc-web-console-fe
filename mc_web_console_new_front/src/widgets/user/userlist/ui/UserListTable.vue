@@ -59,8 +59,10 @@ const handleSelectedIndex = (index: number[]) => {
 };
 
 const handleClose = e => {
-  console.log(e);
   modalState.value = false;
+  if(e.isSuccess){
+    //TODO refresh
+  }
 };
 
 onMounted(function () {

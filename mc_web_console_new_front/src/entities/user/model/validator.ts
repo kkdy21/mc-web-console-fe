@@ -1,5 +1,5 @@
 import { i18n } from '@/app/i18n';
-import { IValidationResult } from '@/entities';
+import { IPasswordConfirm, IValidationResult } from '@/entities';
 
 export function validateEmail(email: string): IValidationResult {
   const result: IValidationResult = {
@@ -48,20 +48,21 @@ export function validateId(id: string): IValidationResult {
   return result;
 }
 
-export function validateConfirmPassword(
-  password: string,
-  comparePassword: string,
-): IValidationResult {
+export function validateConfirmPassword({
+  password,
+  comparedPassword,
+}: IPasswordConfirm): IValidationResult {
   const result: IValidationResult = {
     isValid: false,
     message: null,
   };
+
   console.log(password)
-  console.log(comparePassword)
-  result.isValid = password === comparePassword;
+  console.log(comparedPassword)
+  result.isValid = password === comparedPassword;
 
   if (!result.isValid) {
-    result.message = i18n.t('AUTH.LOGIN.USER_PASSWORD_CONFIRM') as string;
+    result.message = i18n.t('USER.REGISTER.PASSWORD_CONFIRM') as string;
   }
   console.log(result);
   return result;

@@ -5,16 +5,19 @@ import {
   PButton,
   PFieldTitle,
   PI,
+  PTextarea,
 } from '@cloudforet-test/mirinae';
 import { useInputModel } from '@/shared/hooks/input/useInputModel.ts';
 import { i18n } from '@/app/i18n';
 import {
+  IPasswordConfirm,
   useAddUser,
   validateConfirmPassword,
+  validateEmail,
   validateId,
   validatePassword,
 } from '@/entities';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { IAxiosResponse } from '@/shared/libs';
 
 interface IAddUser {
@@ -27,9 +30,18 @@ interface IAddUser {
 
 const id = useInputModel<string>('', validateId, 0);
 const password = useInputModel<string>('', validatePassword, 0);
-const passwordConfirm = useInputModel<string>('', validatePassword, 10);
-const lastName = useInputModel<string>('');
-const firstName = useInputModel<string>('');
+const passwordConfirm = useInputModel<IPasswordConfirm>(
+  {
+    password: id.value.value,
+    comparedPassword: '',
+  },
+  validateConfirmPassword,
+  10,
+);
+const lastName = useInputModel<string>('', validateId, 0);
+const firstName = useInputModel<string>('', validateId, 0);
+const description = useInputModel<string>('', validateId, 0);
+const email = useInputModel<string>('aaa@naver.com', validateEmail, 10);
 
 const validationMsg = ref<string | null>(null);
 const emit = defineEmits(['modalClose']);
@@ -40,50 +52,72 @@ watch([addUser.error, addUser.errorMsg], nv => {
   validationMsg.value = nv[1];
 });
 
+watch(addUser.status, nv => {
+  console.log(nv);
+  if (nv === 'success') {
+    alert('Success create user');
+  }
+});
+
 const handleClose = () => {
-  emit('modalClose', 'Modal Data!');
+  emit('modalClose', { isSuccess: true });
 };
 
 const handleAdd = async () => {
   if (
     !id.touched.value ||
     !password.touched.value ||
-    !passwordConfirm.touched.value
+    !passwordConfirm.touched.value ||
+    !lastName.touched.value ||
+    !firstName.touched.value ||
+    !email.touched.value
   ) {
     await Promise.all([
       id.exeValidation(id.value.value),
       password.exeValidation(password.value.value),
-      passwordConfirm.exeValidation(passwordConfirm.value.value),
+      passwordConfirm.exeValidation({
+        password: password.value.value,
+        comparedPassword: passwordConfirm.value.value.comparedPassword,
+      } as IPasswordConfirm),
+      lastName.exeValidation(lastName.value.value),
+      firstName.exeValidation(lastName.value.value),
+      email.exeValidation(email.value.value),
     ]);
   }
-  const res = validateConfirmPassword(
-    password.value.value,
-    passwordConfirm.value.value,
-  );
-  if (res.message) {
-    passwordConfirm.errorMessage.value = res.message;
-  }
-  passwordConfirm.isValid.value = res.isValid;
-
   validationMsg.value =
     id.errorMessage.value ||
     password.errorMessage.value ||
-    validationMsg.value ||
     passwordConfirm.errorMessage.value ||
+    lastName.errorMessage.value ||
+    firstName.errorMessage.value ||
+    email.errorMessage.value ||
+    validationMsg.value ||
     null;
-
   if (
     id.isValid.value &&
     password.isValid.value &&
-    passwordConfirm.isValid.value
+    passwordConfirm.isValid.value &&
+    lastName.isValid.value &&
+    firstName.isValid.value &&
+    email.isValid.value
   ) {
     addUser.execute({
-      id: id.value.value,
-      password: password.value.value,
-      firstName: firstName.value.value,
-      lastName: lastName.value.value,
+      request: {
+        id: id.value.value,
+        password: password.value.value,
+        firstName: firstName.value.value,
+        lastName: lastName.value.value,
+        email: email.value.value,
+      },
     });
   }
+};
+
+const handlePasswordConfirmInputUpdate = e => {
+  passwordConfirm.value.value = {
+    password: password.value.value,
+    comparedPassword: e.target.value,
+  };
 };
 </script>
 
@@ -145,24 +179,35 @@ const handleAdd = async () => {
             <p-text-input
               type="password"
               appearance-type="masking"
-              v-model="passwordConfirm.value.value"
               block
               :invalid="invalid"
+              @input="handlePasswordConfirmInputUpdate"
               @blur="passwordConfirm.onBlur"
             ></p-text-input>
           </template>
         </p-field-group>
       </section>
 
+      <!--      Notification Email-->
+      <p-field-group
+        :label="'Notification Email'"
+        :invalid="!email.isValid.value"
+        required
+      >
+        <template #default="{ invalid }">
+          <p-text-input
+            v-model="email.value.value"
+            block
+            :invalid="invalid"
+            @blur="email.onBlur"
+          ></p-text-input>
+        </template>
+      </p-field-group>
+
       <!--      name-->
       <section class="name-section">
         <div class="field-title-box">
-          <PFieldTitle
-            >Name
-            <template #right>
-              <span class="field-optional-title">(optional)</span>
-            </template>
-          </PFieldTitle>
+          <PFieldTitle>Name</PFieldTitle>
         </div>
         <div class="name-input-box">
           <p-text-input
@@ -182,6 +227,24 @@ const handleAdd = async () => {
           ></p-text-input>
         </div>
       </section>
+
+      <!--      description-->
+      <section>
+        <div class="field-title-box">
+          <PFieldTitle
+            >Description
+            <template #right>
+              <span class="field-optional-title">(optional)</span>
+            </template>
+          </PFieldTitle>
+          <p-textarea
+            v-model="description.value.value"
+            :invalid="!description.isValid.value"
+            :placeholder="'Description'"
+            @blur="description.onBlur"
+          ></p-textarea>
+        </div>
+      </section>
     </form>
 
     <footer class="footer">
@@ -194,9 +257,10 @@ const handleAdd = async () => {
 </template>
 
 <style scoped lang="postcss">
-.add-user-modal{
+.add-user-modal {
   @apply relative;
 }
+
 .error-msg-box {
   @apply absolute bg-red-100 text-red-500;
   display: flex;
@@ -236,19 +300,17 @@ const handleAdd = async () => {
     border-radius: 6px;
   }
 
-  .name-section {
-    .field-title-box {
-      padding-bottom: 0.25rem;
+  .field-title-box {
+    padding-bottom: 0.25rem;
 
-      .field-optional-title {
-        @apply font-normal text-xs text-gray-500;
-      }
+    .field-optional-title {
+      @apply font-normal text-xs text-gray-500;
     }
+  }
 
-    .name-input-box {
-      @apply flex;
-      gap: 8px;
-    }
+  .name-input-box {
+    @apply flex;
+    gap: 8px;
   }
 }
 
