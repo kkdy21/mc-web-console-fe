@@ -4,9 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element">
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.env" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/env.d.ts" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="layout merge commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/organizations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/organizations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/dashboard/alibaba/AlibabaPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/dashboard/aws/AwsPage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/main/MainPage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/users/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/users/ui/UsersPage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,34 +54,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;page/user&quot;,
-    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/src/widgets/user/userlist/ui&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/eslint&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/prettier&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.20603015&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.vue&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "page/user",
+    "js.linters.configure.manually.selectedeslint": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/eslint",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/prettier",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.20603015",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "ts.external.directory.path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui" />
@@ -117,6 +129,7 @@
       <workItem from="1724024967495" duration="79353000" />
       <workItem from="1724373461583" duration="83595000" />
       <workItem from="1724909085833" duration="19517000" />
+      <workItem from="1725345245668" duration="5361000" />
     </task>
     <task id="LOCAL-00001" summary="feat/temp : jwt-decode 추가">
       <option name="closed" value="true" />
@@ -374,7 +387,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724979608839</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="layout merge commit">
+      <option name="closed" value="true" />
+      <created>1725344217469</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1725344217469</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,7 +413,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor : login get token logic" />
     <MESSAGE value="refactor : shared api logic (add config)" />
     <MESSAGE value="ADD : env file, apply" />
     <MESSAGE value="feat: logic for user authentication information expire" />
@@ -417,7 +437,8 @@
     <MESSAGE value="temp: temp" />
     <MESSAGE value="feat : connection between UserTable and userListTable" />
     <MESSAGE value="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element" />
+    <MESSAGE value="layout merge commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="layout merge commit" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />

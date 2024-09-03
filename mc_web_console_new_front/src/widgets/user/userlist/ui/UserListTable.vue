@@ -7,21 +7,25 @@ import {
   PButtonModal,
 } from '@cloudforet-test/mirinae';
 import { onMounted, ref } from 'vue';
-import { UserInformationTableType } from '@/entities';
+import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 import { insertDynamicComponent } from '@/shared/utils/insertDynamicComponent';
 import DeleteUsers from '@/features/user/deleteUser/ui/DeleteUsers.vue';
 import AddUser from '@/features/user/addUser/ui/AddUser.vue';
 
 interface IProps {
-  tableItems: Partial<Record<UserInformationTableType, any>>[];
+  tableItems: Partial<
+    Record<UserInformationTableType | UserWorkspaceTableType, any>
+  >[];
 }
 
 const props = defineProps<IProps>();
 const emit = defineEmits(['selectRow']);
 
 const tableModel =
-  useToolboxTableModel<Partial<Record<UserInformationTableType, any>>>();
+  useToolboxTableModel<
+    Partial<Record<UserInformationTableType | UserWorkspaceTableType, any>>
+  >();
 
 tableModel.tableState.items = props.tableItems;
 tableModel.tableState.sortedItems = tableModel.tableState.items;
@@ -51,7 +55,7 @@ tableModel.querySearchState.keyItemSet = [
   },
 ];
 
-let modalState = ref(true);
+let modalState = ref(false);
 
 const handleSelectedIndex = (index: number[]) => {
   const selectedData = tableModel.tableState.sortedItems[index];
@@ -60,7 +64,7 @@ const handleSelectedIndex = (index: number[]) => {
 
 const handleClose = e => {
   modalState.value = false;
-  if(e.isSuccess){
+  if (e.isSuccess) {
     //TODO refresh
   }
 };

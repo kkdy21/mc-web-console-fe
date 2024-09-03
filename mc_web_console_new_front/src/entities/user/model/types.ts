@@ -32,3 +32,9 @@ export type UserInformationTableType =
   | 'callInvite'
   | 'receiveInvite'
   | 'defaultRoles';
+
+export type UserWorkspaceTableType =
+  | 'workspace'
+  | 'role'
+  | 'invited'
+  | 'removeAction';

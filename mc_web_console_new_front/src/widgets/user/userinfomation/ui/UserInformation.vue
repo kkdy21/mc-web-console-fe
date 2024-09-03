@@ -7,10 +7,16 @@ import {
   PStatus,
 } from '@cloudforet-test/mirinae';
 import { computed, reactive } from 'vue';
-import { UserInformationTableType } from '@/entities';
+import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
+import {
+  IDefineTableField,
+  ITableField,
+} from '@/shared/hooks/table/toolboxTable/types.ts';
 
 interface IProps {
-  tableItems: Partial<Record<UserInformationTableType, any>>;
+  tableItems: Partial<
+    Record<UserInformationTableType | UserWorkspaceTableType, any>
+  >;
 }
 
 const props = defineProps<IProps>();
@@ -29,7 +35,7 @@ const tabs = [
   },
 ];
 
-const defineTableField = [
+const defineTableField: Array<IDefineTableField<UserInformationTableType>> = [
   { label: 'Id', name: 'userId' },
   { label: 'Name', name: 'name' },
   { label: 'Description', name: 'description' },
@@ -40,6 +46,13 @@ const defineTableField = [
   { label: 'Call Invite', name: 'callInvite', disableCopy: true },
   { label: 'Receive Invite', name: 'receiveInvite', disableCopy: true },
   { label: 'Default Roles', name: 'defaultRoles', disableCopy: true },
+];
+
+const workspaceTableField: Array<IDefineTableField<UserWorkspaceTableType>> = [
+  { name: 'workspace', label: 'Work' },
+  { name: 'invited', label: 'Invite' },
+  { name: 'role', label: 'Role' },
+  { name: 'removeAction', label: '' },
 ];
 
 const tabState = reactive({
@@ -95,8 +108,48 @@ const tabState = reactive({
         </p-definition-table>
       </template>
       <template #workspace>
-        <div>Allocated Workspaces</div>
-        <p>workspace</p>
+        <div class="tab-section-header">
+          <p>Allocated Workspaces</p>
+          <p-button :style-type="'tertiary'" icon-left="ic_edit">Edit</p-button>
+        </div>
+        <p-definition-table
+          :fields="workspaceTableField"
+          :data="props.tableItems"
+          :loading="false"
+          style-type="primary"
+          :block="false"
+        >
+          <template #data-workspace="scope">
+            <p-badge
+              v-for="(datum, i) in scope.data"
+              :key="i"
+              :badge-type="'subtle'"
+              :style-type="'gray200'"
+              :shape="'square'"
+              :style="{ marginRight: '5px' }"
+            >
+              {{ datum }}
+            </p-badge>
+          </template>
+          <template #data-approved="scope">
+            <p-status
+              :icon-color="`${scope.data.state ? '#60b731' : '#C2C2C6'}`"
+              :text="`${scope.data.data}`"
+            />
+          </template>
+          <template #data-defaultRoles="scope">
+            <p-badge
+              v-for="(datum, i) in scope.data"
+              :key="i"
+              :badge-type="'subtle'"
+              :style-type="'gray200'"
+              :shape="'square'"
+              :style="{ marginRight: '5px' }"
+            >
+              {{ datum }}
+            </p-badge>
+          </template>
+        </p-definition-table>
       </template>
     </p-tab>
   </div>
