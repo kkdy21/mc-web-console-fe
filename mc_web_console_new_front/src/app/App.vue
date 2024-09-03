@@ -1,22 +1,105 @@
 <script setup lang="ts">
-import { useAuth } from '@/features/auth/model/useAuth.ts';
+import { PSidebar } from '@cloudforet-test/mirinae';
 
-const auth = useAuth();
-auth.loadUser();
+import LayoutHeader from './Layouts/layoutHeader/ui/LayoutHeader.vue';
+import MainLayout from './Layouts/mainLayout/ui/MainLayout.vue';
+
+import { styleVariables } from '@cloudforet-test/mirinae';
+import { reactive } from 'vue';
 </script>
 
 <template>
-  <div id="app">
-    <router-view />
+  <div v-cloak id="app">
+    <div class="top-bar">
+      <layout-header />
+    </div>
+    <div>
+      <main-layout
+        class="app-body"
+        :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
+      >
+        <template #main>
+          <p-sidebar :visible="false">
+            <div class="main-content">
+              <portal-target
+                ref="topNotiRef"
+                name="top-notification"
+                :slot-props="{ hasDefaultMessage: true }"
+              />
+              <router-view />
+            </div>
+            <template #title>
+              <portal-target name="info-title" />
+            </template>
+            <template #sidebar>
+              <portal-target name="handbook-contents" />
+            </template>
+            <template #footer>
+              <portal-target name="widget-footer" />
+            </template>
+          </p-sidebar>
+        </template>
+      </main-layout>
+    </div>
   </div>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped lang="postcss">
 #app {
-  @apply w-full h-full;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-color;
+
+  .console-loading-wrapper {
+    position: absolute;
+    height: 100%;
+    z-index: 10;
+    & > .data-loader-container > .loader-wrapper > .loader.spinner {
+      max-height: unset;
+    }
+  }
+
+  .top-bar {
+    position: fixed;
+    width: 100%;
+    height: $top-bar-height;
+    z-index: 100;
+    flex-shrink: 0;
+    top: 0;
+  }
+  .app-body {
+    @apply relative flex flex-col;
+    margin-top: $top-bar-height;
+    overflow-y: hidden;
+    width: 100%;
+    flex-grow: 1;
+    .p-sidebar {
+      .sidebar-container {
+        @apply bg-gray-100;
+      }
+      .non-sidebar-wrapper {
+        min-height: 100%;
+      }
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0;
+      padding: 20px 10px;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+  }
 }
-.test-class {
-  @apply flex flex-row justify-center;
-  border: 1px solid red;
+:deep(.sidebar-container) {
+  @apply bg-gray-100;
+}
+
+:deep(.non-sidebar-wrapper) {
+  min-height: 100%;
 }
 </style>
