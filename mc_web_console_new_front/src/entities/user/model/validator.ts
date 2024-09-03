@@ -47,3 +47,22 @@ export function validateId(id: string): IValidationResult {
 
   return result;
 }
+
+export function validateConfirmPassword(
+  password: string,
+  comparePassword: string,
+): IValidationResult {
+  const result: IValidationResult = {
+    isValid: false,
+    message: null,
+  };
+  console.log(password)
+  console.log(comparePassword)
+  result.isValid = password === comparePassword;
+
+  if (!result.isValid) {
+    result.message = i18n.t('AUTH.LOGIN.USER_PASSWORD_CONFIRM') as string;
+  }
+  console.log(result);
+  return result;
+}

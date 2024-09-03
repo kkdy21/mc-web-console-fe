@@ -4,12 +4,14 @@ import {
   PToolboxTable,
   PButton,
   PStatus,
+  PButtonModal,
 } from '@cloudforet-test/mirinae';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { UserInformationTableType } from '@/entities';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 import { insertDynamicComponent } from '@/shared/utils/insertDynamicComponent';
 import DeleteUsers from '@/features/user/deleteUser/ui/DeleteUsers.vue';
+import AddUser from '@/features/user/addUser/ui/AddUser.vue';
 
 interface IProps {
   tableItems: Partial<Record<UserInformationTableType, any>>[];
@@ -49,9 +51,16 @@ tableModel.querySearchState.keyItemSet = [
   },
 ];
 
+let modalState = ref(true);
+
 const handleSelectedIndex = (index: number[]) => {
   const selectedData = tableModel.tableState.sortedItems[index];
   emit('selectRow', selectedData);
+};
+
+const handleClose = e => {
+  console.log(e);
+  modalState.value = false;
 };
 
 onMounted(function () {
@@ -101,7 +110,11 @@ onMounted(function () {
           @select="handleSelectedIndex"
         >
           <template #toolbox-left>
-            <p-button style-type="primary" icon-left="ic_plus_bold">
+            <p-button
+              style-type="primary"
+              icon-left="ic_plus_bold"
+              @click="modalState = true"
+            >
               Add user
             </p-button>
           </template>
@@ -115,6 +128,17 @@ onMounted(function () {
         </p-toolbox-table>
       </template>
     </p-horizontal-layout>
+    <p-button-modal
+      :visible="modalState"
+      size="md"
+      headerTitle="Add New User"
+      :hideFooter="true"
+      @close="handleClose"
+    >
+      <template #body>
+        <AddUser @modalClose="handleClose"></AddUser>
+      </template>
+    </p-button-modal>
   </div>
 </template>
 

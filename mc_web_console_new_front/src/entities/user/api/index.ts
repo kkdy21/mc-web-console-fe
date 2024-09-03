@@ -5,6 +5,7 @@ import { UserInformationTableType } from '@/entities';
 const LOGIN_URL = 'auth/login';
 const GET_USER_INFO = 'Getuserinfo';
 const GET_USER_LIST = 'getusers';
+const ADD_USER = 'Createuser';
 
 export function useGetLogin<T, D>(loginData: D | null) {
   const requestBodyWrapper: Required<
@@ -33,6 +34,10 @@ export function getUserList<T, D>(userId: D | null) {
     GET_USER_LIST,
     requestBodyWrapper,
   );
+}
+
+export function useAddUser<T, D>(userData: D | null) {
+  return useAxiosPost<IAxiosResponse<T>, D | null>(ADD_USER, userData);
 }
 
 export const tempGetUserList = (): Partial<

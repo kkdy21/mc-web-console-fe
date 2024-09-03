@@ -1,4 +1,4 @@
-import { computed, ComputedRef, reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import {
   ChangeEvent,
   ITableField,
@@ -14,11 +14,11 @@ type ITableState<T> = {
   displayItems: ITableItems<T>[];
   currentPage: number;
   startPage: number;
-  tableCount: ComputedRef<number>;
+  tableCount: number;
 };
 
 export const useToolboxTableModel = <T>() => {
-  const tableState = reactive(<ITableState<T>>{
+  const tableState: ITableState<T> = reactive({
     loading: true,
     fields: [],
     items: [],
@@ -27,8 +27,12 @@ export const useToolboxTableModel = <T>() => {
     displayItems: [],
     currentPage: 1,
     startPage: 1,
-    tableCount: computed((): number => tableState.sortedItems.length),
-  }) as ITableState<T>;
+    tableCount: 0,
+  });
+
+  tableState.tableCount = computed<number>(
+    () => tableState.sortedItems.length,
+  ) as unknown as number;
 
   const tableOptions = reactive({
     sortable: true,
