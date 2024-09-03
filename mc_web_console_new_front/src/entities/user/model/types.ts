@@ -15,3 +15,20 @@ export interface IUserResponse {
   refresh_expires_in?: number;
   refresh_token?: string;
 }
+
+export interface IPasswordConfirm {
+  password: string;
+  comparedPassword: string;
+}
+
+export type UserInformationTableType =
+  | 'userId'
+  | 'name'
+  | 'description'
+  | 'company'
+  | 'department'
+  | 'group'
+  | 'approved'
+  | 'callInvite'
+  | 'receiveInvite'
+  | 'defaultRoles';

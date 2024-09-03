@@ -16,7 +16,6 @@ export class McmpRouter {
       redirect: '/main',
       name: ROOT_ROUTE._NAME,
     },
-    ...authRoutes,
     {
       path: '/main',
       component: { template: '<router-view/>' },

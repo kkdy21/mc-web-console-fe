@@ -72,6 +72,10 @@ function extractErrorMessage(error: any): string {
     if (errorData.responseData?.message) {
       return errorData.responseData.message;
     }
+
+    if (errorData.responseData?.errors) {
+      return errorData.responseData.errors;
+    }
     if (errorData.status?.message) {
       return errorData.status.message;
     }

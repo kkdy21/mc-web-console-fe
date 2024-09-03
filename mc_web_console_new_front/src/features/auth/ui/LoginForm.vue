@@ -15,8 +15,8 @@ const emit = defineEmits(['handleLoginSuccess']);
 
 const validationMsg: Ref<string | null> = ref<string | null>('');
 
-const userId = useInputModel<string>('mcpsuper', validateId, 0);
-const userPW = useInputModel<string>('mcpuserpassword', validatePassword, 0);
+const userId = useInputModel<string | null>('mcpsuper', validateId, 0);
+const userPW = useInputModel<string | null>('mcpuserpassword', validatePassword, 0);
 
 const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
 
@@ -36,8 +36,8 @@ const handleLogin = async () => {
   if (userId.isValid.value && userPW.isValid.value) {
     resLogin.execute({
       request: {
-        id: userId.value.value,
-        password: userPW.value.value,
+        id: userId.value.value!,
+        password: userPW.value.value!,
       },
     });
   }
@@ -51,7 +51,7 @@ const handleLoginSuccess = (props: IUserResponse & { id: string }) => {
 watch(resLogin.data, () => {
   handleLoginSuccess({
     ...resLogin.data.value?.responseData,
-    id: userId.value.value,
+    id: userId.value.value!,
     role: 'admin',
   });
 });
