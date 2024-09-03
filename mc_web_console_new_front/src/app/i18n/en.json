@@ -1,4 +1,25 @@
 {
+  "MENU": {
+    "MANAGE": "Manage",
+    "MANAGE_DASHBOARD": "Dashboard",
+    "MANAGE_PROJECT": "Project",
+    "MANAGE_WORKLOADS": "Workloads",
+    "MANAGE_SERVICES_MANAGEMENT": "Services Management",
+    "MANAGE_CLOUD_META_DATA": "Cloud Meta Data",
+    "MANAGE_WORKFLOWS": "Workflows",
+    "ANALYTICS": "Analytics",
+    "ANALYTICS_MONITORINGS": "Monitorings",
+    "ENVIRONMENT": "Environment",
+    "ENVIRONMENT_CLOUD_SPS": "Cloud SPs",
+    "ENVIRONMENT_CLOUD_RESOURCES": "Cloud Resources",
+    "ACCOUNT_AND_ACCESS": "Account & Access",
+    "ACCOUNT_AND_ACCESS_ORGANIZATIONS": "organizations",
+    "ACCOUNT_AND_ACCESS_CONTROL": "Access Control",
+    "ACCOUNT_AND_ACCESS_WORKSPACE_SETTINGS": "Workspace Settings"
+  },
+  "WORKSPACE": {
+    "WORKSPACE": "Workspace"
+  },
   "AUTH": {
     "LOGIN": {
       "_NAME": "LOGIN",

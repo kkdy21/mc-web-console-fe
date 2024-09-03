@@ -9,10 +9,10 @@ export default {
   },
   variants: [
     ...mirinaeTailwind.variants,
-  //   // your customized variants
+    //   // your customized variants
   ],
   plugins: [
     ...mirinaeTailwind.plugins,
     // your customized plugins
-  ]
-}
+  ],
+};
