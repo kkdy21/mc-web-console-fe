@@ -3,6 +3,8 @@ import {
   PButtonModal,
   PPaneLayout,
   PTextInput,
+  PFieldGroup,
+  PFieldTitle,
   PTextarea,
   PSelectDropdown,
   PRadio,
@@ -70,13 +72,12 @@ const handleClose = () => {
       <p-pane-layout class="create-vpc-layout">
         <div class="create-vpc">
           <p-pane-layout class="layout layout-top">
-            <p>VPC Name</p>
-            <p-text-input placeholder="VPC Name" />
-            <p>
-              <span>Description</span>
-              <span class="optional">(optional)</span>
-            </p>
-            <p-textarea />
+            <p-field-group label="VPC Name">
+              <p-text-input placeholder="VPC Name" />
+            </p-field-group>
+            <p-field-group label="Description">
+              <p-textarea />
+            </p-field-group>
           </p-pane-layout>
           <p-pane-layout class="layout layout-middle">
             <p>Connection</p>
@@ -170,6 +171,11 @@ const handleClose = () => {
       color: #898995;
       font-size: 0.75rem;
       font-weight: 400;
+    }
+  }
+  .create-vpc {
+    .p-field-group {
+      margin-bottom: 0;
     }
   }
   .p-text-input {

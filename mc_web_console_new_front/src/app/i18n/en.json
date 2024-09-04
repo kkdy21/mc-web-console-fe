@@ -46,6 +46,9 @@
     },
     "DATA_TABLE": {
       "NO_DATA" : "NO_DATA"
+    },
+    "FIELD_GROUP": {
+      "OPTIONAL": "optional"
     }
   }
 }
