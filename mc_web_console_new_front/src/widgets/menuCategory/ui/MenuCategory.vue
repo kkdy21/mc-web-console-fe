@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, watch } from 'vue';
+import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router/composables';
 import { clone, toLower } from 'lodash';
 import { PI } from '@cloudforet-test/mirinae';
@@ -7,7 +7,7 @@ import type { MenuInfo } from '@/entities/user/store/menuPerUserStore';
 import { useMenuPerUserStore } from '@/entities';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
-import { MENU_ID } from '@/entities/menu';
+import { MENU_ID_TO_NAME } from '@/entities/menu';
 
 const menuPerUserStore = useMenuPerUserStore();
 const sidebar = useSidebar();
@@ -20,6 +20,107 @@ const props = defineProps<{
 }>();
 
 const route = useRoute();
+
+interface STATIC_MENU {
+  majorCategoryId: string;
+  categoryId: string;
+  mainMenuId: string;
+  subMenuIds: string[];
+}
+
+const staticMenu = ref<STATIC_MENU[]>([
+  {
+    majorCategoryId: 'operations',
+    categoryId: 'manage',
+    mainMenuId: 'workloads',
+    subMenuIds: ['mci', 'pmk'],
+  },
+  {
+    majorCategoryId: 'operations',
+    categoryId: 'manage',
+    mainMenuId: 'workspaces',
+    subMenuIds: ['all', 'my'],
+  },
+  {
+    majorCategoryId: 'settings',
+    categoryId: 'accountAndAccess',
+    mainMenuId: 'organizations',
+    subMenuIds: ['users', 'approvals', 'accessControls'],
+  },
+]);
+
+const _state = reactive({
+  category: computed(() => {
+    let categoryArr = [] as any[];
+    staticMenu.value.forEach(menu => {
+      Object.keys(MENU_ID_TO_NAME).includes(menu.categoryId)
+        ? categoryArr.push(MENU_ID_TO_NAME[menu.categoryId])
+        : null;
+    });
+    const categorySet = new Set(categoryArr);
+    categoryArr = Array.from(categorySet);
+    return categoryArr;
+  }),
+  mainMenus: computed(() => {
+    let mainMenuArr = [] as any[];
+    staticMenu.value.forEach(menu => {
+      Object.keys(MENU_ID_TO_NAME).includes(menu.mainMenuId)
+        ? mainMenuArr.push(MENU_ID_TO_NAME[menu.mainMenuId])
+        : null;
+    });
+    const mainMenuSet = new Set(mainMenuArr);
+    mainMenuArr = Array.from(mainMenuSet);
+    return mainMenuArr;
+  }),
+  subMenus: computed(() => {
+    let subMenuArr = [] as any[];
+    staticMenu.value.forEach(menu => {
+      menu.subMenuIds.forEach(subMenuId => {
+        Object.keys(MENU_ID_TO_NAME).includes(subMenuId)
+          ? subMenuArr.push(MENU_ID_TO_NAME[subMenuId])
+          : null;
+      });
+    });
+    return subMenuArr;
+  }),
+  mappedMenuData: computed(() => {
+    const uniqueCategories = new Map<string, any>();
+
+    staticMenu.value.forEach(menuItem => {
+      const majorCategory = MENU_ID_TO_NAME[menuItem.majorCategoryId];
+      const category = MENU_ID_TO_NAME[menuItem.categoryId];
+      const mainMenu = MENU_ID_TO_NAME[menuItem.mainMenuId];
+      const routeName = menuItem.mainMenuId; // routeName을 mainMenuId와 동일하게 설정
+      const subMenus = menuItem.subMenuIds.map(
+        subMenuId => MENU_ID_TO_NAME[subMenuId],
+      );
+
+      // 중복되는 category 제거
+      if (!uniqueCategories.has(category)) {
+        uniqueCategories.set(category, {
+          majorCategory,
+          category,
+          mainMenus: new Map<string, any>(),
+        });
+      }
+
+      // category 내에서 중복되는 mainMenu 제거
+      const categoryObj = uniqueCategories.get(category);
+      if (!categoryObj.mainMenus.has(mainMenu)) {
+        categoryObj.mainMenus.set(mainMenu, { mainMenu, subMenus, routeName });
+      }
+    });
+
+    // 최종적으로 Map을 배열로 변환하여 반환
+    return Array.from(uniqueCategories.values()).map(categoryObj => ({
+      majorCategory: categoryObj.majorCategory,
+      category: categoryObj.category,
+      mainMenus: Array.from(categoryObj.mainMenus.values()),
+    }));
+  }),
+});
+
+console.log(_state.mappedMenuData);
 
 const state = reactive({
   isInit: false as boolean | undefined,
@@ -85,53 +186,29 @@ watch(
 <template>
   <!-- displayedMenu.parentMenuId === '' && displayedMenu.isAction === 'false' -->
   <div v-if="!isCollapsed">
-    <div v-if="state.gnbMenuList.length > 0">
-      <div v-for="(menu, idx) in state.gnbMenuList" :key="idx" class="menu">
-        <span
-          v-if="
-            (idx === 0 ||
-              menu.majorCategory !==
-                state.gnbMenuList[idx - 1].majorCategory) &&
-            !isMinimized
-          "
-          class="menu-category"
-          >{{ menu.majorCategory }}</span
-        >
-        <span
-          v-else-if="
-            (idx === 0 ||
-              menu.majorCategory !==
-                state.gnbMenuList[idx - 1].majorCategory) &&
-            isMinimized
-          "
-          >&nbsp;
-        </span>
+    <div>
+      <div v-for="(menu, idx) in _state.mappedMenuData" :key="idx" class="menu">
+        <span v-if="!isMinimized" class="menu-category">{{
+          menu.category
+        }}</span>
+        <span v-else>&nbsp;</span>
         <router-link
-          v-if="
-            idx === 0 || menu.category !== state.gnbMenuList[idx - 1].category
-          "
+          v-for="(mainMenuItem, mainMenuIdx) in menu.mainMenus"
+          :key="mainMenuIdx"
           class="service-menu"
-          :to="{
-            name: `${menu.category.split(' ').join('')}`,
-          }"
-          :class="{
-            'is-selected':
-              toLower(state.selectedMenuId) ===
-              toLower(menu.category?.split(' ').join('')),
-          }"
+          :to="{ name: `${mainMenuItem.routeName}` }"
         >
-          <!-- 'is-only-label': menu?.isAction === 'true', -->
           <div class="menu-wrapper">
             <p-i
               name="ic_member"
               class="menu-button"
-              height="1.25rem"
               width="1.25rem"
-              color="inherit"
+              height="1.25rem"
+              color="inheirt"
             />
-            <div v-if="!isMinimized" class="menu-container">
-              <span class="menu-title">{{ menu.category }}</span>
-            </div>
+          </div>
+          <div v-if="!isMinimized" class="menu-container">
+            <span class="menu-title">{{ mainMenuItem.mainMenu }}</span>
           </div>
         </router-link>
       </div>
@@ -148,7 +225,7 @@ watch(
   color: #898995;
 }
 .service-menu {
-  @apply flex items-center justify-between text-label-md mt-[8px];
+  @apply flex items-center text-label-md mt-[8px];
   width: 100%;
   height: 2rem;
   padding-right: 0.5rem;
