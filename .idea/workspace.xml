@@ -4,22 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="layout merge commit">
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : notice helper">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/ui/CommonIcon/model/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/ui/CommonIcon/ui/MIcon.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/isNullOrUndefined/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/organizations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/organizations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.env" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/dashboard/alibaba/AlibabaPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/dashboard/aws/AwsPage.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/main/MainPage.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/users/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/users/ui/UsersPage.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarToolset/ui/TopBarToolset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarToolset/ui/TopBarToolset.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginRightContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginRightContainer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +133,7 @@
       <workItem from="1724024967495" duration="79353000" />
       <workItem from="1724373461583" duration="83595000" />
       <workItem from="1724909085833" duration="19517000" />
-      <workItem from="1725345245668" duration="5361000" />
+      <workItem from="1725345245668" duration="28233000" />
     </task>
     <task id="LOCAL-00001" summary="feat/temp : jwt-decode 추가">
       <option name="closed" value="true" />
@@ -395,7 +399,47 @@
       <option name="project" value="LOCAL" />
       <updated>1725344217469</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="feat : user workspace">
+      <option name="closed" value="true" />
+      <created>1725352415157</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1725352415157</updated>
+    </task>
+    <task id="LOCAL-00035" summary="refactor : api request execute return type, error handling">
+      <option name="closed" value="true" />
+      <created>1725428212081</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1725428212081</updated>
+    </task>
+    <task id="LOCAL-00036" summary="feat : uuid, toast msg">
+      <option name="closed" value="true" />
+      <created>1725428304862</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1725428304862</updated>
+    </task>
+    <task id="LOCAL-00037" summary="feat : date string to formatted Date string">
+      <option name="closed" value="true" />
+      <created>1725436573139</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1725436573139</updated>
+    </task>
+    <task id="LOCAL-00038" summary="feat : notice helper">
+      <option name="closed" value="true" />
+      <created>1725436608759</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1725436608759</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -413,11 +457,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor : shared api logic (add config)" />
-    <MESSAGE value="ADD : env file, apply" />
-    <MESSAGE value="feat: logic for user authentication information expire" />
-    <MESSAGE value="feat: get user info when refreshing" />
-    <MESSAGE value="refactor : add property to localstorage" />
     <MESSAGE value="refactor : CRUD method" />
     <MESSAGE value="refactor : token class , localstorage class" />
     <MESSAGE value="refactor : refresh error handle" />
@@ -438,7 +477,12 @@
     <MESSAGE value="feat : connection between UserTable and userListTable" />
     <MESSAGE value="feat : A function that dynamically creates a Vue Component and inserts into a specific Dom&#10;element" />
     <MESSAGE value="layout merge commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="layout merge commit" />
+    <MESSAGE value="feat : user workspace" />
+    <MESSAGE value="refactor : api request execute return type, error handling" />
+    <MESSAGE value="feat : uuid, toast msg" />
+    <MESSAGE value="feat : date string to formatted Date string" />
+    <MESSAGE value="feat : notice helper" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : notice helper" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />

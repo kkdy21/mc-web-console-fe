@@ -39,7 +39,6 @@ export function useAxiosWrapper<T, D = any>(
       reset();
       data.value = result.data;
       status.value = 'success';
-      console.log(result);
     } catch (e: any) {
       reset();
       error.value = e;
@@ -49,7 +48,6 @@ export function useAxiosWrapper<T, D = any>(
     } finally {
       isLoading.value = false;
     }
-    console.log(result);
     return result!;
   };
 
@@ -74,7 +72,6 @@ export function useAxiosWrapper<T, D = any>(
 
 // 서버 응답에서 에러 메시지를 처리하기 위한 함수
 function extractErrorMessage(error: any): string {
-  console.log(error);
   if (error.response) {
     // 서버가 반환한 에러 응답에서 메시지 추출
     const errorData = error.response.data;
@@ -83,6 +80,9 @@ function extractErrorMessage(error: any): string {
     }
     if (errorData.responseData?.errors) {
       return errorData.responseData.errors;
+    }
+    if (errorData.responseData?.error) {
+      return errorData.responseData.error;
     }
     if (errorData.status?.message) {
       return errorData.status.message;

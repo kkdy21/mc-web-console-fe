@@ -1,6 +1,10 @@
 import { useAxiosPost } from '@/shared/libs/api/request.ts';
 import { IAxiosResponse, RequestBodyWrapper } from '@/shared/libs';
-import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
+import {
+  IUserResponse,
+  UserInformationTableType,
+  UserWorkspaceTableType,
+} from '@/entities';
 
 const LOGIN_URL = 'auth/login';
 const GET_USER_INFO = 'Getuserinfo';
@@ -19,8 +23,8 @@ export function useGetLogin<T, D>(loginData: D | null) {
   );
 }
 
-export function useGetUserRole<T, D = any>() {
-  return useAxiosPost<T, D | null>(GET_USER_INFO, null);
+export function useGetUserRole<IUserResponse, D = any>() {
+  return useAxiosPost<IUserResponse, D | null>(GET_USER_INFO, null);
 }
 
 export function getUserList<T, D>(userId: D | null) {
@@ -54,7 +58,7 @@ export const tempGetUserList = (): Partial<
 >[] => {
   return [
     {
-      userId: 'emailId@mz.co.kr',
+      userId: 'mcpsuper',
       name: '김이름',
       description: 'description',
       company: 'company',

@@ -16,7 +16,11 @@ const emit = defineEmits(['handleLoginSuccess']);
 const validationMsg: Ref<string | null> = ref<string | null>('');
 
 const userId = useInputModel<string | null>('mcpsuper', validateId, 0);
-const userPW = useInputModel<string | null>('mcpuserpassword', validatePassword, 0);
+const userPW = useInputModel<string | null>(
+  'mcpuserpassword',
+  validatePassword,
+  0,
+);
 
 const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
 

@@ -5,7 +5,7 @@ import { McmpRouter } from '@/app/providers/router';
 // import { DASHBOARD_ROUTE } from '@/pages/dashboard/dashboard.route.ts';
 import { useAuth } from '@/features/auth/model/useAuth.ts';
 
-const resUserInfo = useGetUserRole<IUserResponse>();
+const resUserInfo = useGetUserRole();
 const auth = useAuth();
 
 const handleLoginSuccess = (props: IUserResponse & { id: string }) => {

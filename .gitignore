@@ -88,3 +88,4 @@ mc_web_console_api/conf/api.yaml
 
 .idea
 .iml
+.xml

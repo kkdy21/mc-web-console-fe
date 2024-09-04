@@ -46,6 +46,10 @@
     },
     "DATA_TABLE": {
       "NO_DATA" : "NO_DATA"
+    },
+    "BUTTON_MODAL": {
+      "CANCEL" : "Cancel",
+      "CONFIRM" : "OK"
     }
   }
 }

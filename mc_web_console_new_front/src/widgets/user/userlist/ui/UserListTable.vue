@@ -58,7 +58,7 @@ tableModel.querySearchState.keyItemSet = [
 let modalState = ref(false);
 
 const handleSelectedIndex = (index: number[]) => {
-  const selectedData = tableModel.tableState.sortedItems[index];
+  const selectedData = tableModel.tableState.displayItems[index];
   emit('selectRow', selectedData);
 };
 
