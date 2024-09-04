@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface IApiState<T> {
   loading?: boolean;
@@ -19,6 +19,7 @@ export interface IAxiosResponse<T> {
 export interface RequestBodyWrapper<D> {
   request?: D;
   queryParams?: D;
+  pathParams?: D;
 }
 
 export type AsyncStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -29,6 +30,9 @@ export interface IUseAxiosWrapperReturnType<T, D> {
   data: Ref<T | null>;
   error: Ref<Error | null>;
   errorMsg: Ref<string | null>;
-  execute: (payload?: D, config?: AxiosRequestConfig) => Promise<void>;
+  execute: (
+    payload?: D,
+    config?: AxiosRequestConfig,
+  ) => Promise<AxiosResponse<T>>;
   reset: () => void;
 }
