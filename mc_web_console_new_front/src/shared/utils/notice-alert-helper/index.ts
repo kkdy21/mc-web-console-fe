@@ -7,7 +7,7 @@ import getRandomId from '@/shared/utils/uuid';
  *   @param error
  *   @returns
  */
-export const showErrorMessage = (errorTitle, error) => {
+export const showErrorMessage = (errorTitle: string, error: any) => {
   let errorMsg = '';
   if (error.message) errorMsg = error.message;
   else if (error.response) {
@@ -33,7 +33,10 @@ export const showErrorMessage = (errorTitle, error) => {
  *   @param successMessage
  *   @returns
  */
-export const showSuccessMessage = (successTitle, successMessage) => {
+export const showSuccessMessage = (
+  successTitle: string,
+  successMessage: string,
+) => {
   if (Vue) {
     Vue.notify({
       group: 'toastTopCenter',
@@ -55,9 +58,9 @@ export const showSuccessMessage = (successTitle, successMessage) => {
  *   @returns
  */
 export const showLoadingMessage = (
-  loadingTitle,
-  loadingMessage,
-  id?,
+  loadingTitle: string,
+  loadingMessage: string,
+  id?: string,
   group = 'toastTopCenter',
 ): string => {
   const uuid = getRandomId();
@@ -95,7 +98,7 @@ export const hideLoadingMessage = (id: string) => {
 //     }
 // };
 
-export const showInfoMessage = (infoTitle, infoText) => {
+export const showInfoMessage = (infoTitle: string, infoText: string) => {
   if (Vue) {
     Vue.notify({
       group: 'toastTopCenter',
