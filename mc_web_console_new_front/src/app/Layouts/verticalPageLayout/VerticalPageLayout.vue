@@ -64,7 +64,7 @@ watch(
         ref="containerRef"
         class="right-container"
         :style="{
-          height: '1000px',
+          height: '1400px',
           paddingRight: '40px',
         }"
       >

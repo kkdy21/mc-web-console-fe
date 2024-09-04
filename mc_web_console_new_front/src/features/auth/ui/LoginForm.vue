@@ -3,6 +3,7 @@ import { PButton, PTextInput, PFieldGroup, PI } from '@cloudforet-test/mirinae';
 import {
   IUser,
   IUserResponse,
+  useAuthenticationStore,
   useGetLogin,
   validateId,
   validatePassword,
@@ -16,7 +17,11 @@ const emit = defineEmits(['handleLoginSuccess']);
 const validationMsg: Ref<string | null> = ref<string | null>('');
 
 const userId = useInputModel<string | null>('mcpsuper', validateId, 0);
-const userPW = useInputModel<string | null>('mcpuserpassword', validatePassword, 0);
+const userPW = useInputModel<string | null>(
+  'mcpuserpassword',
+  validatePassword,
+  0,
+);
 
 const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
 
@@ -34,6 +39,8 @@ const handleLogin = async () => {
     null;
 
   if (userId.isValid.value && userPW.isValid.value) {
+    console.log('dd');
+    useAuthenticationStore().login = true;
     resLogin.execute({
       request: {
         id: userId.value.value!,
@@ -77,8 +84,7 @@ watch([resLogin.error, resLogin.errorMsg], nv => {
           class="cursor-pointer"
           color="inherit"
           @click="validationMsg = ''"
-        >
-        </p-i>
+        />
       </div>
     </header>
     <section class="section">
@@ -94,7 +100,7 @@ watch([resLogin.error, resLogin.errorMsg], nv => {
             :placeholder="'id'"
             block
             @blur="userId.onBlur"
-          ></p-text-input>
+          />
         </template>
       </p-field-group>
       <p-field-group
@@ -104,15 +110,15 @@ watch([resLogin.error, resLogin.errorMsg], nv => {
       >
         <template #default="{ invalid }">
           <p-text-input
+            v-model="userPW.value.value"
             type="password"
             appearance-type="masking"
-            v-model="userPW.value.value"
             :invalid="invalid"
             :placeholder="i18n.t('AUTH.LOGIN.PASSWORD')"
             block
             @blur="userPW.onBlur"
             @keydown.prevent.enter="handleLogin"
-          ></p-text-input>
+          />
         </template>
       </p-field-group>
     </section>

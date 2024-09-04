@@ -1,80 +1,77 @@
 <script setup lang="ts">
-import { PDataTable, PPaneLayout } from '@cloudforet-test/mirinae';
+import { VPCListTable } from '@/widgets/cloudResources';
+import { VPCInformation } from '@/widgets/cloudResources';
+import { VPCInformationTableType } from '@/entities';
+import { ref, Ref } from 'vue';
 
-const fields = [
-  {
-    name: 'vpcName',
-    label: 'VPC Name',
-  },
-  {
-    name: 'description',
-    label: 'Description',
-  },
-  {
-    name: 'cidr',
-    label: 'CIDR Block',
-  },
-  {
-    name: 'provider',
-    label: 'Provider',
-  },
-  {
-    name: 'connection',
-    label: 'Connection',
-  },
-];
-
-const items = [
+const toolboxTableItem = [
   {
     vpcName: 'vpcname-aws-northeast-2',
     description: 'Generated Default Resource',
-    cidr: '10.33.0.0/15',
+    cidrBlock: '10.33.0.0/15',
     provider: 'AWS',
     connection: 'Connectionname01',
   },
   {
     vpcName: 'vpcname-aws-northeast-1',
     description: 'Generated Resource',
-    cidr: '10.33.2.0/15',
+    cidrBlock: '10.33.2.0/15',
     provider: 'Google',
     connection: 'conn2',
   },
   {
     vpcName: 'vpcname-aws-northwest-2',
     description: 'Default Resource',
-    cidr: '10.33.1.0/15',
+    cidrBlock: '10.33.1.0/15',
     provider: 'Azure',
     connection: 'conn1',
   },
   {
     vpcName: 'vpcname-aws-northeast-2',
     description: 'Generated Default Resource',
-    cidr: '10.33.0.0/15',
+    cidrBlock: '10.33.0.0/15',
     provider: 'AWS',
     connection: 'Connectionname01',
   },
   {
     vpcName: 'vpcname-aws-northeast-2',
     description: 'Generated Default Resource',
-    cidr: '10.33.0.0/15',
+    cidrBlock: '10.33.0.0/15',
     provider: 'AWS',
     connection: 'Connectionname01',
   },
 ];
+
+const selectedRow: Ref<Partial<Record<VPCInformationTableType, any>>> = ref({});
+
+const handleSelectRow = (
+  selectedData: Record<VPCInformationTableType, any>,
+) => {
+  selectedRow.value = selectedData || {};
+};
 </script>
 
 <template>
-  <div>
-    <p class="px-4 mb-4 font-bold font-lg">Non Invisible Case</p>
-    <p-pane-layout class="datatable-layout">
-      <!-- TODO: Toolbox (create button, search input, pagination) -->
-      <p-data-table :fields="fields" :items="items" selectable col-copy />
-    </p-pane-layout>
+  <div class="vpc-page-layout">
+    <header>
+      <p class="title">VPC</p>
+    </header>
+    <section>
+      <v-p-c-list-table
+        :table-items="toolboxTableItem"
+        @selectRow="handleSelectRow"
+      />
+      <v-p-c-information :table-items="selectedRow" />
+    </section>
   </div>
 </template>
 
 <style scoped lang="postcss">
-.datatable-layout {
-  padding: 1.5rem 2rem;
+.vpc-page-layout {
+  padding: 1.5rem 1.5625rem;
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.375rem;
+  }
 }
 </style>

@@ -74,9 +74,12 @@ onMounted(() => {
   state.isInit = true;
 });
 
-watch(() => state.gnbMenuList, () => {
-  menuPerUserStore.setFlattendMenus(state.gnbMenuList);
-})
+watch(
+  () => state.gnbMenuList,
+  () => {
+    menuPerUserStore.setFlattendMenus(state.gnbMenuList);
+  },
+);
 </script>
 
 <template>
