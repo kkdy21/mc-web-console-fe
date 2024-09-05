@@ -1,4 +1,4 @@
-import { IUserResponse } from '@/entities';
+import { IUserLoginResponse } from '@/entities';
 import { useAuthStore } from '@/shared/libs/store/auth';
 import JwtTokenProvider from '@/shared/libs/token';
 import LocalStorageConnector from '../../../shared/libs/access-localstorage/localStorageConnector.ts';
@@ -8,12 +8,12 @@ const LOGIN_AUTH = 'LOGIN_AUTH';
 export function useAuth() {
   const jwtTokenProvider = JwtTokenProvider.getProvider();
   const localStorageConnector = new LocalStorageConnector<
-    Pick<IUserResponse, 'role' | 'expires_in'> & { id: string }
+    Pick<IUserLoginResponse, 'role' | 'expires_in'> & { id: string }
   >(LOGIN_AUTH);
 
   const authStore = useAuthStore();
 
-  function setUser(props: IUserResponse & { id: string }) {
+  function setUser(props: IUserLoginResponse & { id: string }) {
     jwtTokenProvider.setTokens({
       refresh_token: props.refresh_token || '',
       access_token: props.access_token || '',
@@ -33,7 +33,7 @@ export function useAuth() {
   }
 
   function getUser(): Omit<
-    IUserResponse,
+    IUserLoginResponse,
     'expires_in' | 'refresh_expires_in'
   > & {
     id: string;

@@ -3,7 +3,7 @@ export function formatDate(
   format: string = 'yyyy-MM-dd HH:mm:ss',
 ): string {
   const d = new Date(date);
-  console.log(d);
+
   const map: { [key: string]: string } = {
     yyyy: d.getFullYear().toString(),
     MM: String(d.getMonth() + 1).padStart(2, '0'),

@@ -30,7 +30,6 @@ import {
 } from '@/entities/workspace/api';
 import { IWorkspaceData } from '@/entities/workspace/model/types.ts';
 
-//TODO user에 대한 workspace목록 데이터 받아와야함.
 interface IProps {
   tableItems: Partial<
     Record<UserInformationTableType | UserWorkspaceTableType, any>
@@ -38,10 +37,12 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
+
 const resWorkspaceList = useGetWorkspaceListById(null);
+const resDelete = useDeleteWorkspaceById(null);
 
 const tabState = reactive({
-  activeTab: 'workspace',
+  activeTab: 'detail',
 });
 
 const workspaceModalState = reactive({
@@ -52,8 +53,6 @@ const workspaceModalState = reactive({
     workspaceId: '',
   },
 });
-
-const resDelete = useDeleteWorkspaceById(null);
 
 const defineTableField: Array<IDefineTableField<UserInformationTableType>> = [
   { label: 'Id', name: 'userId' },
@@ -234,8 +233,8 @@ onMounted(() => {
           </template>
           <template #data-approved="scope">
             <p-status
-              :icon-color="`${scope.data.state ? '#60b731' : '#C2C2C6'}`"
-              :text="`${scope.data.data}`"
+              :icon-color="`${scope.data ? '#60b731' : '#C2C2C6'}`"
+              :text="`${scope.data ? 'Approved' : 'Not approved'}`"
             />
           </template>
           <template #data-defaultRoles="scope">

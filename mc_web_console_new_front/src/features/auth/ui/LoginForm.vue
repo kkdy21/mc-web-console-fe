@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { PButton, PTextInput, PFieldGroup, PI } from '@cloudforet-test/mirinae';
 import {
-  IUser,
-  IUserResponse,
+  IUserLogin,
+  IUserLoginResponse,
   useGetLogin,
   validateId,
   validatePassword,
@@ -22,7 +22,7 @@ const userPW = useInputModel<string | null>(
   0,
 );
 
-const resLogin = useGetLogin<IUserResponse, IUser | null>(null);
+const resLogin = useGetLogin<IUserLoginResponse, IUserLogin | null>(null);
 
 const handleLogin = async () => {
   if (!userId.touched.value || !userPW.touched.value) {
@@ -47,7 +47,7 @@ const handleLogin = async () => {
   }
 };
 
-const handleLoginSuccess = (props: IUserResponse & { id: string }) => {
+const handleLoginSuccess = (props: IUserLoginResponse & { id: string }) => {
   emit('handleLoginSuccess', props);
 };
 

@@ -4,26 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : notice helper">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/ui/CommonIcon/model/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/ui/CommonIcon/ui/MIcon.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/isNullOrUndefined/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : workspace list, workspace delete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.env" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/model/useAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/model/useAuth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarToolset/ui/TopBarToolset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarToolset/ui/TopBarToolset.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/account&amp;access.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/account&amp;access.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/auth.route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginRightContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginRightContainer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/store/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/store/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/token/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/token/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/dateformatter/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/dateformatter/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +33,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
-        <option value="Vue Composition API Component" />
         <option value="TypeScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -76,7 +75,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.20603015",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "settings.editor.selected.configurable": "settings.javascript.linters.tslint",
     "ts.external.directory.path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
@@ -133,7 +132,7 @@
       <workItem from="1724024967495" duration="79353000" />
       <workItem from="1724373461583" duration="83595000" />
       <workItem from="1724909085833" duration="19517000" />
-      <workItem from="1725345245668" duration="28233000" />
+      <workItem from="1725345245668" duration="39777000" />
     </task>
     <task id="LOCAL-00001" summary="feat/temp : jwt-decode 추가">
       <option name="closed" value="true" />
@@ -439,7 +438,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725436608759</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="feat : workspace list, workspace delete">
+      <option name="closed" value="true" />
+      <created>1725438207512</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1725438207512</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,7 +464,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor : CRUD method" />
     <MESSAGE value="refactor : token class , localstorage class" />
     <MESSAGE value="refactor : refresh error handle" />
     <MESSAGE value="refactor : change api-type file location" />
@@ -482,7 +488,8 @@
     <MESSAGE value="feat : uuid, toast msg" />
     <MESSAGE value="feat : date string to formatted Date string" />
     <MESSAGE value="feat : notice helper" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : notice helper" />
+    <MESSAGE value="feat : workspace list, workspace delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : workspace list, workspace delete" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />

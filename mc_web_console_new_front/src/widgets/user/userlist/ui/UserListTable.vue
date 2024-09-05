@@ -6,29 +6,35 @@ import {
   PStatus,
   PButtonModal,
 } from '@cloudforet-test/mirinae';
-import { onMounted, ref } from 'vue';
-import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
+import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
+import {
+  getUserList,
+  IUserInfoResponse,
+  UserInformationTableType,
+  UserWorkspaceTableType,
+} from '@/entities';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 import { insertDynamicComponent } from '@/shared/utils/insertDynamicComponent';
 import DeleteUsers from '@/features/user/deleteUser/ui/DeleteUsers.vue';
 import AddUser from '@/features/user/addUser/ui/AddUser.vue';
 
-interface IProps {
-  tableItems: Partial<
-    Record<UserInformationTableType | UserWorkspaceTableType, any>
-  >[];
-}
+const resUserList = getUserList();
 
-const props = defineProps<IProps>();
+const userList: Partial<
+  Record<UserInformationTableType | UserWorkspaceTableType, any>
+>[] = [];
+
 const emit = defineEmits(['selectRow']);
 
 const tableModel =
   useToolboxTableModel<
-    Partial<Record<UserInformationTableType | UserWorkspaceTableType, any>>
+    Partial<
+      Record<
+        UserInformationTableType | UserWorkspaceTableType | 'originalData',
+        any
+      >
+    >
   >();
-
-tableModel.tableState.items = props.tableItems;
-tableModel.tableState.sortedItems = tableModel.tableState.items;
 
 tableModel.tableState.fields = [
   { name: 'userId', label: 'User Id' },
@@ -57,21 +63,7 @@ tableModel.querySearchState.keyItemSet = [
 
 let modalState = ref(false);
 
-const handleSelectedIndex = (index: number[]) => {
-  const selectedData = tableModel.tableState.displayItems[index];
-  emit('selectRow', selectedData);
-};
-
-const handleClose = e => {
-  modalState.value = false;
-  if (e.isSuccess) {
-    //TODO refresh
-  }
-};
-
-onMounted(function () {
-  tableModel.handleChange(null);
-
+function addDeleteIconAtTable() {
   const toolboxTable = this.$refs.toolboxTable.$el;
   const targetElement = toolboxTable.querySelector('.right-tool-group');
   const instance = insertDynamicComponent(
@@ -87,6 +79,65 @@ onMounted(function () {
     targetElement,
     'prepend',
   );
+
+  return instance;
+}
+
+const handleSelectedIndex = (index: number[]) => {
+  const selectedData = tableModel.tableState.displayItems[index];
+  emit('selectRow', selectedData);
+};
+
+const handleClose = e => {
+  modalState.value = false;
+  if (e && e.isSuccess) {
+    handleTableDataFetch();
+  }
+};
+
+const organizeResponseUserList = (userRes: IUserInfoResponse) => {
+  const organizedDatum: Partial<
+    Record<
+      UserInformationTableType | UserWorkspaceTableType | 'originalData',
+      any
+    >
+  > = {
+    userId: userRes.email || '',
+    name: `${userRes.firstName}${userRes.lastName}`,
+    description: userRes.description || '',
+    company: userRes.company || '',
+    group: userRes.group || '',
+    approved: userRes.approved || '',
+    callInvite: userRes.callInvite || '',
+    receiveInvite: userRes.receiveInvite || '',
+    defaultRoles: userRes.defaultRoles || '',
+    originalData: userRes,
+  };
+
+  return organizedDatum;
+};
+
+const handleTableDataFetch = () => {
+  resUserList.execute().then(res => {
+    if (res.data.responseData && res.data.responseData.length > 0) {
+      tableModel.tableState.items = res.data.responseData.map(userInfo =>
+        organizeResponseUserList(userInfo),
+      );
+    } else {
+      tableModel.initState();
+    }
+    tableModel.tableState.sortedItems = tableModel.tableState.items;
+    tableModel.handleChange(null);
+  });
+};
+
+onBeforeMount(() => {
+  tableModel.initState();
+  handleTableDataFetch();
+});
+
+onMounted(function () {
+  addDeleteIconAtTable.bind(this)();
 });
 </script>
 
@@ -96,7 +147,9 @@ onMounted(function () {
       <template #container="{ height }">
         <p-toolbox-table
           ref="toolboxTable"
-          :loading="tableModel.tableState.loading"
+          :loading="
+            tableModel.tableState.loading || resUserList.isLoading.value
+          "
           :items="tableModel.tableState.displayItems"
           :fields="tableModel.tableState.fields"
           :total-count="tableModel.tableState.tableCount"
@@ -112,7 +165,7 @@ onMounted(function () {
           :select-index.sync="tableModel.tableState.selectIndex"
           :page-size="tableModel.tableOptions.pageSize"
           @change="tableModel.handleChange"
-          @refresh="() => {}"
+          @refresh="handleTableDataFetch"
           @select="handleSelectedIndex"
         >
           <template #toolbox-left>
@@ -126,8 +179,8 @@ onMounted(function () {
           </template>
           <template #col-approved-format="{ item }">
             <p-status
-              :icon-color="`${item.approved.state ? '#60b731' : '#C2C2C6'}`"
-              :text="`${item.approved.data}`"
+              :icon-color="`${item.approved ? '#60b731' : '#C2C2C6'}`"
+              :text="`${item.approved ? 'Approved' : 'Not approved'}`"
               :style="{ margin: '1rem' }"
             />
           </template>

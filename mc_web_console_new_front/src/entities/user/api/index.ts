@@ -1,14 +1,14 @@
 import { useAxiosPost } from '@/shared/libs/api/request.ts';
 import { IAxiosResponse, RequestBodyWrapper } from '@/shared/libs';
 import {
-  IUserResponse,
+  IUserInfoResponse,
   UserInformationTableType,
   UserWorkspaceTableType,
 } from '@/entities';
 
 const LOGIN_URL = 'auth/login';
 const GET_USER_INFO = 'Getuserinfo';
-const GET_USER_LIST = 'getusers';
+const GET_USER_LIST = 'GetUsers';
 const ADD_USER = 'Createuser';
 
 export function useGetLogin<T, D>(loginData: D | null) {
@@ -27,16 +27,10 @@ export function useGetUserRole<IUserResponse, D = any>() {
   return useAxiosPost<IUserResponse, D | null>(GET_USER_INFO, null);
 }
 
-export function getUserList<T, D>(userId: D | null) {
-  const requestBodyWrapper: Required<
-    Pick<RequestBodyWrapper<D | null>, 'queryParams'>
-  > = {
-    queryParams: userId,
-  };
-
-  return useAxiosPost<IAxiosResponse<T>, RequestBodyWrapper<D | null>>(
+export function getUserList() {
+  return useAxiosPost<IAxiosResponse<IUserInfoResponse[]>, null>(
     GET_USER_LIST,
-    requestBodyWrapper,
+    null,
   );
 }
 

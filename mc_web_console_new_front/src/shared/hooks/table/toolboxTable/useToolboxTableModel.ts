@@ -120,7 +120,6 @@ export const useToolboxTableModel = <T>() => {
   };
   const initState = () => {
     tableState.items = [];
-    tableState.tableCount = 0;
     tableState.sortedItems = [];
     tableState.displayItems = [];
   };

@@ -2,20 +2,17 @@
 import UserListTable from '@/widgets/user/userlist/ui/UserListTable.vue';
 import UserInformation from '@/widgets/user/userinfomation/ui/UserInformation.vue';
 import {
+  getUserList,
   tempGetUserList,
   UserInformationTableType,
   UserWorkspaceTableType,
 } from '@/entities';
-import { Ref, ref } from 'vue';
+import { onMounted, Ref, ref } from 'vue';
 
 const pageName = 'Users';
 const selectedRow: Ref<
   Partial<Record<UserInformationTableType | UserWorkspaceTableType, any>>
 > = ref({});
-
-const toolboxTableItem: Partial<
-  Record<UserInformationTableType | UserWorkspaceTableType, any>
->[] = tempGetUserList();
 
 const handleSelectRow = (
   selectedData: Record<UserInformationTableType | UserWorkspaceTableType, any>,
@@ -30,10 +27,7 @@ const handleSelectRow = (
       <p>{{ pageName }}</p>
     </header>
     <section :class="`${pageName}-page-body`">
-      <UserListTable
-        :table-items="toolboxTableItem"
-        @selectRow="handleSelectRow"
-      ></UserListTable>
+      <UserListTable @selectRow="handleSelectRow"></UserListTable>
       <p
         v-if="!Object.keys(selectedRow).length"
         class="flex justify-center text-gray-300 text-sm font-normal"
