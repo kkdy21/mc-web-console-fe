@@ -8,13 +8,25 @@ import {
 import { useGetWorkspaceList } from '@/entities/workspace/api';
 import { onMounted, reactive, watch } from 'vue';
 import { IWorkspaceData } from '@/entities/workspace/model/types.ts';
+import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
 
 interface IProps {
   id?: string;
   fullName?: string;
   role?: string;
-  workspaces?: any[];
+  workspaces?: Partial<
+    Record<
+      UserInformationTableType | UserWorkspaceTableType | 'originalData',
+      any
+    >
+  >[];
 }
+
+const t = [
+  {
+    userId: 'd670921b-487b-4351-a67b-d3cda1d2a4c1',
+  },
+];
 
 interface IMenu {
   name: string;
@@ -23,7 +35,7 @@ interface IMenu {
 }
 
 const props = defineProps<IProps>();
-
+console.log(props.workspaces);
 const workspaceList = reactive({
   menu: [],
   selected: [],
@@ -45,6 +57,11 @@ onMounted(() => {
     if (res.data.responseData && res.data.responseData.length > 0) {
       workspaceList.menu = res.data.responseData.map(workspace =>
         organizWorkspaceListToDropDownMenu(workspace),
+      );
+      workspaceList.selected = workspaceList.menu.filter(workspace =>
+        props.workspaces!.some(
+          diffWorkspace => workspace.name === diffWorkspace.userId,
+        ),
       );
     }
   });
@@ -69,6 +86,7 @@ const handleSuccess = () => {};
     </section>
     <section>
       <p>Workspace Mapping</p>
+      <hr />
       <br />
       <p-field-group :label="'This users will have access to'" required block>
         <template #default>

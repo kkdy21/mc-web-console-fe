@@ -291,7 +291,11 @@ onMounted(() => {
       @close="editModalState.open = false"
     >
       <template #body>
-        <UserEdit></UserEdit>
+        <UserEdit
+          :id="props.tableItems.userId"
+          :full-name="props.tableItems.name"
+          :workspaces="workspaceTableModel.tableState.items"
+        ></UserEdit>
       </template>
     </p-button-modal>
   </div>
