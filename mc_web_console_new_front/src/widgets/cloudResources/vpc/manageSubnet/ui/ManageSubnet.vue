@@ -9,6 +9,9 @@ import {
 import { WidgetLayout } from '@/widgets/layout';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router/composables';
+import { vpcStore } from '@/shared/libs';
+
+const vpcStoreInstance = vpcStore.useVpcStore();
 
 const router = useRouter();
 
@@ -24,8 +27,14 @@ const props = defineProps<Props>();
 // TODO: change api response
 const subnetList = ref(props.subnetList);
 
+const deleteSelectedVPCSubnet = (index: number) => {
+  // vpcStoreInstance.removeVPCSubnet(index);
+  vpcStoreInstance.removeVPCSubnet(index);
+};
+
 const deleteSelectedSubnet = (index: number) => {
-  subnetList.value.splice(index, 1);
+  // subnetList.value.splice(index, 1);
+  // vpcStoreInstance.removeSubnet(index);
 };
 const handleAddingSubnet = () => {
   subnetList.value.push({
@@ -81,8 +90,8 @@ const handleGoBack = () => {
               :invalid-text="'No Subnet Name'"
             >
               <p-text-input
+                v-model="subnet.subnetName"
                 :invalid="!subnet.subnetName"
-                :value="subnet.subnetName"
               />
             </p-field-group>
             <!-- :disabled="subnet.subnetName.length > 0" -->
@@ -97,6 +106,13 @@ const handleGoBack = () => {
             </p-field-group>
             <!-- :disabled="subnet.cidrBlock.length > 0" -->
             <p-i
+              v-if="router.currentRoute.name === 'vpcSubnets'"
+              class="icon-close"
+              name="ic_close"
+              @click="deleteSelectedVPCSubnet(idx)"
+            />
+            <p-i
+              v-else
               class="icon-close"
               name="ic_close"
               @click="deleteSelectedSubnet(idx)"
@@ -134,7 +150,7 @@ const handleGoBack = () => {
   }
   .subnet-list {
     .title-wrapper {
-      @apply flex gap-[14.625rem] mb-[1rem];
+      @apply flex gap-[9.25rem] mb-[1rem];
       .title {
         font-size: 1rem;
         font-weight: 700;

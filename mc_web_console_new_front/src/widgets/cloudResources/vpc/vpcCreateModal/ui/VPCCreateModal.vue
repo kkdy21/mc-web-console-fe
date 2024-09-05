@@ -14,12 +14,15 @@ import {
 import { computed, reactive, ref } from 'vue';
 import { vpcStore } from '@/shared/libs';
 import { ListDropDown } from '@/widgets/layout/listDropDown';
+import { storeToRefs } from 'pinia';
 
 const vpcStoreInstance = vpcStore.useVpcStore();
 
 const isConnectionEmpty = ref<boolean>(true);
 const selectedConnection = ref<any>();
-const isWithSubnet = ref<boolean>(false);
+// const isWithSubnet = ref<boolean>(false);
+
+const { withSubnet } = storeToRefs(vpcStoreInstance);
 
 const PROVIDER_LIST = ['AWS', 'Azure', 'Google'];
 const LOCATION_LIST = ['Asia Pracific', 'Europe', 'North America'];
@@ -27,6 +30,8 @@ const REGION_LIST = ['Seoul', 'Tokyo', 'Singapore'];
 
 // TODO: change api response
 const state = reactive({
+  vpcName: '',
+  description: '',
   provider: PROVIDER_LIST.flatMap(provider => {
     return { name: provider };
   }),
@@ -46,6 +51,7 @@ const state = reactive({
       { key: 'connection3', name: 'Connection 3' },
     ];
   }),
+  selectedConnection: '',
 });
 
 const textData = reactive({
@@ -63,7 +69,7 @@ const isSelectedLocation = computed(() => {
 });
 
 const handleCheck = (value: boolean) => {
-  isWithSubnet.value = value;
+  vpcStoreInstance.setWithSubnet(value);
 };
 
 const handleClose = () => {
@@ -150,8 +156,8 @@ const handleClickRegion = (region: string) => {
           <p-pane-layout class="layout with-subnet">
             <div class="subnet-toggle">
               <p-toggle-button
-                :value="isWithSubnet"
-                @change-toggle="handleCheck"
+                :value="withSubnet"
+                @change-toggle="handleCheck(true)"
               />
               <span>With subnet</span>
             </div>
@@ -159,8 +165,8 @@ const handleClickRegion = (region: string) => {
             <p-link
               text="Go add subnet"
               :to="{ name: 'subnets' }"
-              :highlight="isWithSubnet"
-              :disabled="!isWithSubnet"
+              :highlight="withSubnet"
+              :disabled="!withSubnet"
               action-icon="internal-link"
             />
           </p-pane-layout>
