@@ -4,7 +4,7 @@ import authRoutes from '@/pages/auth/auth.route.ts';
 import NotFound from '@/pages/error/404/NotFound.vue';
 import { environmentRoutes } from './routes/environment';
 import { accountAndAccessRoutes } from './routes/accountAndAccess';
-import { MainLayout } from '@/app/Layouts/mainLayout';
+import { MainLayout } from '@/app/Layouts';
 import { useAuthenticationStore } from '@/entities';
 import { Route } from 'vue-router';
 import { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';

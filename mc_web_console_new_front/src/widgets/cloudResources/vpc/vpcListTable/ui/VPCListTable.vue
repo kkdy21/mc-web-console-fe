@@ -14,7 +14,7 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { insertDynamicComponent } from '@/shared/utils';
 import { VPCCreateModal } from '../../vpcCreateModal';
 import { vpcStore } from '@/shared/libs';
-import { VPCListTableBottomFilter } from '@/features/vpcListTableBottomFilter';
+import { VPCListTableBottomFilter } from '@/features/cloudResources';
 import { storeToRefs } from 'pinia';
 import { toLower } from 'lodash';
 

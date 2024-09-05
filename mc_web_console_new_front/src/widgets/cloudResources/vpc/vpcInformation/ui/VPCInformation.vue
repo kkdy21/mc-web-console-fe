@@ -96,7 +96,7 @@ const tabState = reactive({
 
 const handleSubnetPage = () => {
   router.push({
-    name: 'subnets',
+    name: 'vpcSubnets',
   });
 };
 </script>

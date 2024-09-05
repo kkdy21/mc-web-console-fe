@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
 import { onMounted, reactive } from 'vue';
-import { MenuCategory } from '@/widgets/menuCategory';
+import { MenuCategory } from '@/widgets/layout';
 import { useMenuPerUserStore } from '@/entities';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';

@@ -6,30 +6,21 @@ import { useRouter } from 'vue-router/composables';
 
 const router = useRouter();
 
-// TODO: change api response
 const subnetList = ref([
   {
-    subnetName: 'subnet1',
-    cidrBlock: '10. 0. 0. 0/24',
-  },
-  {
-    subnetName: 'subnet2',
-    cidrBlock: '10. 0. 1. 0/24',
-  },
-  {
-    subnetName: 'subnet3',
-    cidrBlock: '10. 0. 2. 0/24',
+    subnetName: '',
+    cidrBlock: '',
   },
 ]);
 
-const saveSubnetList = () => {
-  // TODO: save subnet list (api call)
+const handleVpcPage = () => {
   router.push({
     name: 'CloudResources',
   });
 };
 
-const handleVpcPage = () => {
+const saveSubnetList = () => {
+  // TODO: save subnet list (api call)
   router.push({
     name: 'CloudResources',
   });
@@ -40,7 +31,7 @@ const handleVpcPage = () => {
   <manage-subnet :subnet-list="subnetList">
     <template #buttons>
       <p-button style-type="tertiary" @click="handleVpcPage">Cancel</p-button>
-      <p-button @click="saveSubnetList">Save</p-button>
+      <p-button @click="saveSubnetList">Apply</p-button>
     </template>
   </manage-subnet>
 </template>

@@ -4,9 +4,7 @@ import {
   PPaneLayout,
   PTextInput,
   PFieldGroup,
-  PFieldTitle,
   PTextarea,
-  PSelectDropdown,
   PRadio,
   PEmpty,
   PToggleButton,
@@ -15,24 +13,32 @@ import {
 } from '@cloudforet-test/mirinae';
 import { computed, reactive, ref } from 'vue';
 import { vpcStore } from '@/shared/libs';
+import { ListDropDown } from '@/widgets/layout/listDropDown';
 
-const emit = defineEmits(['closeModal']);
+const vpcStoreInstance = vpcStore.useVpcStore();
 
 const isConnectionEmpty = ref<boolean>(true);
 const selectedConnection = ref<any>();
 const isWithSubnet = ref<boolean>(false);
 
+const PROVIDER_LIST = ['AWS', 'Azure', 'Google'];
+const LOCATION_LIST = ['Asia Pracific', 'Europe', 'North America'];
+const REGION_LIST = ['Seoul', 'Tokyo', 'Singapore'];
+
 // TODO: change api response
 const state = reactive({
-  provider: computed(() => {
-    return 'AWS';
+  provider: PROVIDER_LIST.flatMap(provider => {
+    return { name: provider };
   }),
-  location: computed(() => {
-    return 'Asia Pracific';
+  selectedProvider: '',
+  location: LOCATION_LIST.flatMap(location => {
+    return { name: location };
   }),
-  region: computed(() => {
-    return 'Seoul';
+  selectedLocation: '',
+  region: REGION_LIST.flatMap(region => {
+    return { name: region };
   }),
+  selectedRegion: '',
   connectionList: computed(() => {
     return [
       { key: 'connection1', name: 'Connection 1' },
@@ -42,20 +48,38 @@ const state = reactive({
   }),
 });
 
+const textData = reactive({
+  vpcName: '',
+  description: '',
+  selectedConnection: '',
+  cidrBlock: '',
+});
+
 const isSelectedProvider = computed(() => {
-  return state.provider !== '';
+  return state.selectedProvider !== '';
 });
 const isSelectedLocation = computed(() => {
-  return state.location !== '';
+  return state.selectedLocation !== '';
 });
 
 const handleCheck = (value: boolean) => {
   isWithSubnet.value = value;
 };
 
-const vpcStoreInstance = vpcStore.useVpcStore();
 const handleClose = () => {
   vpcStoreInstance.setCreateVpcModalVisible(false);
+};
+
+const handleClickProvider = (prv: string) => {
+  state.selectedProvider = prv;
+};
+
+const handleClickLocation = (location: string) => {
+  state.selectedLocation = location;
+};
+
+const handleClickRegion = (region: string) => {
+  state.selectedRegion = region;
 };
 </script>
 
@@ -73,7 +97,7 @@ const handleClose = () => {
         <div class="create-vpc">
           <p-pane-layout class="layout layout-top">
             <p-field-group label="VPC Name">
-              <p-text-input placeholder="VPC Name" />
+              <p-text-input v-model="textData.vpcName" placeholder="VPC Name" />
             </p-field-group>
             <p-field-group label="Description">
               <p-textarea />
@@ -82,27 +106,23 @@ const handleClose = () => {
           <p-pane-layout class="layout layout-middle">
             <p>Connection</p>
             <div class="select-container">
-              <p-select-dropdown :menu="['AWS', 'Azure', 'Google']">
-                <template #dropdown-button>
-                  <div>
-                    <span>{{ state.provider }}</span>
-                  </div>
-                </template>
-              </p-select-dropdown>
-              <p-select-dropdown :disabled="!isSelectedProvider">
-                <template #dropdown-button>
-                  <div>
-                    <span>{{ state.location }}</span>
-                  </div>
-                </template>
-              </p-select-dropdown>
-              <p-select-dropdown :disabled="!isSelectedLocation">
-                <template #dropdown-button>
-                  <div>
-                    <span>{{ state.region }}</span>
-                  </div>
-                </template>
-              </p-select-dropdown>
+              <list-drop-down
+                :menu="state.provider"
+                :list="PROVIDER_LIST"
+                @update:selectedItem="handleClickProvider"
+              />
+              <list-drop-down
+                :menu="state.location"
+                :list="LOCATION_LIST"
+                :is-disabled="!isSelectedProvider"
+                @update:selectedItem="handleClickLocation"
+              />
+              <list-drop-down
+                :menu="state.region"
+                :list="REGION_LIST"
+                :is-disabled="!isSelectedLocation"
+                @update:selectedItem="handleClickRegion"
+              />
             </div>
             <div v-if="isConnectionEmpty" class="connection-data">
               <p-radio
@@ -123,8 +143,9 @@ const handleClose = () => {
             </div>
           </p-pane-layout>
           <p-pane-layout class="layout layout-bottom">
-            <p>CIDR Block</p>
-            <p-text-input class="cidr-text" placeholder="ex) 10.0.0.1/24" />
+            <p-field-group label="CIDR Block">
+              <p-text-input placeholder="ex) 10.0.0.1/24" />
+            </p-field-group>
           </p-pane-layout>
           <p-pane-layout class="layout with-subnet">
             <div class="subnet-toggle">
@@ -141,7 +162,6 @@ const handleClose = () => {
               :highlight="isWithSubnet"
               :disabled="!isWithSubnet"
               action-icon="internal-link"
-              new-tab
             />
           </p-pane-layout>
         </div>
@@ -151,6 +171,7 @@ const handleClose = () => {
       <span>Cancel</span>
     </template>
     <template #confirm-button>
+      <!-- TODO: disable 처리 -->
       <span>Confirm</span>
     </template>
   </p-button-modal>
@@ -158,7 +179,7 @@ const handleClose = () => {
 
 <style scoped lang="postcss">
 :deep(.modal-content) {
-  min-height: 56.125rem;
+  min-height: 57.5rem;
 }
 .create-vpc-layout {
   @apply bg-[#F7F7F7] p-[1rem] border-none;
@@ -187,6 +208,20 @@ const handleClose = () => {
   .layout-middle {
     .select-container {
       @apply flex gap-[0.25rem];
+      .text-container {
+        padding: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          @apply bg-blue-100;
+        }
+        &.selected {
+          @apply bg-blue-200;
+        }
+        .select-text {
+          font-size: 0.875rem;
+          font-weight: 400;
+        }
+      }
     }
     .connection-data {
       @apply mt-[1.1875rem] mb-[3.6875rem] flex flex-col;
@@ -202,8 +237,8 @@ const handleClose = () => {
     }
   }
   .layout-bottom {
-    .cidr-text {
-      margin: 0;
+    .p-text-input {
+      @apply mb-0;
     }
   }
   .with-subnet {

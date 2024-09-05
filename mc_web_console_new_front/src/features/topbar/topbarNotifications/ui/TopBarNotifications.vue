@@ -3,7 +3,7 @@ import { vOnClickOutside } from '@vueuse/components';
 import { blue } from '@/app/style/colors';
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
 import { computed, reactive } from 'vue';
-import TopBarNotificationContextMenu from '@/widgets/topbarNotificationContextMenu/ui/TopBarNotificationContextMenu.vue';
+import { TopBarNotificationContextMenu } from '@/widgets/layout';
 
 interface Props {
   visible: boolean;
