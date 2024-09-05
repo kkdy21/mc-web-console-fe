@@ -3,7 +3,7 @@ export interface IWorkspaceDeleteData {
   workspaceId: string;
 }
 
-export interface IWorkspaceData {
+export interface IWorkspaceDetailData {
   role: {
     created_at: string;
     description: string;
@@ -21,12 +21,14 @@ export interface IWorkspaceData {
       ns_id: string;
       updated_at: string;
     }>;
-    workspace: {
-      created_at: string;
-      description: string;
-      id: string;
-      name: string;
-      updated_at: string;
-    };
+    workspace: IWorkspaceData;
   };
+}
+
+export interface IWorkspaceData {
+  created_at: string;
+  description: string;
+  id: string;
+  name: string;
+  updated_at: string;
 }

@@ -28,7 +28,8 @@ import {
   useDeleteWorkspaceById,
   useGetWorkspaceListById,
 } from '@/entities/workspace/api';
-import { IWorkspaceData } from '@/entities/workspace/model/types.ts';
+import { IWorkspaceDetailData } from '@/entities/workspace/model/types.ts';
+import UserEdit from '@/widgets/user/userEdit/ui/UserEdit.vue';
 
 interface IProps {
   tableItems: Partial<
@@ -40,7 +41,7 @@ const props = defineProps<IProps>();
 
 const resWorkspaceList = useGetWorkspaceListById(null);
 const resDelete = useDeleteWorkspaceById(null);
-
+// const editUser;
 const tabState = reactive({
   activeTab: 'detail',
 });
@@ -48,6 +49,15 @@ const tabState = reactive({
 const workspaceModalState = reactive({
   loading: computed(() => resDelete.isLoading.value) as boolean,
   open: false,
+  props: {
+    userid: computed(() => props.tableItems.userId),
+    workspaceId: '',
+  },
+});
+
+const editModalState = reactive({
+  // loading: computed(() => editUser.isLoading.value) as boolean,
+  open: true,
   props: {
     userid: computed(() => props.tableItems.userId),
     workspaceId: '',
@@ -118,7 +128,8 @@ watch(props, nv => {
       .then(res => {
         if (res.data.responseData && res.data.responseData.length) {
           workspaceTableModel.tableState.items = res.data.responseData!.map(
-            (workspace: IWorkspaceData) => organizeWorkspaceList(workspace),
+            (workspace: IWorkspaceDetailData) =>
+              organizeWorkspaceList(workspace),
           );
           workspaceTableModel.tableState.sortedItems =
             workspaceTableModel.tableState.items;
@@ -133,7 +144,7 @@ watch(props, nv => {
   }
 });
 
-const organizeWorkspaceList = (workspace: IWorkspaceData) => {
+const organizeWorkspaceList = (workspace: IWorkspaceDetailData) => {
   const workspaceitem: Record<UserWorkspaceTableType | 'originalData', any> = {
     workspace: workspace.workspaceProject.workspace.name,
     role: workspace.role.name,
@@ -182,7 +193,12 @@ onMounted(() => {
       <template #workspace>
         <div class="tab-section-header">
           <p>Allocated Workspaces</p>
-          <p-button :style-type="'tertiary'" icon-left="ic_edit">Edit</p-button>
+          <p-button
+            :style-type="'tertiary'"
+            icon-left="ic_edit"
+            @click="editModalState.open = true"
+            >Edit
+          </p-button>
         </div>
         <p-data-table
           :fields="workspaceTableModel.tableState.fields"
@@ -210,7 +226,12 @@ onMounted(() => {
       <template #detail>
         <div class="tab-section-header">
           <p>User Information</p>
-          <p-button :style-type="'tertiary'" icon-left="ic_edit">Edit</p-button>
+          <p-button
+            :style-type="'tertiary'"
+            icon-left="ic_edit"
+            @click="editModalState.open = true"
+            >Edit
+          </p-button>
         </div>
         <p-definition-table
           :fields="defineTableField"
@@ -262,6 +283,17 @@ onMounted(() => {
       @cancel="workspaceModalState.open = false"
       @close="workspaceModalState.open = false"
     ></p-button-modal>
+    <p-button-modal
+      :visible="editModalState.open"
+      :size="'md'"
+      :header-title="'Edit User'"
+      @cancel="editModalState.open = false"
+      @close="editModalState.open = false"
+    >
+      <template #body>
+        <UserEdit></UserEdit>
+      </template>
+    </p-button-modal>
   </div>
 </template>
 

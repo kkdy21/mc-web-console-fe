@@ -5,24 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : workspace list, workspace delete">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userEdit/ui/UserEdit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/model/useAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/model/useAuth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/account&amp;access.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/account&amp;access.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/auth.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/auth.route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginRightContainer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginRightContainer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/store/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/store/auth/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/token/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/token/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/dateformatter/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/utils/dateformatter/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.eslintrc.cjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/deleteUser/ui/DeleteUsers.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/deleteUser/ui/DeleteUsers.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,34 +50,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "page/user",
-    "js.linters.configure.manually.selectedeslint": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/eslint",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/prettier",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.20603015",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "settings.javascript.linters.tslint",
-    "ts.external.directory.path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;page/user&quot;,
+    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/eslint&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/prettier&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.20603015&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.tslint&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Composition API Component"
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui" />
@@ -100,6 +93,12 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />

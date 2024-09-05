@@ -62,6 +62,7 @@ tableModel.querySearchState.keyItemSet = [
 ];
 
 let modalState = ref(false);
+let trashBtn;
 
 function addDeleteIconAtTable() {
   const toolboxTable = this.$refs.toolboxTable.$el;
@@ -74,6 +75,7 @@ function addDeleteIconAtTable() {
     {
       'button-click': message => {
         console.log(message);
+        trashBtn.$props.focus = true;
       },
     },
     targetElement,
@@ -137,7 +139,9 @@ onBeforeMount(() => {
 });
 
 onMounted(function () {
-  addDeleteIconAtTable.bind(this)();
+  trashBtn = addDeleteIconAtTable.bind(this)();
+  console.log(trashBtn);
+  trashBtn._props.label = '동적변경';
 });
 </script>
 
@@ -190,7 +194,7 @@ onMounted(function () {
     <p-button-modal
       :visible="modalState"
       size="md"
-      headerTitle="Add New User"
+      :header-title="'Add New User'"
       :hideFooter="true"
       @close="handleClose"
     >
