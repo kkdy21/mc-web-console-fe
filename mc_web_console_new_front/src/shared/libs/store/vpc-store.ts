@@ -5,6 +5,14 @@ interface Subnet {
   cidrBlock: string;
 }
 
+interface VPC {
+  vpcName?: string;
+  description?: string;
+  selectedConnection: string;
+  cidrBlock?: string;
+  subnetList?: Subnet[];
+}
+
 export const useVpcStore = defineStore('vpc-store', {
   state: () => ({
     createVpcModalVisible: false,
@@ -12,7 +20,12 @@ export const useVpcStore = defineStore('vpc-store', {
     withSubnet: false,
     // TODO: api연결 후 받아온 데이터 형식에 맞게 구현 예정
     // 이미 있는 vpc의 원래의 subnetlist
-    addedSubnetList: [] as Subnet[],
+    addedSubnetList: [
+      {
+        subnetName: 'subnetname-aws-northeast-1',
+        cidrBlock: '10.33.0.0/15',
+      },
+    ] as Subnet[],
 
     // 새로 만드는 vpc의 새로운 subnetlist
     addedVPCSubnetList: [
@@ -21,6 +34,13 @@ export const useVpcStore = defineStore('vpc-store', {
         cidrBlock: '',
       },
     ] as Subnet[],
+    createdVpc: {
+      vpcName: '',
+      description: '',
+      selectedConnection: '',
+      cidrBlock: '',
+      subnetList: [] as Subnet[],
+    },
   }),
   getters: {},
   actions: {
@@ -33,6 +53,9 @@ export const useVpcStore = defineStore('vpc-store', {
     setWithSubnet(withSubnet: boolean) {
       this.withSubnet = withSubnet;
     },
+    removeWithSubnet() {
+      this.withSubnet = false;
+    },
     setaddedVPCSubnetList(subnetList: Subnet[]) {
       this.addedVPCSubnetList = [...this.addedVPCSubnetList, ...subnetList];
     },
@@ -40,6 +63,20 @@ export const useVpcStore = defineStore('vpc-store', {
       this.addedVPCSubnetList = this.addedVPCSubnetList.filter(
         (_, i) => i !== index,
       );
+    },
+    setCreatedVpcList(vpcList: any) {
+      this.createdVpc = { ...vpcList };
+    },
+
+    setCreatedVpcSubnetList(subnetList: Subnet[]) {
+      this.createdVpc.subnetList = [...subnetList];
+    },
+    removeCreatedVpc() {
+      this.createdVpc.vpcName = '';
+      this.createdVpc.description = '';
+      this.createdVpc.selectedConnection = '';
+      this.createdVpc.cidrBlock = '';
+      this.createdVpc.subnetList = [];
     },
   },
 });

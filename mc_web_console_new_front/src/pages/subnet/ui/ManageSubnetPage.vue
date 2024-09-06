@@ -3,6 +3,11 @@ import { ManageSubnet } from '@/widgets/cloudResources';
 import { PButton } from '@cloudforet-test/mirinae';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router/composables';
+import { vpcStore } from '@/shared/libs';
+import { storeToRefs } from 'pinia';
+
+const vpcStoreInstance = vpcStore.useVpcStore();
+const { addedSubnetList } = storeToRefs(vpcStoreInstance);
 
 const router = useRouter();
 
@@ -37,7 +42,7 @@ const handleVpcPage = () => {
 </script>
 
 <template>
-  <manage-subnet :subnet-list="subnetList">
+  <manage-subnet :subnet-list="addedSubnetList">
     <template #buttons>
       <p-button style-type="tertiary" @click="handleVpcPage">Cancel</p-button>
       <p-button @click="saveSubnetList">Save</p-button>

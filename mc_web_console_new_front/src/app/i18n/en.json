@@ -1,24 +1,86 @@
 {
   "MENU": {
-    "MANAGE": "Manage",
-    "MANAGE_DASHBOARD": "Dashboard",
-    "MANAGE_PROJECT": "Project",
-    "MANAGE_WORKLOADS": "Workloads",
-    "MANAGE_SERVICES_MANAGEMENT": "Services Management",
-    "MANAGE_CLOUD_META_DATA": "Cloud Meta Data",
-    "MANAGE_WORKFLOWS": "Workflows",
-    "ANALYTICS": "Analytics",
-    "ANALYTICS_MONITORINGS": "Monitorings",
-    "ENVIRONMENT": "Environment",
-    "ENVIRONMENT_CLOUD_SPS": "Cloud SPs",
-    "ENVIRONMENT_CLOUD_RESOURCES": "Cloud Resources",
-    "ACCOUNT_AND_ACCESS": "Account & Access",
-    "ACCOUNT_AND_ACCESS_ORGANIZATIONS": "organizations",
-    "ACCOUNT_AND_ACCESS_CONTROL": "Access Control",
-    "ACCOUNT_AND_ACCESS_WORKSPACE_SETTINGS": "Workspace Settings"
+    "OPERATIONS": {
+      "_NAME": "Operations",
+      "MANAGE": {
+        "_NAME": "Manage", 
+        "PROJECTS": "Projects",
+        "MEMBERS": "Members",
+        "ROLES": "Roles",
+        "PROJECT_BOARD": "Project Board",
+        "WORKLOADS": {
+          "_NAME": "Workloads",
+          "MCI": "MCI",
+          "PMK": "PMK"
+        }
+      },
+      "ANALYTICS": {
+        "_NAME": "Analytics",
+        "MONITORINGS": {
+          "_NAME": "Monitorings",
+          "MCIs": "MCIs Monitoring",
+          "PMKs": "PMKs Monitoring",
+          "THIRD_PARTY": "3rd Party Monitoring",
+          "CONFIG": "Monitoring Config"
+        },
+        "EVENTS_TRACES": {
+          "_NAME": "Events & Traces",
+            "ALRAMS_HISTORY": "Alarms History",
+            "THRESHOLD_CONFIG": "Threshold Config",
+            "LOG_MANAGE": "Log Manage",
+            "LOG_CONFIG": "Log Config",
+            "EVENT_TRACE": "Event Trace",
+            "COST_ANALYSIS": "Cost Analysis"
+        }
+      }
+    },
+    "SETTINGS": {
+      "_NAME": "Settings",
+      "ACCOUNT_ACCESS": {
+        "_NAME": "Account & Access",
+        "ORGANIZATIONS": {
+          "_NAME": "Organizations",
+          "ORGANIZATIONS_USERS": "Users",
+          "ORGANIZATIONS_APPROVALS": "Approvals",
+          "ORGANIZATIONS_ACCESS_CONTROLS": "Access Controls"
+        }
+      },
+      "ENVIRONMENT": {
+        "_NAME": "Environment",
+        "CLOUD_SPS": {
+          "_NAME": "Cloud SPs",
+          "CLOUD_OVERVIEW": "Cloud Overview",
+          "REGIONS": "Regions",
+          "CONNECTIONS": "Connections",
+          "CLOUD_DRIVERS": "Cloud Drivers",
+          "CREDENTIALS": "Credentials"
+        },
+        "CLOUD_RESOURCES": {
+          "_NAME": "Cloud Resources",
+          "SPECS": "Specs",
+          "IMAGES": "Images",
+          "VPC": "VPC",
+          "SECURITYS": "Securitys",
+          "MYIMAGES": "MyImages",
+          "DISKS": "Disks",
+          "SSH_KEYS": "SSH Keys"
+        },
+        "CLOUD_RES_CATALOGS": "Cloud Resource Catalogs",
+        "MANAGE_CREDENTIAL": {
+          "_NAME": "Manage Credential",
+          "CREDENTIALS": "Credentials"
+        },
+        "WORKSPACES_SETTINGS": {
+          "_NAME": "Workspaces Settings",
+          "ALLOCATED_PROJECTS": "Allocated Projects",
+          "SHARE_MEMBERS": "Share Members",
+          "ACCESS_CONTROLS": "Access Controls"
+        }
+      }
+    }
   },
   "WORKSPACE": {
-    "WORKSPACE": "Workspace"
+    "_NAME": "Workspace"
   },
   "AUTH": {
     "LOGIN": {
@@ -36,6 +98,14 @@
       "PASSWORD_CONFIRM" : "Please check confirm password"
     }
   },
+  "CLOUD_RESOURCES": {
+    "VPC": {
+      "_NAME": "VPC",
+      "DETAILS": "Details",
+      "CONNECTION": "Connection",
+      "SUBNETS": "Subnets"
+    }
+  },
   "COMPONENT": {
     "TEXT_INPUT": {
       "SHOW": "SHOW",
@@ -49,6 +119,13 @@
     },
     "FIELD_GROUP": {
       "OPTIONAL": "optional"
+    },
+    "BUTTON": {
+      "CREATE": "Create",
+      "SAVE": "Save",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "EDIT": "Edit"
     }
   }
 }

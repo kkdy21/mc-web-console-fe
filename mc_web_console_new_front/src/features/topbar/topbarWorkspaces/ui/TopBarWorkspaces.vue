@@ -148,7 +148,7 @@ const formatMenuItems = (menuItems: any[]) => {
           {
             type: CONTEXT_MENU_TYPE.header,
             name: 'workspace_header',
-            label: `${i18n.t('WORKSPACE.WORKSPACE')}`,
+            label: `${i18n.t('WORKSPACE._NAME')}`,
           },
         ]
       : ([] as any[]);

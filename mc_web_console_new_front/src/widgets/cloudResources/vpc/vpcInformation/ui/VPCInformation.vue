@@ -5,11 +5,17 @@ import {
   PDataTable,
   PBadge,
   PButton,
-  PI,
 } from '@cloudforet-test/mirinae';
 import { VPCInformationTableType } from '@/entities';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router/composables';
+import { vpcStore } from '@/shared/libs';
+import { storeToRefs } from 'pinia';
+import { i18n } from '@/app/i18n';
+
+const vpcStoreInstance = vpcStore.useVpcStore();
+
+const { addedSubnetList } = storeToRefs(vpcStoreInstance);
 
 const router = useRouter();
 
@@ -106,7 +112,7 @@ const handleSubnetPage = () => {
     <p-tab v-model="tabState.activeTab" :tabs="tabs">
       <template #details>
         <div class="tab-section-header">
-          <p>VPC Information</p>
+          <p>{{ i18n.t('CLOUD_RESOURCES.VPC._NAME') }} Information</p>
         </div>
         <p-definition-table
           :fields="defineTableField"
@@ -118,7 +124,7 @@ const handleSubnetPage = () => {
       </template>
       <template #connection>
         <div class="tab-section-header">
-          <p>Connection</p>
+          <p>{{ i18n.t('CLOUD_RESOURCES.VPC.CONNECTION') }}</p>
         </div>
         <p-data-table
           :fields="connectionField"
@@ -144,24 +150,16 @@ const handleSubnetPage = () => {
       </template>
       <template #subnets>
         <div class="tab-section-header">
-          <p>Subnets</p>
+          <p>{{ i18n.t('CLOUD_RESOURCES.VPC.SUBNETS') }}</p>
           <p-button
             icon-left="ic_edit"
             style-type="tertiary"
             @click="handleSubnetPage"
           >
-            Edit
+            {{ i18n.t('COMPONENT.BUTTON.EDIT') }}
           </p-button>
         </div>
-        <p-data-table
-          :fields="subnetsField"
-          :items="[
-            {
-              subnetName: 'subnetname-aws-northeast-1',
-              cidrBlock: '10.33.0.0/15',
-            },
-          ]"
-        />
+        <p-data-table :fields="subnetsField" :items="addedSubnetList" />
       </template>
     </p-tab>
   </div>

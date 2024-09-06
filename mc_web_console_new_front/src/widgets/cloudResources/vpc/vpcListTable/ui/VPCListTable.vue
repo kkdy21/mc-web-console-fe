@@ -4,18 +4,17 @@ import {
   PToolboxTable,
   PButton,
   PBadge,
-  PI,
   PDivider,
-  PSelectStatus,
 } from '@cloudforet-test/mirinae';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel';
 import { VPCInformationTableType } from '@/entities';
 import { computed, onMounted, reactive, ref } from 'vue';
-import { insertDynamicComponent } from '@/shared/utils';
 import { VPCCreateModal } from '../../vpcCreateModal';
 import { vpcStore } from '@/shared/libs';
 import { VPCListTableBottomFilter } from '@/features/cloudResources';
 import { storeToRefs } from 'pinia';
+import { i18n } from '@/app/i18n';
+import { insertDynamicComponent } from '@/shared/utils';
 import { toLower } from 'lodash';
 
 const vpcStoreInstance = vpcStore.useVpcStore();
@@ -182,7 +181,7 @@ onMounted(function () {
               icon-left="ic_plus_bold"
               @click="handleCreateVpc"
             >
-              Create
+              {{ i18n.t('COMPONENT.BUTTON.CREATE') }}
             </p-button>
           </template>
           <template #toolbox-bottom>

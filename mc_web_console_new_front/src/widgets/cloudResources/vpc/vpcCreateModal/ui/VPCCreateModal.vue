@@ -11,7 +11,7 @@ import {
   PDivider,
   PLink,
 } from '@cloudforet-test/mirinae';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { vpcStore } from '@/shared/libs';
 import { ListDropDown } from '@/widgets/layout/listDropDown';
 import { storeToRefs } from 'pinia';
@@ -19,11 +19,11 @@ import { storeToRefs } from 'pinia';
 const vpcStoreInstance = vpcStore.useVpcStore();
 
 const isConnectionEmpty = ref<boolean>(true);
-const selectedConnection = ref<any>();
-// const isWithSubnet = ref<boolean>(false);
+const isConfirmPossible = ref<boolean>(false);
 
-const { withSubnet } = storeToRefs(vpcStoreInstance);
+const { withSubnet, createdVpc } = storeToRefs(vpcStoreInstance);
 
+// TODO: change real data
 const PROVIDER_LIST = ['AWS', 'Azure', 'Google'];
 const LOCATION_LIST = ['Asia Pracific', 'Europe', 'North America'];
 const REGION_LIST = ['Seoul', 'Tokyo', 'Singapore'];
@@ -68,8 +68,57 @@ const isSelectedLocation = computed(() => {
   return state.selectedLocation !== '';
 });
 
+watch(
+  () => [textData, createdVpc],
+  () => {
+    if (textData.cidrBlock.length > 0) {
+      createdVpc.value.cidrBlock = textData.cidrBlock;
+    }
+    if (textData.selectedConnection.length > 0) {
+      createdVpc.value.selectedConnection = textData.selectedConnection;
+    }
+    if (textData.description.length > 0) {
+      createdVpc.value.description = textData.description;
+    }
+    if (textData.vpcName.length > 0) {
+      createdVpc.value.vpcName = textData.vpcName;
+    }
+  },
+);
+
+watch(
+  () => [
+    isConfirmPossible,
+    state.selectedConnection,
+    createdVpc.value.selectedConnection,
+  ],
+  () => {
+    if (state.selectedConnection.length > 0) {
+      createdVpc.value.selectedConnection = state.selectedConnection;
+    }
+    createdVpc.value.selectedConnection.length < 0
+      ? (isConfirmPossible.value = false)
+      : (isConfirmPossible.value = true);
+  },
+  { immediate: false },
+);
+
+const predicate = (value: any, current: any) => {
+  return current && value.key == current.key;
+};
+
 const handleCheck = (value: boolean) => {
   vpcStoreInstance.setWithSubnet(value);
+};
+
+const handleConfirm = () => {
+  // TODO: save vpc data (api call)
+  vpcStoreInstance.setCreateVpcModalVisible(false);
+
+  // TODO: api call (데이 저장 후) 상태값 삭제.
+
+  vpcStoreInstance.removeCreatedVpc();
+  vpcStoreInstance.removeWithSubnet(); // withSubnet 상태값 삭제
 };
 
 const handleClose = () => {
@@ -94,19 +143,23 @@ const handleClickRegion = (region: string) => {
     :visible="true"
     header-title="Create VPC"
     size="md"
+    :disabled="createdVpc.selectedConnection.length < 0"
     @close="handleClose"
     @cancel="handleClose"
-    @confirm="handleClose"
+    @confirm="handleConfirm"
   >
     <template #body>
       <p-pane-layout class="create-vpc-layout">
         <div class="create-vpc">
           <p-pane-layout class="layout layout-top">
             <p-field-group label="VPC Name">
-              <p-text-input v-model="textData.vpcName" placeholder="VPC Name" />
+              <p-text-input
+                v-model="createdVpc.vpcName"
+                placeholder="VPC Name"
+              />
             </p-field-group>
             <p-field-group label="Description">
-              <p-textarea />
+              <p-textarea v-model="createdVpc.description" />
             </p-field-group>
           </p-pane-layout>
           <p-pane-layout class="layout layout-middle">
@@ -134,13 +187,14 @@ const handleClickRegion = (region: string) => {
               <p-radio
                 v-for="(connection, idx) in state.connectionList"
                 :key="connection.key"
-                v-model="selectedConnection"
+                v-model="createdVpc.selectedConnection"
                 class="radio-button"
-                :value="connection.key"
+                :value="connection"
+                :predicate="predicate"
               >
-                <!-- :value="connection" -->
                 {{ connection.name }}
               </p-radio>
+              <p>{{ createdVpc.selectedConnection }}</p>
             </div>
             <div v-else class="empty-image">
               <p-empty show-image image-size="sm" title="No Data">
@@ -150,7 +204,10 @@ const handleClickRegion = (region: string) => {
           </p-pane-layout>
           <p-pane-layout class="layout layout-bottom">
             <p-field-group label="CIDR Block">
-              <p-text-input placeholder="ex) 10.0.0.1/24" />
+              <p-text-input
+                v-model="createdVpc.cidrBlock"
+                placeholder="ex) 10.0.0.1/24"
+              />
             </p-field-group>
           </p-pane-layout>
           <p-pane-layout class="layout with-subnet">
@@ -177,7 +234,6 @@ const handleClickRegion = (region: string) => {
       <span>Cancel</span>
     </template>
     <template #confirm-button>
-      <!-- TODO: disable 처리 -->
       <span>Confirm</span>
     </template>
   </p-button-modal>

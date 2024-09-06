@@ -3,6 +3,7 @@ import { VPCListTable } from '@/widgets/cloudResources';
 import { VPCInformation } from '@/widgets/cloudResources';
 import { VPCInformationTableType } from '@/entities';
 import { ref, Ref } from 'vue';
+import { i18n } from '@/app/i18n';
 
 const toolboxTableItem = [
   {
@@ -89,7 +90,7 @@ const handleSelectRow = (
 <template>
   <div class="vpc-page-layout">
     <header>
-      <p class="title">VPC</p>
+      <p class="title">{{ i18n.t('CLOUD_RESOURCES.VPC._NAME') }}</p>
     </header>
     <section>
       <v-p-c-list-table
