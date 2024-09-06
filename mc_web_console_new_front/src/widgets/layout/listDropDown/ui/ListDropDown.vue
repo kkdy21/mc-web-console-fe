@@ -9,6 +9,7 @@ interface Props {
   }[];
   list: string[];
   isDisabled?: boolean;
+  title: string;
 }
 
 defineProps<Props>();
@@ -39,7 +40,8 @@ const handleClickItem = (item: string) => {
     </template>
     <template #dropdown-button>
       <div>
-        <span>{{ selectedItem }}</span>
+        <span v-if="selectedItem">{{ selectedItem }}</span>
+        <span v-else class="title">{{ title }}</span>
       </div>
     </template>
   </p-select-dropdown>
@@ -59,5 +61,8 @@ const handleClickItem = (item: string) => {
     font-size: 0.875rem;
     font-weight: 400;
   }
+}
+.title {
+  @apply text-gray-600;
 }
 </style>

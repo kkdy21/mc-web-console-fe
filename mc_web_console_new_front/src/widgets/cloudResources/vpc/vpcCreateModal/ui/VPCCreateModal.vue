@@ -103,6 +103,23 @@ watch(
   { immediate: false },
 );
 
+watch(
+  () => [
+    isConnectionEmpty,
+    state.selectedLocation,
+    state.selectedProvider,
+    state.selectedRegion,
+  ],
+  () => {
+    state.selectedProvider.length > 0 &&
+    state.selectedLocation.length > 0 &&
+    state.selectedRegion.length > 0
+      ? (isConnectionEmpty.value = false)
+      : (isConnectionEmpty.value = true);
+  },
+  { immediate: false },
+);
+
 const predicate = (value: any, current: any) => {
   return current && value.key == current.key;
 };
@@ -168,22 +185,25 @@ const handleClickRegion = (region: string) => {
               <list-drop-down
                 :menu="state.provider"
                 :list="PROVIDER_LIST"
+                title="Provider"
                 @update:selectedItem="handleClickProvider"
               />
               <list-drop-down
                 :menu="state.location"
                 :list="LOCATION_LIST"
                 :is-disabled="!isSelectedProvider"
+                title="Location"
                 @update:selectedItem="handleClickLocation"
               />
               <list-drop-down
                 :menu="state.region"
                 :list="REGION_LIST"
                 :is-disabled="!isSelectedLocation"
+                title="Region"
                 @update:selectedItem="handleClickRegion"
               />
             </div>
-            <div v-if="isConnectionEmpty" class="connection-data">
+            <div v-if="!isConnectionEmpty" class="connection-data">
               <p-radio
                 v-for="(connection, idx) in state.connectionList"
                 :key="connection.key"
