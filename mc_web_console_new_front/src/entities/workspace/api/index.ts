@@ -1,6 +1,7 @@
 import { useAxiosPost } from '@/shared/libs/api/request.ts';
 import { IAxiosResponse, RequestBodyWrapper } from '@/shared/libs';
 import {
+  IEditWorkspaceData,
   IWorkspaceData,
   IWorkspaceDeleteData,
   IWorkspaceDetailData,
@@ -9,6 +10,7 @@ import {
 const DELETE_WORKSPACE_BY_ID = 'deleteworkspaceuserrolemapping';
 const GET_WORKSPACELIST_BY_ID = 'GetWorkspaceUserRoleMappingListByUserId';
 const GET_WORKSPACELIST = 'GetWorkspaceList';
+const EDIT_USER_WORKSPACE_MAPPING = 'createworkspaceuserrolemappingbyname';
 
 export function useDeleteWorkspaceById(
   deleteData: IWorkspaceDeleteData | null,
@@ -44,4 +46,17 @@ export function useGetWorkspaceList() {
     GET_WORKSPACELIST,
     null,
   );
+}
+
+export function useEditWorkspaceList(requestData: IEditWorkspaceData | null) {
+  const requestBodyWrapper: Required<
+    Pick<RequestBodyWrapper<IEditWorkspaceData | null>, 'request'>
+  > = {
+    request: requestData,
+  };
+
+  return useAxiosPost<
+    IAxiosResponse<IWorkspaceDetailData[]>,
+    Required<Pick<RequestBodyWrapper<IEditWorkspaceData | null>, 'request'>>
+  >(EDIT_USER_WORKSPACE_MAPPING, requestBodyWrapper);
 }

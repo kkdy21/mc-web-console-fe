@@ -57,7 +57,7 @@ const workspaceModalState = reactive({
 
 const editModalState = reactive({
   // loading: computed(() => editUser.isLoading.value) as boolean,
-  open: true,
+  open: false,
   props: {
     userid: computed(() => props.tableItems.userId),
     workspaceId: '',
@@ -116,6 +116,30 @@ const isSelected = computed(() => {
   if (!props.tableItems) return false;
   return Object.values(props.tableItems).length;
 });
+
+const getWorkspaceList = () => {
+  resWorkspaceList
+    .execute({
+      pathParams: {
+        userId: props.tableItems.userId!,
+      },
+    })
+    .then(res => {
+      if (res.data.responseData && res.data.responseData.length) {
+        workspaceTableModel.tableState.items = res.data.responseData!.map(
+          (workspace: IWorkspaceDetailData) => organizeWorkspaceList(workspace),
+        );
+        workspaceTableModel.tableState.sortedItems =
+          workspaceTableModel.tableState.items;
+      } else {
+        workspaceTableModel.initState();
+      }
+      workspaceTableModel.handleChange(null);
+    })
+    .catch(error => {
+      showErrorMessage('Error', error.errorMsg);
+    });
+};
 
 watch(props, nv => {
   if (props.tableItems) {
@@ -180,6 +204,13 @@ const handleWorkspaceDeleteConfirm = () => {
     .catch(err => {
       showErrorMessage('Error', err.errorMsg);
     });
+};
+
+const handleClose = e => {
+  editModalState.open = false;
+  if (e && e.isSuccess) {
+    getWorkspaceList();
+  }
 };
 
 onMounted(() => {
@@ -287,7 +318,7 @@ onMounted(() => {
       :visible="editModalState.open"
       :size="'md'"
       :header-title="'Edit User'"
-      @cancel="editModalState.open = false"
+      :hideFooter="true"
       @close="editModalState.open = false"
     >
       <template #body>
@@ -295,6 +326,7 @@ onMounted(() => {
           :id="props.tableItems.userId"
           :full-name="props.tableItems.name"
           :workspaces="workspaceTableModel.tableState.items"
+          @close="handleClose"
         ></UserEdit>
       </template>
     </p-button-modal>
@@ -303,13 +335,13 @@ onMounted(() => {
 
 <style scoped lang="postcss">
 .tab-section-header {
-  padding: 32px 16px 24px 16px;
-  margin-top: 10px;
+  padding: 2rem 1rem 1.5rem 1rem;
+  margin-top: 0.625rem;
   display: flex;
   justify-content: space-between;
 
   p {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 400;
   }
 }

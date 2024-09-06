@@ -140,7 +140,6 @@ onBeforeMount(() => {
 
 onMounted(function () {
   trashBtn = addDeleteIconAtTable.bind(this)();
-  console.log(trashBtn);
   trashBtn._props.label = '동적변경';
 });
 </script>

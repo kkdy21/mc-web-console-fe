@@ -246,7 +246,7 @@ const handlePasswordConfirmInputUpdate = e => {
       </section>
     </form>
 
-    <footer class="footer">
+    <footer class="custom-modal-footer">
       <PButton :style-type="'transparent'" @click="() => handleClose(false)"
         >cancel</PButton
       >
@@ -313,11 +313,5 @@ const handlePasswordConfirmInputUpdate = e => {
     @apply flex;
     gap: 8px;
   }
-}
-
-.footer {
-  @apply flex justify-end;
-  margin-top: 24px;
-  gap: 16px;
 }
 </style>

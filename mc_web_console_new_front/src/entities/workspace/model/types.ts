@@ -32,3 +32,9 @@ export interface IWorkspaceData {
   name: string;
   updated_at: string;
 }
+
+export interface IEditWorkspaceData {
+  userId: string;
+  workspaceId: string;
+  roleId: string;
+}
