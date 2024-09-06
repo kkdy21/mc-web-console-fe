@@ -62,7 +62,8 @@ export type UserInformationTableType =
   | 'approved'
   | 'callInvite'
   | 'receiveInvite'
-  | 'defaultRoles';
+  | 'defaultRoles'
+  | 'username';
 
 export type UserWorkspaceTableType =
   | 'workspace'

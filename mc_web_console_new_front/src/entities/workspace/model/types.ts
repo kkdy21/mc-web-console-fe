@@ -34,7 +34,7 @@ export interface IWorkspaceData {
 }
 
 export interface IEditWorkspaceData {
-  userId: string;
+  name: string;
   workspaceId: string;
   roleId: string;
 }

@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import UserListTable from '@/widgets/user/userlist/ui/UserListTable.vue';
 import UserInformation from '@/widgets/user/userinfomation/ui/UserInformation.vue';
-import {
-  getUserList,
-  tempGetUserList,
-  UserInformationTableType,
-  UserWorkspaceTableType,
-} from '@/entities';
+import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
 import { onMounted, Ref, ref } from 'vue';
 
 const pageName = 'Users';

@@ -22,11 +22,12 @@ import { IAxiosResponse } from '@/shared/libs';
 import { showSuccessMessage } from '@/shared/utils';
 
 interface IAddUser {
-  email?: string;
-  firstName?: string;
-  lastName?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
   id: string;
   password: string;
+  description?: string;
 }
 
 const id = useInputModel<string>('', validateId, 0);
@@ -42,7 +43,7 @@ const passwordConfirm = useInputModel<IPasswordConfirm>(
 const lastName = useInputModel<string>('', validateId, 0);
 const firstName = useInputModel<string>('', validateId, 0);
 const description = useInputModel<string>('', validateId, 0);
-const email = useInputModel<string>('aaa@naver.com', validateEmail, 10);
+const email = useInputModel<string>('', validateEmail, 10);
 
 const validationMsg = ref<string | null>(null);
 const emit = defineEmits(['modalClose']);
@@ -103,6 +104,7 @@ const handleAdd = async () => {
           firstName: firstName.value.value,
           lastName: lastName.value.value,
           email: email.value.value,
+          description: description.value.value || '',
         },
       })
       .then(res => {
@@ -248,8 +250,8 @@ const handlePasswordConfirmInputUpdate = e => {
 
     <footer class="custom-modal-footer">
       <PButton :style-type="'transparent'" @click="() => handleClose(false)"
-        >cancel</PButton
-      >
+        >cancel
+      </PButton>
       <PButton :loading="addUser.isLoading.value" @click="handleAdd"
         >Add
       </PButton>
@@ -313,5 +315,11 @@ const handlePasswordConfirmInputUpdate = e => {
     @apply flex;
     gap: 8px;
   }
+}
+
+.custom-modal-footer {
+  @apply flex justify-end;
+  margin-top: 24px;
+  gap: 16px;
 }
 </style>

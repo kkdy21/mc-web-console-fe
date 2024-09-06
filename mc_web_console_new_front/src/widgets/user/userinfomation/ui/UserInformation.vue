@@ -10,26 +10,20 @@ import {
 } from '@cloudforet-test/mirinae';
 import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
-import {
-  IDefineTableField,
-  ITableField,
-  ITableItems,
-} from '@/shared/hooks/table/toolboxTable/types.ts';
+import { IDefineTableField } from '@/shared/hooks/table/toolboxTable/types.ts';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 import MIcon from '@/shared/ui/CommonIcon/ui/MIcon.vue';
 import {
   formatDate,
-  insertDynamicComponent,
   showErrorMessage,
   showSuccessMessage,
 } from '@/shared/utils';
-import DeleteUsers from '@/features/user/deleteUser/ui/DeleteUsers.vue';
 import {
   useDeleteWorkspaceById,
   useGetWorkspaceListById,
 } from '@/entities/workspace/api';
+import UserEditModal from '@/features/user/userEditModal/ui/UserEditModal.vue';
 import { IWorkspaceDetailData } from '@/entities/workspace/model/types.ts';
-import UserEdit from '@/widgets/user/userEdit/ui/UserEdit.vue';
 
 interface IProps {
   tableItems: Partial<
@@ -50,7 +44,7 @@ const workspaceModalState = reactive({
   loading: computed(() => resDelete.isLoading.value) as boolean,
   open: false,
   props: {
-    userid: computed(() => props.tableItems.userId),
+    userid: computed(() => props.tableItems.username),
     workspaceId: '',
   },
 });
@@ -93,6 +87,7 @@ const tabs = [
     label: 'Workspace',
   },
 ];
+
 const workspaceTableModel =
   useToolboxTableModel<
     Partial<
@@ -117,11 +112,17 @@ const isSelected = computed(() => {
   return Object.values(props.tableItems).length;
 });
 
+watch(props, nv => {
+  if (props.tableItems) {
+    getWorkspaceList();
+  }
+});
+
 const getWorkspaceList = () => {
   resWorkspaceList
     .execute({
       pathParams: {
-        userId: props.tableItems.userId!,
+        userId: props.tableItems.username,
       },
     })
     .then(res => {
@@ -141,33 +142,6 @@ const getWorkspaceList = () => {
     });
 };
 
-watch(props, nv => {
-  if (props.tableItems) {
-    resWorkspaceList
-      .execute({
-        pathParams: {
-          userId: props.tableItems.userId!,
-        },
-      })
-      .then(res => {
-        if (res.data.responseData && res.data.responseData.length) {
-          workspaceTableModel.tableState.items = res.data.responseData!.map(
-            (workspace: IWorkspaceDetailData) =>
-              organizeWorkspaceList(workspace),
-          );
-          workspaceTableModel.tableState.sortedItems =
-            workspaceTableModel.tableState.items;
-        } else {
-          workspaceTableModel.initState();
-        }
-        workspaceTableModel.handleChange(null);
-      })
-      .catch(error => {
-        showErrorMessage('Error', error.errorMsg);
-      });
-  }
-});
-
 const organizeWorkspaceList = (workspace: IWorkspaceDetailData) => {
   const workspaceitem: Record<UserWorkspaceTableType | 'originalData', any> = {
     workspace: workspace.workspaceProject.workspace.name,
@@ -186,6 +160,7 @@ const handleWorkspaceDeleteClick = (
   workspaceModalState.props.workspaceId =
     data.originalData.workspaceProject.workspace.id;
 };
+
 const handleWorkspaceDeleteConfirm = () => {
   resDelete
     .execute({
@@ -200,6 +175,7 @@ const handleWorkspaceDeleteConfirm = () => {
         res.data.responseData?.message || 'Delete Success',
       );
       workspaceModalState.open = false;
+      getWorkspaceList();
     })
     .catch(err => {
       showErrorMessage('Error', err.errorMsg);
@@ -208,7 +184,7 @@ const handleWorkspaceDeleteConfirm = () => {
 
 const handleClose = e => {
   editModalState.open = false;
-  if (e && e.isSuccess) {
+  if (e) {
     getWorkspaceList();
   }
 };
@@ -314,22 +290,13 @@ onMounted(() => {
       @cancel="workspaceModalState.open = false"
       @close="workspaceModalState.open = false"
     ></p-button-modal>
-    <p-button-modal
-      :visible="editModalState.open"
-      :size="'md'"
-      :header-title="'Edit User'"
-      :hideFooter="true"
-      @close="editModalState.open = false"
-    >
-      <template #body>
-        <UserEdit
-          :id="props.tableItems.userId"
-          :full-name="props.tableItems.name"
-          :workspaces="workspaceTableModel.tableState.items"
-          @close="handleClose"
-        ></UserEdit>
-      </template>
-    </p-button-modal>
+    <UserEditModal
+      :id="props.tableItems.username"
+      :full-name="props.tableItems.name"
+      :workspaces="workspaceTableModel.tableState.items"
+      :is-open="editModalState.open"
+      @close="handleClose"
+    ></UserEditModal>
   </div>
 </template>
 

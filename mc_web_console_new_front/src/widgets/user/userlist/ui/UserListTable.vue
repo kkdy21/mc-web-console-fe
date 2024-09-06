@@ -8,6 +8,7 @@ import {
 } from '@cloudforet-test/mirinae';
 import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 import {
+  useDeleteUser,
   getUserList,
   IUserInfoResponse,
   UserInformationTableType,
@@ -19,6 +20,7 @@ import DeleteUsers from '@/features/user/deleteUser/ui/DeleteUsers.vue';
 import AddUser from '@/features/user/addUser/ui/AddUser.vue';
 
 const resUserList = getUserList();
+const resDeleteUser = useDeleteUser(null);
 
 const userList: Partial<
   Record<UserInformationTableType | UserWorkspaceTableType, any>
@@ -74,7 +76,6 @@ function addDeleteIconAtTable() {
     },
     {
       'button-click': message => {
-        console.log(message);
         trashBtn.$props.focus = true;
       },
     },
@@ -114,6 +115,7 @@ const organizeResponseUserList = (userRes: IUserInfoResponse) => {
     receiveInvite: userRes.receiveInvite || '',
     defaultRoles: userRes.defaultRoles || '',
     originalData: userRes,
+    username: userRes.username,
   };
 
   return organizedDatum;
