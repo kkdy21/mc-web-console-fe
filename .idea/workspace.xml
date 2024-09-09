@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : user edit data fetch">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/userEditModal/ui/UserEditModal.vue" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="temp : merge temp">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/bulkRequest.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/style/style.pcss" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/style/style.pcss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userEdit/ui/UserEdit.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
-        <option value="TypeScript File" />
         <option value="Vue Composition API Component" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -55,7 +48,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "page/user",
+    "git-widget-placeholder": "page/mci",
     "js.linters.configure.manually.selectedeslint": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe",
@@ -70,7 +63,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.20603015",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "settings.javascript.linters.tslint",
     "ts.external.directory.path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
@@ -463,7 +456,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725587658153</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="temp : merge temp">
+      <option name="closed" value="true" />
+      <created>1725840149717</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1725840149717</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +482,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor : change api-type file location" />
     <MESSAGE value="refactor : 초기구조" />
     <MESSAGE value="add: login page" />
     <MESSAGE value="add: lodash, InputModel" />
@@ -506,7 +506,8 @@
     <MESSAGE value="feat : workspace list, workspace delete" />
     <MESSAGE value="feat : user edit modal" />
     <MESSAGE value="feat : user edit data fetch" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : user edit data fetch" />
+    <MESSAGE value="temp : merge temp" />
+    <option name="LAST_COMMIT_MESSAGE" value="temp : merge temp" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />
