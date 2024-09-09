@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import { IUserResponse } from '@/entities';
+import { IUserLoginResponse } from '@/entities';
 
 export type AuthorizationType = null | 'admin' | 'client';
 
-type IAuthStore = Pick<IUserResponse, 'role'> & {
+type IAuthStore = Pick<IUserLoginResponse, 'role'> & {
   id: string;
   isLogin: boolean;
 };

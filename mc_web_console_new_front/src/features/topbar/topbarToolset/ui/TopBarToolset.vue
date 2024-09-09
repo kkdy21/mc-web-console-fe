@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { PTooltip, PI } from '@cloudforet-test/mirinae';
 import TopBarNotifications from '@/features/topbar/topbarNotifications/ui/TopBarNotifications.vue';
+import { McmpRouter } from '@/app/providers/router';
 
 const props = withDefaults(
   defineProps<{
@@ -27,11 +28,15 @@ const updateOpenedMenu = (menu: string, visible: boolean) => {
   if (visible) openMenu(menu);
   else hideMenu();
 };
+
+const gotoLoginPage = () => {
+  McmpRouter.getRouter().push({ name: 'login' });
+};
 </script>
 
 <template>
   <div class="top-bar-toolset">
-    <div class="top-bar-icons-wrapper">
+    <div class="top-bar-icons-wrapper" @click="gotoLoginPage">
       <top-bar-notifications
         :visible="props.openedMenu === 'notifications'"
         @update:visible="updateOpenedMenu('notifications', $event)"
@@ -48,6 +53,7 @@ const updateOpenedMenu = (menu: string, visible: boolean) => {
 .top-bar-toolset {
   @apply flex items-center;
   gap: 0.5rem;
+
   .top-bar-icons-wrapper {
     @apply flex items-center gap-2;
   }

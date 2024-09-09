@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PSidebar } from '@cloudforet-test/mirinae';
+import { PSidebar, PNoticeAlert, PToastAlert } from '@cloudforet-test/mirinae';
 
 import LayoutHeader from './Layouts/layoutHeader/ui/LayoutHeader.vue';
 import MainLayout from './Layouts/mainLayout/ui/MainLayout.vue';
@@ -10,6 +10,8 @@ import { reactive } from 'vue';
 
 <template>
   <div v-cloak id="app">
+    <p-notice-alert group="noticeBottomRight" />
+    <p-toast-alert group="toastTopCenter" />
     <div class="top-bar">
       <layout-header />
     </div>

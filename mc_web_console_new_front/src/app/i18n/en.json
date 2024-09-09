@@ -46,6 +46,14 @@
     },
     "DATA_TABLE": {
       "NO_DATA" : "NO_DATA"
+    },
+    "BUTTON_MODAL": {
+      "CANCEL" : "Cancel",
+      "CONFIRM" : "OK"
+    },
+    "CONTEXT_MENU": {
+      "SHOW_MORE" : "show more",
+      "NO_ITEM" : "NO ITEM"
     }
   }
 }

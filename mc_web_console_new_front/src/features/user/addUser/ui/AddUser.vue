@@ -19,13 +19,15 @@ import {
 } from '@/entities';
 import { computed, ref, watch } from 'vue';
 import { IAxiosResponse } from '@/shared/libs';
+import { showSuccessMessage } from '@/shared/utils';
 
 interface IAddUser {
-  email?: string;
-  firstName?: string;
-  lastName?: string;
+  email: string;
+  firstName: string;
+  lastName: string;
   id: string;
   password: string;
+  description?: string;
 }
 
 const id = useInputModel<string>('', validateId, 0);
@@ -41,7 +43,7 @@ const passwordConfirm = useInputModel<IPasswordConfirm>(
 const lastName = useInputModel<string>('', validateId, 0);
 const firstName = useInputModel<string>('', validateId, 0);
 const description = useInputModel<string>('', validateId, 0);
-const email = useInputModel<string>('aaa@naver.com', validateEmail, 10);
+const email = useInputModel<string>('', validateEmail, 10);
 
 const validationMsg = ref<string | null>(null);
 const emit = defineEmits(['modalClose']);
@@ -52,15 +54,8 @@ watch([addUser.error, addUser.errorMsg], nv => {
   validationMsg.value = nv[1];
 });
 
-watch(addUser.status, nv => {
-  console.log(nv);
-  if (nv === 'success') {
-    alert('Success create user');
-  }
-});
-
-const handleClose = () => {
-  emit('modalClose', { isSuccess: true });
+const handleClose = isSuccess => {
+  emit('modalClose', { isSuccess });
 };
 
 const handleAdd = async () => {
@@ -101,15 +96,21 @@ const handleAdd = async () => {
     firstName.isValid.value &&
     email.isValid.value
   ) {
-    addUser.execute({
-      request: {
-        id: id.value.value,
-        password: password.value.value,
-        firstName: firstName.value.value,
-        lastName: lastName.value.value,
-        email: email.value.value,
-      },
-    });
+    addUser
+      .execute({
+        request: {
+          id: id.value.value,
+          password: password.value.value,
+          firstName: firstName.value.value,
+          lastName: lastName.value.value,
+          email: email.value.value,
+          description: description.value.value || '',
+        },
+      })
+      .then(res => {
+        showSuccessMessage('Success', 'Create Success');
+        handleClose(true);
+      });
   }
 };
 
@@ -247,8 +248,10 @@ const handlePasswordConfirmInputUpdate = e => {
       </section>
     </form>
 
-    <footer class="footer">
-      <PButton :style-type="'transparent'" @click="handleClose">cancel</PButton>
+    <footer class="custom-modal-footer">
+      <PButton :style-type="'transparent'" @click="() => handleClose(false)"
+        >cancel
+      </PButton>
       <PButton :loading="addUser.isLoading.value" @click="handleAdd"
         >Add
       </PButton>
@@ -314,7 +317,7 @@ const handlePasswordConfirmInputUpdate = e => {
   }
 }
 
-.footer {
+.custom-modal-footer {
   @apply flex justify-end;
   margin-top: 24px;
   gap: 16px;
