@@ -3,4 +3,12 @@ export type VPCInformationTableType =
   | 'description'
   | 'cidrBlock'
   | 'provider'
-  | 'connection';
+  | 'connection'
+  | 'subnetInfoList';
+
+export type SubnetInformationTableType =
+  | 'subnetName'
+  | 'cidrBlock'
+  | 'removeAction';
+
+export interface IAllVPCsInfoResponse {}

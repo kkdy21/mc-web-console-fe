@@ -4,6 +4,7 @@ import {
   ITableField,
   ITableItems,
 } from '@/shared/hooks/table/toolboxTable/types.ts';
+import { isNullOrUndefined } from '@/shared/utils';
 
 type ITableState<T> = {
   loading: boolean;
@@ -117,6 +118,12 @@ export const useToolboxTableModel = <T>() => {
       );
     }
   };
+  const initState = () => {
+    tableState.items = [];
+    tableState.sortedItems = [];
+    tableState.displayItems = [];
+  };
+
   const handleChange = (e: any) => {
     tableState.loading = true;
     updatePagination(e);
@@ -130,13 +137,12 @@ export const useToolboxTableModel = <T>() => {
 
     tableState.loading = false;
   };
-  const isNullOrUndefined = (value: any) => {
-    return value === null || value === undefined;
-  };
+
   return {
     tableOptions,
     tableState,
     querySearchState,
     handleChange,
+    initState,
   };
 };

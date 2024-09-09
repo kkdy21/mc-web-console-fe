@@ -2,7 +2,7 @@ import axios from 'axios';
 import { McmpRouter } from '@/app/providers/router';
 import { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
 import { IAxiosResponse } from '@/shared/libs';
-import { IUserResponse } from '@/entities';
+import { IUserLoginResponse } from '@/entities';
 import { jwtDecode } from 'jwt-decode';
 import LocalStorageConnector from '../access-localstorage/localStorageConnector.ts';
 
@@ -62,7 +62,7 @@ export default class JwtTokenProvider {
 
   public async refreshTokens() {
     try {
-      const refreshRes = await axios.post<IAxiosResponse<IUserResponse>>(
+      const refreshRes = await axios.post<IAxiosResponse<IUserLoginResponse>>(
         url + `/${this.REFRESH_TOKEN_URL}`,
         {
           request: {

@@ -8,14 +8,20 @@ import {
 } from '@cloudforet-test/mirinae';
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel';
 import { VPCInformationTableType } from '@/entities';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, reactive, ref } from 'vue';
 import { VPCCreateModal } from '../../vpcCreateModal';
 import { vpcStore } from '@/shared/libs';
 import { VPCListTableBottomFilter } from '@/features/cloudResources';
 import { storeToRefs } from 'pinia';
 import { i18n } from '@/app/i18n';
+import { useGetAllVPCs, useDeleteVPC } from '@/entities';
 import { insertDynamicComponent } from '@/shared/utils';
-import { toLower } from 'lodash';
+import { DeleteVPC } from '@/features/cloudResources';
+
+const resGetAllVPCs = useGetAllVPCs<any, null | { nsId: string }>(null);
+const resDeleteVPC = useDeleteVPC<any, null | { nsId: string; vNetId: string }>(
+  null,
+);
 
 const vpcStoreInstance = vpcStore.useVpcStore();
 
@@ -27,6 +33,8 @@ interface Props {
 
 const props = defineProps<Props>();
 const emit = defineEmits(['selectRow']);
+
+let trashBtn;
 
 const tableModel =
   useToolboxTableModel<Partial<Record<VPCInformationTableType, any>>>();
@@ -46,6 +54,9 @@ const providers: any = {
   },
   NHN: {
     color: '#125DE6',
+  },
+  Other: {
+    color: '#bbb',
   },
 };
 
@@ -141,12 +152,106 @@ const handleSelectedIndex = (index: number) => {
   emit('selectRow', selectedData);
 };
 
-const handleCreateVpc = () => {
+const handleCreateVpc = async () => {
   vpcStoreInstance.setCreateVpcModalVisible(true);
 };
 
-onMounted(function () {
+const handleTableDataFetch = async () => {
+  const { data } = await resGetAllVPCs.execute({
+    pathParams: {
+      nsId: 'ns01',
+    },
+  });
+
+  if (Object.keys(data.responseData).length > 0) {
+    tableModel.tableState.items = data.responseData.vNet.map(v => {
+      const {
+        id,
+        cspVNetName,
+        description,
+        cidrBlock,
+        connectionName,
+        subnetInfoList,
+      } = v;
+      let subnetInfoArr = [] as {
+        subnetName: string;
+        cidrBlock: string;
+        remove: HTMLElement;
+      }[];
+      if (Array.isArray(subnetInfoList) && subnetInfoList.length > 0) {
+        subnetInfoList.forEach(subnet => {
+          subnetInfoArr.push({
+            subnetName: subnet.Id,
+            cidrBlock: cidrBlock,
+            remove: `<p-button>remove</p-button>` as unknown as HTMLElement,
+          });
+        });
+      }
+
+      let provider = '';
+      if (id.includes('aws')) {
+        provider = 'AWS';
+      } else if (id.includes('google')) {
+        provider = 'Google';
+      } else if (id.includes('azure')) {
+        provider = 'Azure';
+      } else if (id.includes('nhanes')) {
+        provider = 'NHN';
+      } else {
+        provider = 'Other';
+      }
+
+      return {
+        vpcName: id,
+        description,
+        cidrBlock,
+        provider,
+        connection: connectionName,
+        subnetInfoList: subnetInfoArr,
+      };
+    });
+  } else {
+    tableModel.initState();
+  }
+  tableModel.tableState.sortedItems = tableModel.tableState.items;
   tableModel.handleChange(null);
+};
+
+function addDeleteIconAtTable() {
+  const toolboxTable = this.$refs.toolboxTable.$el;
+  const targetElement = toolboxTable.querySelector('.right-tool-group');
+  const instance = insertDynamicComponent(
+    DeleteVPC,
+    {
+      label: '',
+    },
+    {
+      'button-click': async message => {
+        trashBtn.$props.focusedData =
+          tableModel.tableState.items[tableModel.tableState.selectIndex];
+        trashBtn.$props.focus = true;
+        // await resDeleteVPC.execute({
+        //   pathParams: {
+        //     nsId: 'ns01',
+        //     vNetId: 'vNet02',
+        //   },
+        // });
+      },
+    },
+    targetElement,
+    'prepend',
+  );
+
+  return instance;
+}
+
+onBeforeMount(() => {
+  tableModel.initState();
+  handleTableDataFetch();
+});
+
+onMounted(function () {
+  trashBtn = addDeleteIconAtTable.bind(this)();
 });
 </script>
 
@@ -172,7 +277,7 @@ onMounted(function () {
           :select-index.sync="tableModel.tableState.selectIndex"
           :page-size="tableModel.tableOptions.pageSize"
           @change="tableModel.handleChange"
-          @refresh="() => {}"
+          @refresh="handleTableDataFetch"
           @select="handleSelectedIndex"
         >
           <template #toolbox-left>
@@ -198,6 +303,16 @@ onMounted(function () {
               text-color="white"
             >
               {{ item.provider }}
+            </p-badge>
+          </template>
+          <template #col-connection-format="{ value, item }">
+            <p-badge
+              text-color="#232533"
+              font-weight="400"
+              background-color="#DDDDDF"
+              :table-model="tableModel"
+            >
+              {{ item.connection }}
             </p-badge>
           </template>
         </p-toolbox-table>

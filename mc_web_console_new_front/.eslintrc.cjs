@@ -37,5 +37,6 @@ module.exports = {
       },
     ],
     'vue/max-attributes-per-line': 'off',
+    "vue/no-mutating-props": 'off'
   },
 };

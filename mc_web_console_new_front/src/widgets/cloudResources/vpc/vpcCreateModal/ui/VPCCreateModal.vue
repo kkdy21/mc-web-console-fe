@@ -11,10 +11,21 @@ import {
   PDivider,
   PLink,
 } from '@cloudforet-test/mirinae';
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { vpcStore } from '@/shared/libs';
 import { ListDropDown } from '@/widgets/layout/listDropDown';
 import { storeToRefs } from 'pinia';
+import {
+  useCreateVPC,
+  useGetProviderList,
+  useGetRegionList,
+  PROVIDER_ID_LIST,
+} from '@/entities';
+import { i18n } from '@/app/i18n';
+
+const resCreateVPC = useCreateVPC<{ pathParams: any; request: any }, any>(null);
+const resProviderList = useGetProviderList<any, null>();
+const resRegionList = useGetRegionList<any, null>();
 
 const vpcStoreInstance = vpcStore.useVpcStore();
 
@@ -22,18 +33,45 @@ const isConnectionEmpty = ref<boolean>(true);
 const isConfirmPossible = ref<boolean>(false);
 
 const { withSubnet, createdVpc } = storeToRefs(vpcStoreInstance);
-
 // TODO: change real data
-const PROVIDER_LIST = ['AWS', 'Azure', 'Google'];
+
+// const PROVIDER_LIST = ['AWS', 'Azure', 'Google'];
+const providerIdList = ref<string[]>([]);
+const regionIdList = ref<string[]>([]);
+
+onMounted(async () => {
+  const { data } = await resProviderList.execute();
+  providerIdList.value = data.responseData.output;
+});
+
+onMounted(async () => {
+  // const { data } = await resRegionList.execute();
+  // data.responseData.region.forEach(r => {
+  //   r['ProviderName'] === 'NHNCLOUD' ? console.log(r) : null;
+  // });
+});
+
+// TODO: provider조건으로 filtering하는 기능 추가 (BE에서 제공해야함)
 const LOCATION_LIST = ['Asia Pracific', 'Europe', 'North America'];
 const REGION_LIST = ['Seoul', 'Tokyo', 'Singapore'];
 
-// TODO: change api response
 const state = reactive({
   vpcName: '',
   description: '',
-  provider: PROVIDER_LIST.flatMap(provider => {
-    return { name: provider };
+  providerList: computed(() => {
+    let providerList = [{ name: '', value: '' }] as any[];
+    providerIdList.value.forEach((providerId: string) => {
+      Object.keys(PROVIDER_ID_LIST).includes(providerId)
+        ? providerList.push({
+            name: PROVIDER_ID_LIST[providerId],
+            key: providerId,
+          })
+        : null;
+    });
+    return providerList;
+  }),
+  provider: computed(() => {
+    return Object.values(PROVIDER_ID_LIST);
   }),
   selectedProvider: '',
   location: LOCATION_LIST.flatMap(location => {
@@ -46,13 +84,15 @@ const state = reactive({
   selectedRegion: '',
   connectionList: computed(() => {
     return [
-      { key: 'connection1', name: 'Connection 1' },
-      { key: 'connection2', name: 'Connection 2' },
+      { key: 'aws-ap-northeast-2', name: 'aws-ap-northeast-2' },
+      { key: 'aws-ap-northeast-1', name: 'aws-ap-northeast-1' },
       { key: 'connection3', name: 'Connection 3' },
     ];
   }),
   selectedConnection: '',
 });
+
+// TODO: change api response
 
 const textData = reactive({
   vpcName: '',
@@ -127,15 +167,36 @@ const predicate = (value: any, current: any) => {
 const handleCheck = (value: boolean) => {
   vpcStoreInstance.setWithSubnet(value);
 };
+console.log(createdVpc.value.subnetList);
 
-const handleConfirm = () => {
+const handleConfirm = async () => {
+  try {
+    const { data } = await resCreateVPC.execute({
+      pathParams: {
+        // TODO: nsId 변경
+        nsId: 'ns01',
+      },
+      request: {
+        cidrBlock: createdVpc.value.cidrBlock,
+        connectionName: createdVpc.value.selectedConnection?.key,
+        name: createdVpc.value.vpcName,
+        subnetInfoList: createdVpc.value.subnetList,
+        description: createdVpc.value.description,
+      },
+    });
+
+    console.log(data);
+  } catch (err) {
+    console.log('error!!!!!', err);
+  }
   // TODO: save vpc data (api call)
-  vpcStoreInstance.setCreateVpcModalVisible(false);
+
+  vpcStoreInstance.setCreateVpcModalVisible(false); // close modal
 
   // TODO: api call (데이 저장 후) 상태값 삭제.
 
-  vpcStoreInstance.removeCreatedVpc();
-  vpcStoreInstance.removeWithSubnet(); // withSubnet 상태값 삭제
+  // vpcStoreInstance.removeCreatedVpc();
+  // vpcStoreInstance.removeWithSubnet(); // withSubnet 상태값 삭제
 };
 
 const handleClose = () => {
@@ -160,7 +221,7 @@ const handleClickRegion = (region: string) => {
     :visible="true"
     header-title="Create VPC"
     size="md"
-    :disabled="createdVpc.selectedConnection.length < 0"
+    :disabled="!createdVpc.selectedConnection"
     @close="handleClose"
     @cancel="handleClose"
     @confirm="handleConfirm"
@@ -169,7 +230,7 @@ const handleClickRegion = (region: string) => {
       <p-pane-layout class="create-vpc-layout">
         <div class="create-vpc">
           <p-pane-layout class="layout layout-top">
-            <p-field-group label="VPC Name">
+            <p-field-group label="VPC Name" required>
               <p-text-input
                 v-model="createdVpc.vpcName"
                 placeholder="VPC Name"
@@ -183,8 +244,8 @@ const handleClickRegion = (region: string) => {
             <p>Connection</p>
             <div class="select-container">
               <list-drop-down
-                :menu="state.provider"
-                :list="PROVIDER_LIST"
+                :menu="state.providerList"
+                :list="state.provider"
                 title="Provider"
                 @update:selectedItem="handleClickProvider"
               />
@@ -203,7 +264,14 @@ const handleClickRegion = (region: string) => {
                 @update:selectedItem="handleClickRegion"
               />
             </div>
-            <div v-if="!isConnectionEmpty" class="connection-data">
+            <div
+              v-if="
+                state.selectedProvider &&
+                state.selectedLocation &&
+                state.selectedRegion
+              "
+              class="connection-data"
+            >
               <p-radio
                 v-for="(connection, idx) in state.connectionList"
                 :key="connection.key"
@@ -223,10 +291,10 @@ const handleClickRegion = (region: string) => {
             </div>
           </p-pane-layout>
           <p-pane-layout class="layout layout-bottom">
-            <p-field-group label="CIDR Block">
+            <p-field-group label="CIDR Block" required>
               <p-text-input
                 v-model="createdVpc.cidrBlock"
-                placeholder="ex) 10.0.0.1/24"
+                placeholder="ex) 10.0.0.0/16"
               />
             </p-field-group>
           </p-pane-layout>

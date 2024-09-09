@@ -6,16 +6,23 @@ import {
   PBadge,
   PButton,
 } from '@cloudforet-test/mirinae';
-import { VPCInformationTableType } from '@/entities';
-import { computed, reactive } from 'vue';
+import {
+  VPCInformationTableType,
+  SubnetInformationTableType,
+} from '@/entities';
+import { computed, onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router/composables';
 import { vpcStore } from '@/shared/libs';
 import { storeToRefs } from 'pinia';
 import { i18n } from '@/app/i18n';
+import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel';
 
 const vpcStoreInstance = vpcStore.useVpcStore();
 
 const { addedSubnetList } = storeToRefs(vpcStoreInstance);
+
+const subnetTableModel =
+  useToolboxTableModel<Partial<Record<SubnetInformationTableType, any>>>();
 
 const router = useRouter();
 
@@ -85,7 +92,7 @@ const connectionField = [
   },
 ];
 
-const subnetsField = [
+const subnetsField: any = [
   {
     name: 'subnetName',
     label: 'Subnet Name',
@@ -93,6 +100,10 @@ const subnetsField = [
   {
     name: 'cidrBlock',
     label: 'CIDR Block',
+  },
+  {
+    name: 'removeAction',
+    label: '',
   },
 ];
 
@@ -105,6 +116,12 @@ const handleSubnetPage = () => {
     name: 'vpcSubnets',
   });
 };
+
+const handleSubnetDeleteClick = () => {};
+
+onMounted(() => {
+  subnetTableModel.tableState.fields = subnetsField;
+});
 </script>
 
 <template>
@@ -156,10 +173,20 @@ const handleSubnetPage = () => {
             style-type="tertiary"
             @click="handleSubnetPage"
           >
-            {{ i18n.t('COMPONENT.BUTTON.EDIT') }}
+            {{ i18n.t('COMPONENT.BUTTON_MODAL.EDIT') }}
           </p-button>
         </div>
-        <p-data-table :fields="subnetsField" :items="addedSubnetList" />
+        <p-data-table :fields="subnetsField" :items="tableItems.subnetInfoList">
+          <template #col-removeAction-format>
+            <p-button
+              style-type="tertiary"
+              size="sm"
+              @click="handleSubnetDeleteClick"
+            >
+              {{ i18n.t('COMPONENT.BUTTON_MODAL.REMOVE') }}
+            </p-button>
+          </template>
+        </p-data-table>
       </template>
     </p-tab>
   </div>

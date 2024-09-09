@@ -17,8 +17,8 @@ const router = useRouter();
 
 interface Props {
   subnetList: {
-    subnetName: string;
-    cidrBlock: string;
+    name: string;
+    ipv4_CIDR: string;
   }[];
 }
 
@@ -38,8 +38,8 @@ const deleteSelectedSubnet = (index: number) => {
 };
 const handleAddingSubnet = () => {
   subnetList.value.push({
-    subnetName: '',
-    cidrBlock: '',
+    name: '',
+    ipv4_CIDR: '',
   });
 };
 
@@ -86,22 +86,19 @@ const handleGoBack = () => {
             class="input-wrapper"
           >
             <p-field-group
-              :invalid="!subnet.subnetName"
+              :invalid="!subnet.name"
               :invalid-text="'No Subnet Name'"
             >
-              <p-text-input
-                v-model="subnet.subnetName"
-                :invalid="!subnet.subnetName"
-              />
+              <p-text-input v-model="subnet.name" :invalid="!subnet.name" />
             </p-field-group>
             <!-- :disabled="subnet.subnetName.length > 0" -->
             <p-field-group
-              :invalid="!subnet.cidrBlock"
+              :invalid="!subnet.ipv4_CIDR"
               :invalid-text="'No CIDR Block'"
             >
               <p-text-input
-                v-model="subnet.cidrBlock"
-                :invalid="!subnet.cidrBlock"
+                v-model="subnet.ipv4_CIDR"
+                :invalid="!subnet.ipv4_CIDR"
               />
             </p-field-group>
             <!-- :disabled="subnet.cidrBlock.length > 0" -->

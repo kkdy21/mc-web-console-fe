@@ -86,5 +86,6 @@ mc_web_console_api/database.yml
 scripts/.env
 mc_web_console_api/conf/api.yaml
 
-.idea
+*.idea
 .iml
+*.xml

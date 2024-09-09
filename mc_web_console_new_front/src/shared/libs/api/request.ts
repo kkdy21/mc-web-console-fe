@@ -27,11 +27,15 @@ export function useAxiosWrapper<T, D = any>(
   const errorMsg: Ref<string | null> = ref(null);
   const status: Ref<AsyncStatus> = ref<AsyncStatus>('idle');
 
-  const execute = async (payload?: D, config?: AxiosRequestConfig) => {
+  const execute = async (
+    payload?: D,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>> => {
     isLoading.value = true;
     status.value = 'loading';
+    let result;
     try {
-      const result = await apiCall(payload, config);
+      result = await apiCall(payload, config);
       reset();
       data.value = result.data;
       status.value = 'success';
@@ -40,9 +44,11 @@ export function useAxiosWrapper<T, D = any>(
       error.value = e;
       errorMsg.value = extractErrorMessage(e);
       status.value = 'error';
+      return Promise.reject({ error, errorMsg, status });
     } finally {
       isLoading.value = false;
     }
+    return result!;
   };
 
   const reset = () => {
@@ -72,12 +78,17 @@ function extractErrorMessage(error: any): string {
     if (errorData.responseData?.message) {
       return errorData.responseData.message;
     }
-
     if (errorData.responseData?.errors) {
       return errorData.responseData.errors;
     }
+    if (errorData.responseData?.error) {
+      return errorData.responseData.error;
+    }
     if (errorData.status?.message) {
       return errorData.status.message;
+    }
+    if (errorData.error) {
+      return errorData.error;
     }
     return errorData.message || error.message || 'Unknown error occurred';
   } else if (error.request) {

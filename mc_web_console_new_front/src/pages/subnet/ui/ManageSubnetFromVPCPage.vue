@@ -19,6 +19,8 @@ const handleVpcPage = () => {
 
 const saveSubnetList = () => {
   // TODO: save subnet list (api call)
+  vpcStoreInstance.setCreatedVpcSubnetList(createdVpc.value.subnetList);
+
   router.push({
     name: 'CloudResources',
   });

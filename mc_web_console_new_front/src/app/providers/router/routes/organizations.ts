@@ -1,7 +1,7 @@
 import { RouteConfig } from 'vue-router';
 import { MENU_ID } from '@/entities/menu';
 import { OrganizationsPage } from '@/pages/organizations';
-import { UsersPage } from '@/pages/users';
+import { UserPage } from '@/pages/account&access/users';
 
 export const ORGANIZATIONS_ROUTE = {
   _NAME: 'Organizations',
@@ -34,7 +34,7 @@ const organizationsRoutes: RouteConfig[] = [
           lsbVisible: true,
           menuId: MENU_ID.ACCOUNT_AND_ACCESS_ORGANIZATIONS,
         },
-        component: UsersPage,
+        component: UserPage,
       },
     ],
   },
