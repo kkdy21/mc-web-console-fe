@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="temp : merge temp">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/bulkRequest.ts" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : bulk request">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/api/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/stores.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/api/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/api/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userEdit/ui/UserEdit.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +70,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.20603015",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "settings.javascript.linters.tslint",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
@@ -464,7 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725840149717</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="feat : bulk request">
+      <option name="closed" value="true" />
+      <created>1725843511094</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1725843511094</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor : 초기구조" />
     <MESSAGE value="add: login page" />
     <MESSAGE value="add: lodash, InputModel" />
     <MESSAGE value="feat: login logic + login ui" />
@@ -507,7 +521,8 @@
     <MESSAGE value="feat : user edit modal" />
     <MESSAGE value="feat : user edit data fetch" />
     <MESSAGE value="temp : merge temp" />
-    <option name="LAST_COMMIT_MESSAGE" value="temp : merge temp" />
+    <MESSAGE value="feat : bulk request" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : bulk request" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />
