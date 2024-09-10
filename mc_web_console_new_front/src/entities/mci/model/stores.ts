@@ -12,11 +12,11 @@ const NAMESPACE = 'MCI';
 interface IMciStore {
   mcis: Ref<IMci[]>;
   setMcis: (val: IMci[]) => void;
-  loadMciById: (id: string) => IMci;
+  loadMciById: (id: string) => IMci | null;
 }
 
 export const useMCIStore = defineStore(NAMESPACE, (): IMciStore => {
-  const mcis = ref<IMci>([]);
+  const mcis = ref<IMci[]>([]);
 
   function setMcis(_mcis: IMci[]) {
     mcis.value = _mcis;

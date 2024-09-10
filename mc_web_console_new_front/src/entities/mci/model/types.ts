@@ -16,3 +16,17 @@ export interface IMciStatus {
     countTerminated: number;
   };
 }
+
+export type McisTableType =
+  | 'name'
+  | 'alias'
+  | 'status'
+  | 'provider'
+  | 'countTotal'
+  | 'countRunning'
+  | 'countTerminated'
+  | 'countSuspended'
+  | 'description'
+  | 'deploymentAlgorithm'
+  | 'type'
+  | 'action';

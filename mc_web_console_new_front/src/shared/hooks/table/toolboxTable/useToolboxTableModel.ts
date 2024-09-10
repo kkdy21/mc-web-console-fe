@@ -44,7 +44,7 @@ export const useToolboxTableModel = <T>() => {
     pageSize: 15,
   });
 
-  const querySearchState = reactive({
+  const querySearchState = reactive<any>({
     keyItemSet: [],
     valueHandlerMap: {},
     queryTag: [],

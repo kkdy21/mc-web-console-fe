@@ -110,3 +110,42 @@ export interface IVm {
   vNetId: string;
   vmUserAccount: string;
 }
+
+export type vmDetailTableType =
+  | 'serverId'
+  | 'description'
+  | 'publicIP'
+  | 'publicDNS'
+  | 'privateIP'
+  | 'privateDNS'
+  | 'status'
+  | 'provider'
+  | 'vmSpec'
+  | 'serverSpec'
+  | 'region'
+  | 'zone'
+  | 'securityGroup'
+  | 'vpcId'
+  | 'subnetId'
+  | 'startTime'
+  | 'networkInterface'
+  | 'rootDevice'
+  | 'rootDeviceType'
+  | 'keypairName'
+  | 'blockDevice'
+  | 'configName'
+  | 'vmId'
+  | 'userIdPwd'
+  | 'accessIdPwd'
+  | 'operatingSystem'
+  | 'imageId'
+  | 'architecture'
+  | 'platform';
+
+export type vmConnectionTableType =
+  | 'connectionName'
+  | 'credential'
+  | 'provider'
+  | 'driverFileName'
+  | 'region'
+  | 'availableZone';

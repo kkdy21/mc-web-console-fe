@@ -7,13 +7,13 @@ const NAMESPACE = 'vm';
 interface IVmStore {
   vms: Ref<IVm[]>;
   setVm: (val: IVm[]) => void;
-  loadVmById: (vmId: string) => IVm;
+  loadVmById: (vmId: string) => IVm | null;
 }
 
 export const useVmStore = defineStore(NAMESPACE, (): IVmStore => {
   const vms = ref<IVm[]>([]);
 
-  function setVm(_vms) {
+  function setVm(_vms: IVm[]) {
     vms.value = _vms;
   }
 

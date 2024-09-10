@@ -18,9 +18,9 @@ export function useGetMciInfo(params: IVmRequestParams | null) {
     Pick<RequestBodyWrapper<IVmRequestParams | null>, 'pathParams'>
   > = {
     pathParams: {
-      nsId: params.nsId,
-      mciId: params.mciId,
-      vmId: params.vmId,
+      nsId: params!.nsId,
+      mciId: params!.mciId,
+      vmId: params!.vmId,
     },
   };
 
