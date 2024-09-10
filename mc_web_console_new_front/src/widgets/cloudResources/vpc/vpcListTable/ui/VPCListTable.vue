@@ -277,7 +277,7 @@ onMounted(function () {
               icon-left="ic_plus_bold"
               @click="handleCreateVpc"
             >
-              {{ i18n.t('COMPONENT.BUTTON.CREATE') }}
+              {{ i18n.t('COMPONENT.BUTTON_MODAL.CREATE') }}
             </p-button>
           </template>
           <template #toolbox-bottom>

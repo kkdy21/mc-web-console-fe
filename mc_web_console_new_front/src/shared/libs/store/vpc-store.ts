@@ -24,12 +24,7 @@ export const useVpcStore = defineStore('vpc-store', {
     addedSubnetList: [] as Subnet[],
 
     // 새로 만드는 vpc의 새로운 subnetlist
-    addedVPCSubnetList: [
-      {
-        name: '',
-        ipv4_CIDR: '',
-      },
-    ] as Subnet[],
+    addedVPCSubnetList: [] as Subnet[],
     allVPCsList: [] as VPC[],
     createdVpc: {
       vpcName: '',
@@ -60,6 +55,7 @@ export const useVpcStore = defineStore('vpc-store', {
       this.addedVPCSubnetList = [];
     },
     removeVPCSubnet(index: number) {
+      console.log(index);
       this.addedVPCSubnetList = this.addedVPCSubnetList.filter(
         (_, i) => i !== index,
       );

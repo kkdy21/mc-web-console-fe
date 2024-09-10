@@ -135,18 +135,15 @@
     "FIELD_GROUP": {
       "OPTIONAL": "optional"
     },
-    "BUTTON": {
-      "CREATE": "Create",
-      "SAVE": "Save",
-      "CANCEL": "Cancel",
-      "DELETE": "Delete"
-    },
     "BUTTON_MODAL": {
       "CANCEL" : "Cancel",
       "CONFIRM" : "OK",
       "REMOVE": "Remove",
       "EDIT": "Edit",
-      "APPLY": "Apply"
+      "APPLY": "Apply",
+      "DELETE": "Delete",
+      "CREATE": "Create",
+      "SAVE": "Save"
     },
     "CONTEXT_MENU": {
       "SHOW_MORE" : "show more",

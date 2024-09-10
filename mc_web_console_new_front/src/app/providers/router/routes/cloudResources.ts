@@ -59,19 +59,19 @@ const cloudResourcesRoutes: RouteConfig[] = [
   },
   {
     path: 'cloud-resources/subnets',
-    name: CLOUD_RESOURCES_ROUTE.VPC_SUBNETS._NAME,
-    meta: {
-      menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
-    },
-    component: ManageSubnetPage,
-  },
-  {
-    path: 'cloud-resources/vpc/subnets',
     name: CLOUD_RESOURCES_ROUTE.SUBNETS._NAME,
     meta: {
       menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
     },
     component: ManageSubnetFromVPCPage,
+  },
+  {
+    path: 'cloud-resources/vpc/subnets',
+    name: CLOUD_RESOURCES_ROUTE.VPC_SUBNETS._NAME,
+    meta: {
+      menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
+    },
+    component: ManageSubnetPage,
   },
 ];
 

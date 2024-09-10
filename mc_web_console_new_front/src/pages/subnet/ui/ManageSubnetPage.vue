@@ -4,23 +4,28 @@ import { PButton } from '@cloudforet-test/mirinae';
 import { useRouter } from 'vue-router/composables';
 import { vpcStore } from '@/shared/libs';
 import { storeToRefs } from 'pinia';
-import { computed, reactive } from 'vue';
+import { i18n } from '@/app/i18n';
+import { computed, onMounted, reactive, watchEffect } from 'vue';
 
 const vpcStoreInstance = vpcStore.useVpcStore();
-const { addedSubnetList } = storeToRefs(vpcStoreInstance);
 
 const router = useRouter();
 
-// TODO: change api response
+const { addedSubnetList } = storeToRefs(vpcStoreInstance);
 
-const saveSubnetList = () => {
-  // TODO: save subnet list (api call)
+const handleVpcPage = () => {
+  vpcStoreInstance.removeVPCSubnetList();
   router.push({
     name: 'CloudResources',
   });
 };
 
-const handleVpcPage = () => {
+const saveSubnetList = () => {
+  // vpcStoreInstance.setaddedSubnetList(createdVpc.value.subnetList);
+
+  // TODO: api call (subnet create)
+  // vpcStoreInstance.removeVPCSubnetList();
+
   router.push({
     name: 'CloudResources',
   });
@@ -36,8 +41,12 @@ const state = reactive({
 <template>
   <manage-subnet :subnet-list="state.subnetList">
     <template #buttons>
-      <p-button style-type="tertiary" @click="handleVpcPage">Cancel</p-button>
-      <p-button @click="saveSubnetList">Save</p-button>
+      <p-button style-type="tertiary" @click="handleVpcPage">
+        {{ i18n.t('COMPONENT.BUTTON_MODAL.CANCEL') }}
+      </p-button>
+      <p-button @click="saveSubnetList">
+        {{ i18n.t('COMPONENT.BUTTON_MODAL.APPLY') }}
+      </p-button>
     </template>
   </manage-subnet>
 </template>

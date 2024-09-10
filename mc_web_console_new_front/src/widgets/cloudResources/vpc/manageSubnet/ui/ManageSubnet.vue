@@ -29,14 +29,16 @@ const props = defineProps<Props>();
 // TODO: change api response
 const subnetList = ref(props.subnetList);
 
-const deleteSelectedSubnet = (index: number) => {
+const deleteSelectedVPCSubnet = (index: number) => {
   // vpcStoreInstance.removeVPCSubnet(index);
+  console.log(index);
   vpcStoreInstance.removeVPCSubnet(index);
 };
 
-const deleteSelectedVPCSubnet = (index: number) => {
+const deleteSelectedSubnet = (index: number) => {
   // subnetList.value.splice(index, 1);
-  vpcStoreInstance.setCreatedVpcSubnetList([]);
+  console.log(index);
+  vpcStoreInstance.removeSubnet(index);
 };
 const handleAddingSubnet = () => {
   subnetList.value.push({
@@ -104,7 +106,6 @@ const handleGoBack = () => {
                 :invalid="!subnet.ipv4_CIDR"
               />
             </p-field-group>
-            <!-- :disabled="subnet.cidrBlock.length > 0" -->
             <p-icon-button
               v-if="router.currentRoute.name === 'vpcSubnets'"
               class="icon-close"

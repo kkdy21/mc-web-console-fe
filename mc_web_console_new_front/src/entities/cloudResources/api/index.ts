@@ -7,9 +7,9 @@ import JwtTokenProvider from '@/shared/libs/token';
 
 const GET_ALL_VPCS = 'getallvnet';
 const CREATE_VPC = 'postvnet';
-const GET_PROVIDER_LIST = 'GetProviderList';
-const GET_REGION_LIST = 'GetRegionList';
-const DELETE_VPC = 'DeleteVNet';
+const GET_PROVIDER_LIST = 'getproviderList';
+const GET_REGION_LIST = 'getregionlist';
+const DELETE_VPC = 'delvnet';
 
 const jwtTokenProvider = JwtTokenProvider.getProvider();
 const { access_token } = jwtTokenProvider.getTokens();

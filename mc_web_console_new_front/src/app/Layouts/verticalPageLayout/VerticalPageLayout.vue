@@ -65,9 +65,9 @@ watch(
         class="right-container"
         :style="{
           height: '1400px',
-          paddingRight: '40px',
         }"
       >
+        <!-- paddingRight: '40px', -->
         <div class="header">
           <slot name="handbook" />
         </div>

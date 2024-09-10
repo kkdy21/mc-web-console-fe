@@ -184,10 +184,8 @@ const handleConfirm = async () => {
         description: createdVpc.value.description,
       },
     });
-
-    console.log(data);
-  } catch (err) {
-    console.log('error!!!!!', err);
+  } catch (err: any) {
+    throw new Error('Failed to create VPC', err);
   }
   // TODO: save vpc data (api call)
 

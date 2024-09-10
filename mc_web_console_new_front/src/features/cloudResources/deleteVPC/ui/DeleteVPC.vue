@@ -2,9 +2,10 @@
 import { PIconButton } from '@cloudforet-test/mirinae';
 import { useDeleteVPC } from '@/entities';
 
-const resDeleteVPC = useDeleteVPC<any, null | { nsId: string; vNetId: string }>(
-  null,
-);
+const resDeleteVPC = useDeleteVPC<
+  any,
+  null | { nsId: string; vNetId: string | any }
+>(null);
 
 const props = defineProps({
   label: String,
@@ -13,11 +14,10 @@ const props = defineProps({
 });
 
 const handleDelete = async () => {
-  console.log(props.focusedData);
   const { data } = await resDeleteVPC.execute({
     pathParams: {
       nsId: 'ns01',
-      vNetId: props.focusedData,
+      vNetId: props.focusedData?.vpcName,
     },
   });
 
