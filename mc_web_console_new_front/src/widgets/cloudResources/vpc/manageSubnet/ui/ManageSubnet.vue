@@ -10,10 +10,8 @@ import { WidgetLayout } from '@/widgets/layout';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router/composables';
 import { vpcStore } from '@/shared/libs';
-import { storeToRefs } from 'pinia';
 
 const vpcStoreInstance = vpcStore.useVpcStore();
-const { addedVPCSubnetList, addedSubnetList } = storeToRefs(vpcStoreInstance);
 
 const router = useRouter();
 
@@ -30,14 +28,10 @@ const props = defineProps<Props>();
 const subnetList = ref(props.subnetList);
 
 const deleteSelectedVPCSubnet = (index: number) => {
-  // vpcStoreInstance.removeVPCSubnet(index);
-  console.log(index);
   vpcStoreInstance.removeVPCSubnet(index);
 };
 
 const deleteSelectedSubnet = (index: number) => {
-  // subnetList.value.splice(index, 1);
-  console.log(index);
   vpcStoreInstance.removeSubnet(index);
 };
 const handleAddingSubnet = () => {

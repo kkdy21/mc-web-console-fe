@@ -13,12 +13,18 @@ const { isCollapsed, isMinimized } = storeToRefs(sidebar);
 
 // TODO: userMenuInfo Mock Data (api yet)
 import testJson from '@/entities/user/store/test.json';
+import { i18n } from '@/app/i18n';
+import { toLower } from 'lodash';
 
 onMounted(() => {
-  return menuPerUserStore.setUserMenuInfo(testJson);
+  testJson.forEach((majorCategory: any) => {
+    toLower(majorCategory.name) === toLower(`${i18n.t('MENU.SETTINGS._NAME')}`)
+      ? menuPerUserStore.setUserMenuInfo(majorCategory)
+      : menuPerUserStore.setOperationMenuInfo(majorCategory);
+  });
 });
 
-const { menus } = storeToRefs(menuPerUserStore);
+const { settingMenu, operationMenu } = storeToRefs(menuPerUserStore);
 
 const state = reactive({
   isInit: false as boolean | undefined,
@@ -67,7 +73,9 @@ class="minimize-button-wrapper" position="bottom" /> -->
     </p-tooltip>
     <div class="navigation-rail-container">
       <div class="navigation-rail-wrapper">
-        <menu-category :displayed-menu="menus" />
+        <menu-category
+          :displayed-menu="[...settingMenu.menus, ...operationMenu.menus]"
+        />
       </div>
     </div>
   </div>

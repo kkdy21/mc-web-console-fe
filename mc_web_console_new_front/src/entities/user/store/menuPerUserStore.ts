@@ -1,29 +1,47 @@
 import { defineStore } from 'pinia';
-export interface MenuInfo {
+
+export interface Menu {
   id: string;
   parentMenuId: string;
   name: string;
   displayname: string;
   isAction: string;
   priority: string;
-  menus?: MenuInfo[];
+  menus?: Menu[];
+}
+export interface MenuInfo {
+  settingMenu: Menu;
+
+  operationMenu: Menu;
 
   category: string;
   majorCategory: string;
   icon: string;
-  flattenedMenus: MenuInfo[];
+  flattenedMenus: Menu[];
   selectedSubmenu: string;
 }
 
 export const useMenuPerUserStore = defineStore('menuPerUser', {
   state: (): MenuInfo => ({
-    id: '',
-    parentMenuId: '',
-    name: '',
-    displayname: '',
-    isAction: '',
-    priority: '',
-    menus: [],
+    settingMenu: {
+      id: '',
+      parentMenuId: '',
+      name: '',
+      displayname: '',
+      isAction: '',
+      priority: '',
+      menus: [],
+    } as Menu,
+
+    operationMenu: {
+      id: '',
+      parentMenuId: '',
+      name: '',
+      displayname: '',
+      isAction: '',
+      priority: '',
+      menus: [],
+    } as Menu,
 
     category: '',
     majorCategory: '',
@@ -32,16 +50,13 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
     selectedSubmenu: '',
   }),
   actions: {
-    setUserMenuInfo(menu: MenuInfo) {
-      this.id = menu.id;
-      this.parentMenuId = menu.parentMenuId;
-      this.name = menu.name;
-      this.displayname = menu.displayname;
-      this.isAction = menu.isAction;
-      this.priority = menu.priority;
-      this.menus = menu.menus;
+    setUserMenuInfo(menu: any) {
+      this.settingMenu = menu;
     },
-    setFlattendMenus(menu: MenuInfo[]) {
+    setOperationMenuInfo(menu: any) {
+      this.operationMenu = menu;
+    },
+    setFlattendMenus(menu: Menu[]) {
       this.flattenedMenus = menu;
     },
     setBreadcrumbs(category: string, majorCategory: string) {
