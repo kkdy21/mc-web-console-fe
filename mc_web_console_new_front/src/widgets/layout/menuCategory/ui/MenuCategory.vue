@@ -40,9 +40,11 @@ const flattenMenusWithCategory = (menu: Menu[]) => {
   let flatMenu = [] as any[];
 
   for (let m of menu) {
+    console.log(m.displayname);
     flatMenu = flatMenu.concat(flattenMenu(m, m.displayname));
   }
 
+  // console.log(flatMenu, 'flatMenu');
   return flatMenu;
 };
 
