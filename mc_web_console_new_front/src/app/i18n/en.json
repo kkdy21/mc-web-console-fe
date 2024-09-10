@@ -145,7 +145,8 @@
       "CANCEL" : "Cancel",
       "CONFIRM" : "OK",
       "REMOVE": "Remove",
-      "EDIT": "Edit"
+      "EDIT": "Edit",
+      "APPLY": "Apply"
     },
     "CONTEXT_MENU": {
       "SHOW_MORE" : "show more",

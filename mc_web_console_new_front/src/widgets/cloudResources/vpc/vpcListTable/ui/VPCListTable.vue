@@ -165,25 +165,16 @@ const handleTableDataFetch = async () => {
 
   if (Object.keys(data.responseData).length > 0) {
     tableModel.tableState.items = data.responseData.vNet.map(v => {
-      const {
-        id,
-        cspVNetName,
-        description,
-        cidrBlock,
-        connectionName,
-        subnetInfoList,
-      } = v;
+      const { id, description, cidrBlock, connectionName, subnetInfoList } = v;
       let subnetInfoArr = [] as {
-        subnetName: string;
-        cidrBlock: string;
-        remove: HTMLElement;
+        name: string;
+        ipv4_CIDR: string;
       }[];
       if (Array.isArray(subnetInfoList) && subnetInfoList.length > 0) {
         subnetInfoList.forEach(subnet => {
           subnetInfoArr.push({
-            subnetName: subnet.Id,
-            cidrBlock: cidrBlock,
-            remove: `<p-button>remove</p-button>` as unknown as HTMLElement,
+            name: subnet.Id,
+            ipv4_CIDR: cidrBlock,
           });
         });
       }

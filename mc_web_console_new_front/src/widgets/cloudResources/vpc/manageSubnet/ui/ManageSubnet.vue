@@ -10,8 +10,10 @@ import { WidgetLayout } from '@/widgets/layout';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router/composables';
 import { vpcStore } from '@/shared/libs';
+import { storeToRefs } from 'pinia';
 
 const vpcStoreInstance = vpcStore.useVpcStore();
+const { addedVPCSubnetList, addedSubnetList } = storeToRefs(vpcStoreInstance);
 
 const router = useRouter();
 
@@ -27,14 +29,14 @@ const props = defineProps<Props>();
 // TODO: change api response
 const subnetList = ref(props.subnetList);
 
-const deleteSelectedVPCSubnet = (index: number) => {
+const deleteSelectedSubnet = (index: number) => {
   // vpcStoreInstance.removeVPCSubnet(index);
   vpcStoreInstance.removeVPCSubnet(index);
 };
 
-const deleteSelectedSubnet = (index: number) => {
+const deleteSelectedVPCSubnet = (index: number) => {
   // subnetList.value.splice(index, 1);
-  // vpcStoreInstance.removeSubnet(index);
+  vpcStoreInstance.setCreatedVpcSubnetList([]);
 };
 const handleAddingSubnet = () => {
   subnetList.value.push({
@@ -44,6 +46,7 @@ const handleAddingSubnet = () => {
 };
 
 const handleGoBack = () => {
+  vpcStoreInstance.removeSubnetList();
   router.go(-1);
 };
 </script>
@@ -102,14 +105,14 @@ const handleGoBack = () => {
               />
             </p-field-group>
             <!-- :disabled="subnet.cidrBlock.length > 0" -->
-            <p-i
+            <p-icon-button
               v-if="router.currentRoute.name === 'vpcSubnets'"
               class="icon-close"
               name="ic_close"
               @click="deleteSelectedVPCSubnet(idx)"
             />
-            <p-i
-              v-else
+            <p-icon-button
+              v-else-if="router.currentRoute.name === 'subnets'"
               class="icon-close"
               name="ic_close"
               @click="deleteSelectedSubnet(idx)"
@@ -159,7 +162,6 @@ const handleGoBack = () => {
 .input-wrapper {
   @apply flex gap-[1rem];
   .icon-close {
-    cursor: pointer;
     margin-top: 4px;
   }
 }

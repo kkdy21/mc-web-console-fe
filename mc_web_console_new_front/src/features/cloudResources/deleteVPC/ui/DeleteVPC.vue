@@ -13,11 +13,11 @@ const props = defineProps({
 });
 
 const handleDelete = async () => {
-  console.log(props.focusedData.vpcName);
+  console.log(props.focusedData);
   const { data } = await resDeleteVPC.execute({
     pathParams: {
       nsId: 'ns01',
-      vNetId: props.focusedData?.vpcName,
+      vNetId: props.focusedData,
     },
   });
 

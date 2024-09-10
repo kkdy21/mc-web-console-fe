@@ -21,12 +21,7 @@ export const useVpcStore = defineStore('vpc-store', {
     withSubnet: false,
     // TODO: api연결 후 받아온 데이터 형식에 맞게 구현 예정
     // 이미 있는 vpc의 원래의 subnetlist
-    addedSubnetList: [
-      {
-        name: 'subnetname-aws-northeast-1',
-        ipv4_CIDR: '10.33.0.0/15',
-      },
-    ] as Subnet[],
+    addedSubnetList: [] as Subnet[],
 
     // 새로 만드는 vpc의 새로운 subnetlist
     addedVPCSubnetList: [
@@ -58,13 +53,25 @@ export const useVpcStore = defineStore('vpc-store', {
     removeWithSubnet() {
       this.withSubnet = false;
     },
-    setaddedVPCSubnetList(subnetList: Subnet[]) {
+    setAddedVPCSubnetList(subnetList: Subnet[]) {
       this.addedVPCSubnetList = [...this.addedVPCSubnetList, ...subnetList];
+    },
+    removeVPCSubnetList() {
+      this.addedVPCSubnetList = [];
     },
     removeVPCSubnet(index: number) {
       this.addedVPCSubnetList = this.addedVPCSubnetList.filter(
         (_, i) => i !== index,
       );
+    },
+    setAddedSubnetList(subnetList: Subnet[]) {
+      this.addedSubnetList = [...this.addedSubnetList, ...subnetList];
+    },
+    removeSubnetList() {
+      this.addedSubnetList = [];
+    },
+    removeSubnet(index: number) {
+      this.addedSubnetList = this.addedSubnetList.filter((_, i) => i !== index);
     },
     setCreatedVpcList(vpcList: any) {
       this.createdVpc = { ...vpcList };

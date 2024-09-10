@@ -5,12 +5,13 @@ import {
   PDataTable,
   PBadge,
   PButton,
+  PPaneLayout,
 } from '@cloudforet-test/mirinae';
 import {
   VPCInformationTableType,
   SubnetInformationTableType,
 } from '@/entities';
-import { computed, onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive, watch } from 'vue';
 import { useRouter } from 'vue-router/composables';
 import { vpcStore } from '@/shared/libs';
 import { storeToRefs } from 'pinia';
@@ -36,6 +37,14 @@ const isSelected = computed(() => {
   return Object.values(props.tableItems).length;
 });
 
+watch(
+  () => [props.tableItems.subnetInfoList],
+  () => {
+    vpcStoreInstance.setAddedSubnetList(props.tableItems.subnetInfoList);
+  },
+  { immediate: false },
+);
+
 const providers: any = {
   AWS: {
     color: '#FF9900',
@@ -45,6 +54,12 @@ const providers: any = {
   },
   Azure: {
     color: '#00BCF0',
+  },
+  NHN: {
+    color: '#125DE6',
+  },
+  Other: {
+    color: '#bbb',
   },
 };
 
@@ -94,11 +109,11 @@ const connectionField = [
 
 const subnetsField: any = [
   {
-    name: 'subnetName',
+    name: 'name',
     label: 'Subnet Name',
   },
   {
-    name: 'cidrBlock',
+    name: 'ipv4_CIDR',
     label: 'CIDR Block',
   },
   {
@@ -147,13 +162,14 @@ onMounted(() => {
           :fields="connectionField"
           :items="[
             {
-              connectionName: 'Connectionname01',
-              provider: 'AWS',
-              region: 'northeast-1',
+              connectionName: `${tableItems.connection}`,
+              provider: `${tableItems.provider}`,
+              region: `ap-northeast-1`,
               zone: 'ap-northeast-1a',
             },
           ]"
         >
+          {{ tableItems.connection }}
           <template #col-provider-format="{ value, item }">
             <p-badge
               v-if="providers[value]"
@@ -164,6 +180,9 @@ onMounted(() => {
             </p-badge>
           </template>
         </p-data-table>
+        <p-pane-layout>
+          <!-- TODO: monitoring -->
+        </p-pane-layout>
       </template>
       <template #subnets>
         <div class="tab-section-header">
@@ -203,5 +222,12 @@ onMounted(() => {
     font-size: 1.5rem;
     font-weight: 400;
   }
+}
+:deep(.p-data-table) {
+  min-height: 6rem;
+}
+.p-pane-layout {
+  @apply rounded-[4px] mx-[16px] bg-[#F7F7F7] border-[#DDDDDF];
+  min-height: 14.875rem;
 }
 </style>
