@@ -4,6 +4,9 @@ export interface IMci extends IVm, IMciStatus {
   id: string;
   name: string;
   alias: string;
+  type: string;
+  deploymentAlgorithm: string;
+  action: string;
   vm: IVm[];
 }
 

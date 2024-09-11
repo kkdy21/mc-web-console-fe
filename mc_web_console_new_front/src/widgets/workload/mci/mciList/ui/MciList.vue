@@ -52,7 +52,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <p-horizontal-layout :height="400" :min-height="400" :max-height="100">
+    <p-horizontal-layout :height="400" :min-height="400" :max-height="1000">
       <template #container="{ height }">
         <p-toolbox-table
           ref="toolboxTable"

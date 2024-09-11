@@ -148,7 +148,9 @@
     "CONTEXT_MENU": {
       "SHOW_MORE" : "show more",
       "NO_ITEM" : "NO ITEM"
+    },
+    "DEFINITION_TABLE": {
+      "NO_DATA" : "NO DATA"
     }
   }
 }
-
