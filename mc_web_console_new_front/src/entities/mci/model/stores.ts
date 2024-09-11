@@ -9,7 +9,7 @@ import { IMci } from '@/entities/mci/model/types.ts';
 
 const NAMESPACE = 'MCI';
 
-interface IMciStore {
+export interface IMciStore {
   mcis: Ref<IMci[]>;
   setMcis: (val: IMci[]) => void;
   loadMciById: (id: string) => IMci | null;

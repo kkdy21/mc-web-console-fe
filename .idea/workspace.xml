@@ -4,81 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="refactor : Modify type error">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/consoleLayout/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/consoleLayout/ui/ConsoleLayout.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/manage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/workloads.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/cloudResources/api/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/cloudResources/model/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/cloudResources/model/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/cloudResources/deleteVPC/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/cloudResources/deleteVPC/ui/DeleteVPC.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/cloudResources/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/cloudResources/vpcListTableBottomFilter/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/cloudResources/vpcListTableBottomFilter/ui/VPCListTableBottomFilter.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/workloadsLSB/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/workloadsLSB/ui/WorkloadsLSB.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/main/MainPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/subnet/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/subnet/ui/ManageSubnetFromVPCPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/subnet/ui/ManageSubnetPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/workloads/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/workloads/ui/WorkloadsPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/store/vpc-store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/manageSubnet/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/manageSubnet/ui/ManageSubnet.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/vpcCreateModal/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/vpcCreateModal/ui/VPCCreateModal.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/vpcInformation/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/vpcInformation/ui/VPCInformation.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/vpcListTable/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/cloudResources/vpc/vpcListTable/ui/VPCListTable.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/listDropDown/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/listDropDown/ui/ListDropDown.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/widgetLayout/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/widgetLayout/ui/WidgetLayout.vue" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="merge : merge commit devfe -&gt; page/mci">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/ui/MciDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/mainLayout/ui/MainLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/mainLayout/ui/MainLayout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/verticalPageLayout/VerticalPageLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/Layouts/verticalPageLayout/VerticalPageLayout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/cloudResources.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/cloudResources.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/organizations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/providers/router/routes/organizations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/menu/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/menu/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/store/menuPerUserStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/store/menuPerUserStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/store/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/store/test.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/auth/ui/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/cloudResourcesLSB/ui/CloudResourcesLSB.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/cloudResourcesLSB/ui/CloudResourcesLSB.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/organizationsLSB/ui/OrganizationsLSB.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/console/organizationsLSB/ui/OrganizationsLSB.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarNotifications/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarNotifications/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarNotifications/ui/TopBarNotifications.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarNotifications/ui/TopBarNotifications.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarWorkspaces/ui/TopBarWorkspaces.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/topbar/topbarWorkspaces/ui/TopBarWorkspaces.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/stores.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/stores.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui/LoginPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/cloudResources/ui/CloudResourcesPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/cloudResources/ui/CloudResourcesPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/organizations/ui/OrganizationsPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/organizations/ui/OrganizationsPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/access-localstorage/localStorageConnector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/access-localstorage/localStorageConnector.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/LSB/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/LSB/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/LSB/ui/LSB.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/LSB/ui/LSB.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/gnbNavigationRail/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/gnbNavigationRail/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/gnbNavigationRail/ui/GNBNavigationRail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/gnbNavigationRail/ui/GNBNavigationRail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/gnbToolbox/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/gnbToolbox/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/gnbToolbox/ui/GNBToolbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/gnbToolbox/ui/GNBToolbox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/mainLayout/mainLayout.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/menuCategory/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/menuCategory/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/menuCategory/ui/MenuCategory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/menuCategory/ui/MenuCategory.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/topbarNotificationContextMenu/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/topbarNotificationContextMenu/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/topbarNotificationContextMenu/ui/TopBarNotificationContextMenu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/layout/topbarNotificationContextMenu/ui/TopBarNotificationContextMenu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/model/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/ui/MciList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/ui/MciList.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,8 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
-        <option value="Vue Composition API Component" />
         <option value="TypeScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -572,7 +506,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726016363402</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="merge : merge commit devfe -&gt; page/mci">
+      <option name="closed" value="true" />
+      <created>1726018425098</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1726018425098</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,7 +532,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: Login UI, input validator, Login success callback" />
     <MESSAGE value="feat: login error handling" />
     <MESSAGE value="add: login page - logo, logo name" />
     <MESSAGE value="add: user page" />
@@ -615,7 +556,8 @@
     <MESSAGE value="feat : make mci, vm, servergroup model" />
     <MESSAGE value="feat : make MCI table, mci detail table, server table model" />
     <MESSAGE value="refactor : Modify type error" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor : Modify type error" />
+    <MESSAGE value="merge : merge commit devfe -&gt; page/mci" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge : merge commit devfe -&gt; page/mci" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />
