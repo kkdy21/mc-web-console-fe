@@ -1,5 +1,5 @@
 import { RouteConfig } from 'vue-router';
-import { MENU_ID } from '@/entities/menu';
+import { MENU_ID } from '@/entities';
 import { OrganizationsPage } from '@/pages/organizations';
 import { UserPage } from '@/pages/account&access/users';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LSB from '@/widgets/LSB/ui/LSB.vue';
+import LSB from '@/widgets/layout/LSB/ui/LSB.vue';
 import { PTextInput } from '@cloudforet-test/mirinae';
 
 interface Props {

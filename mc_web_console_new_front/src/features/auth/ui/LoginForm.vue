@@ -81,8 +81,7 @@ watch([resLogin.error, resLogin.errorMsg], nv => {
           class="cursor-pointer"
           color="inherit"
           @click="validationMsg = ''"
-        >
-        </p-i>
+        />
       </div>
     </header>
     <section class="section">
@@ -98,7 +97,7 @@ watch([resLogin.error, resLogin.errorMsg], nv => {
             :placeholder="'id'"
             block
             @blur="userId.onBlur"
-          ></p-text-input>
+          />
         </template>
       </p-field-group>
       <p-field-group
@@ -108,15 +107,15 @@ watch([resLogin.error, resLogin.errorMsg], nv => {
       >
         <template #default="{ invalid }">
           <p-text-input
+            v-model="userPW.value.value"
             type="password"
             appearance-type="masking"
-            v-model="userPW.value.value"
             :invalid="invalid"
             :placeholder="i18n.t('AUTH.LOGIN.PASSWORD')"
             block
             @blur="userPW.onBlur"
             @keydown.prevent.enter="handleLogin"
-          ></p-text-input>
+          />
         </template>
       </p-field-group>
     </section>

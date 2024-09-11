@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LSB } from '@/widgets/LSB';
+import { LSB } from '@/widgets/layout';
 import { PTextInput } from '@cloudforet-test/mirinae';
 
 interface Props {

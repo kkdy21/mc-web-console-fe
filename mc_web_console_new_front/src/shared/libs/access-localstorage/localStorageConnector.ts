@@ -15,6 +15,10 @@ export default class LocalStorageConnector<T> {
     }
   }
 
+  public getItem = () => {
+    return localStorage.getItem(this.key);
+  };
+
   public removeItem = () => {
     this.storeValue = null;
     localStorage.removeItem(this.key);

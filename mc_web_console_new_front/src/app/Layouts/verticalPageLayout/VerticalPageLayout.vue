@@ -64,10 +64,10 @@ watch(
         ref="containerRef"
         class="right-container"
         :style="{
-          height: '1000px',
-          paddingRight: '40px',
+          height: '1400px',
         }"
       >
+        <!-- paddingRight: '40px', -->
         <div class="header">
           <slot name="handbook" />
         </div>

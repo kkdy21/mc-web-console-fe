@@ -1,4 +1,4 @@
-{
+[{
   "id": "7e51e786-80de-4fbf-b17c-326523cf50f3",
   "parentMenuId": "",
   "name": "settings",
@@ -101,4 +101,52 @@
       ]
     }
   ]
+}, {
+  "id": "7e51e786-80de-4fbf-b17c-326523cf50f2",
+  "parentMenuId": "",
+  "name": "operations",
+  "displayname": "operations category",
+  "isAction": "false",
+  "priority": "0",
+  "menus": [
+    {
+      "id": "b8a3b531-c4fd-4faa-91e4-33296d5922ee",
+      "parentMenuId": "7e51e786-80de-4fbf-b17c-326523cf50f2",
+      "name": "manage",
+      "displayname": "Manage category",
+      "isAction": "false",
+      "priority": "0",
+      "menus": [
+        {
+          "id": "abab",
+          "parentMenuId": "b8a3b531-c4fd-4faa-91e4-33296d5922ee",
+          "name": "workloads",
+          "displayname": "Workloads",
+          "isAction": "false",
+          "priority": "0",
+          "menus": [
+            {
+              "id": "cdcd",
+              "parentMenuId": "abab",
+              "name": "mci",
+              "displayname": "MCI",
+              "isAction": "true",
+              "priority": "0",
+              "menus": []
+            },
+            {
+              "id": "efef",
+              "parentMenuId": "abab",
+              "name": "pmk",
+              "displayname": "PMK",
+              "isAction": "true",
+              "priority": "0",
+              "menus": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
+]

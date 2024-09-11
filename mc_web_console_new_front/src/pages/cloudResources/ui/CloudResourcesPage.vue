@@ -1,80 +1,137 @@
 <script setup lang="ts">
-import { PDataTable, PPaneLayout } from '@cloudforet-test/mirinae';
+import { VPCListTable } from '@/widgets/cloudResources';
+import { VPCInformation } from '@/widgets/cloudResources';
+import { VPCInformationTableType } from '@/entities';
+import { onMounted, ref, Ref, watch } from 'vue';
+import { i18n } from '@/app/i18n';
+import { useGetAllVPCs } from '@/entities';
+import { vpcStore } from '@/shared/libs';
+import { storeToRefs } from 'pinia';
 
-const fields = [
-  {
-    name: 'vpcName',
-    label: 'VPC Name',
-  },
-  {
-    name: 'description',
-    label: 'Description',
-  },
-  {
-    name: 'cidr',
-    label: 'CIDR Block',
-  },
-  {
-    name: 'provider',
-    label: 'Provider',
-  },
-  {
-    name: 'connection',
-    label: 'Connection',
-  },
-];
+const vpcStoreInstance = vpcStore.useVpcStore();
 
-const items = [
-  {
-    vpcName: 'vpcname-aws-northeast-2',
-    description: 'Generated Default Resource',
-    cidr: '10.33.0.0/15',
-    provider: 'AWS',
-    connection: 'Connectionname01',
+const { allVPCsList } = storeToRefs(vpcStoreInstance);
+
+const resGetAllVPCs = useGetAllVPCs<any, null | { nsId: string }>(null);
+
+const toolboxTableItem = ref<any[]>([]);
+
+// [
+//   {
+//     vpcName: 'vpcname-aws-northeast-1',
+//     description: 'Generated Resource',
+//     cidrBlock: '10.33.2.0/15',
+//     provider: 'Google',
+//     connection: 'conn2',
+//   },
+//   {
+//     vpcName: 'vpcname-aws-northwest-2',
+//     description: 'Default Resource',
+//     cidrBlock: '10.33.1.0/15',
+//     provider: 'Azure',
+//     connection: 'conn1',
+//   },
+//   {
+//     vpcName: 'vpcname-aws-northeast-2',
+//     description: 'Generated Default Resource',
+//     cidrBlock: '10.33.0.0/15',
+//     provider: 'AWS',
+//     connection: 'Connectionname01',
+//   },
+//   {
+//     vpcName: 'vpcname-aws-northeast-2',
+//     description: 'Generated Default Resource',
+//     cidrBlock: '10.33.0.0/15',
+//     provider: 'NHN',
+//     connection: 'Connectionname01',
+//   },
+//   {
+//     vpcName: 'vpcname-aws-northeast-2',
+//     description: 'Generated Default Resource',
+//     cidrBlock: '10.33.0.0/15',
+//     provider: 'AWS',
+//     connection: 'Connectionname01',
+//   },
+//   {
+//     vpcName: 'vpcname-aws-northwest-2',
+//     description: 'Default Resource',
+//     cidrBlock: '10.33.1.0/15',
+//     provider: 'Azure',
+//     connection: 'conn1',
+//   },
+//   {
+//     vpcName: 'vpcname-aws-northeast-2',
+//     description: 'Generated Default Resource',
+//     cidrBlock: '10.33.0.0/15',
+//     provider: 'NHN',
+//     connection: 'Connectionname01',
+//   },
+// ]
+
+onMounted(async () => {
+  const response = await resGetAllVPCs.execute({
+    pathParams: {
+      nsId: 'ns01',
+    },
+  });
+  const { vNet } = response.data.responseData;
+
+  vNet.forEach(v => {
+    const { cspVNetName, description, cidrBlock, connectionName, id } = v;
+
+    toolboxTableItem.value.push({
+      vpcName: id,
+      description,
+      cidrBlock,
+      provider: 'AWS',
+      connection: connectionName,
+    });
+  });
+});
+
+watch(
+  () => [toolboxTableItem, allVPCsList],
+  () => {
+    vpcStoreInstance.setAllVPCsList(toolboxTableItem.value);
   },
-  {
-    vpcName: 'vpcname-aws-northeast-1',
-    description: 'Generated Resource',
-    cidr: '10.33.2.0/15',
-    provider: 'Google',
-    connection: 'conn2',
-  },
-  {
-    vpcName: 'vpcname-aws-northwest-2',
-    description: 'Default Resource',
-    cidr: '10.33.1.0/15',
-    provider: 'Azure',
-    connection: 'conn1',
-  },
-  {
-    vpcName: 'vpcname-aws-northeast-2',
-    description: 'Generated Default Resource',
-    cidr: '10.33.0.0/15',
-    provider: 'AWS',
-    connection: 'Connectionname01',
-  },
-  {
-    vpcName: 'vpcname-aws-northeast-2',
-    description: 'Generated Default Resource',
-    cidr: '10.33.0.0/15',
-    provider: 'AWS',
-    connection: 'Connectionname01',
-  },
-];
+);
+
+const selectedRow: Ref<Partial<Record<VPCInformationTableType, any>>> = ref({});
+
+const handleSelectRow = (
+  selectedData: Record<VPCInformationTableType, any>,
+) => {
+  selectedRow.value = selectedData || {};
+};
 </script>
 
 <template>
-  <div>
-    <p class="px-4 mb-4 font-bold font-lg">Non Invisible Case</p>
-    <p-pane-layout class="datatable-layout">
-      <!-- TODO: Toolbox (create button, search input, pagination) -->
-      <p-data-table :fields="fields" :items="items" selectable col-copy />
-    </p-pane-layout>
+  <div class="vpc-page-layout">
+    <header>
+      <p class="title">{{ i18n.t('CLOUD_RESOURCES.VPC._NAME') }}</p>
+    </header>
+    <section>
+      <v-p-c-list-table
+        :table-items="toolboxTableItem"
+        @selectRow="handleSelectRow"
+      />
+      <p
+        v-if="!Object.keys(selectedRow).length"
+        class="flex justify-center text-gray-300 text-sm font-normal"
+      >
+        Select an item for more details.
+      </p>
+      <v-p-c-information :table-items="selectedRow" />
+    </section>
   </div>
 </template>
 
 <style scoped lang="postcss">
-.datatable-layout {
-  padding: 1.5rem 2rem;
+.vpc-page-layout {
+  padding: 1.5rem 1.5625rem;
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.375rem;
+  }
 }
 </style>

@@ -1,65 +1,84 @@
 <script setup lang="ts">
-import GNBToolbox from '@/widgets/gnbToolbox/ui/GNBToolbox.vue';
-import GNBNavigationRail from '@/widgets/gnbNavigationRail/ui/GNBNavigationRail.vue';
-import { useSidebar } from '@/shared/libs/store/sidebar.ts';
-import { storeToRefs } from 'pinia';
-
-const sidebar = useSidebar();
-const { isMinimized, isCollapsed } = storeToRefs(sidebar);
+import { LayoutHeader } from '../../layoutHeader';
+import { ConsoleLayout } from '../../consoleLayout';
+import { styleVariables } from '@cloudforet-test/mirinae';
 </script>
 
 <template>
   <div>
-    <div class="layout-container">
-      <nav class="gnb">
-        <g-n-b-toolbox class="g-n-b-item" />
-        <g-n-b-navigation-rail class="g-n-b-item" />
-      </nav>
-      <main
-        class="main"
-        :class="{
-          'is-hide': isCollapsed,
-          'is-minimize': !isCollapsed && isMinimized,
-        }"
+    <div class="top-bar">
+      <layout-header />
+    </div>
+    <div>
+      <console-layout
+        class="app-body"
+        :style="{ height: `calc(100vh - ${styleVariables['top-bar-height']})` }"
       >
-        <slot name="main" />
-      </main>
+        <template #main>
+          <p-sidebar :visible="false">
+            <div class="main-content">
+              <portal-target
+                ref="topNotiRef"
+                name="top-notification"
+                :slot-props="{ hasDefaultMessage: true }"
+              />
+              <router-view />
+            </div>
+            <template #title>
+              <portal-target name="info-title" />
+            </template>
+            <template #sidebar>
+              <portal-target name="handbook-contents" />
+            </template>
+            <template #footer>
+              <portal-target name="widget-footer" />
+            </template>
+          </p-sidebar>
+        </template>
+      </console-layout>
     </div>
   </div>
 </template>
 
 <style scoped lang="postcss">
-.gnb {
-  z-index: 50;
-  .g-n-b-item {
-    @apply absolute flex border-gray-200;
-  }
-}
-.main {
-  @apply absolute;
-  top: $gnb-toolbox-height;
-  left: $gnb-navigation-rail-max-width;
-  width: calc(100% - $gnb-navigation-rail-max-width);
-  height: calc(100% - $gnb-toolbox-height);
-  margin: auto;
-  transition:
-    left 0.3s ease,
-    width 0.3s ease;
-  &.is-hide {
-    left: 0;
-    width: 100%;
-  }
-  &.is-minimize {
-    left: $gnb-navigation-rail-min-width;
-    width: calc(100% - $gnb-navigation-rail-min-width);
+.console-loading-wrapper {
+  position: absolute;
+  height: 100%;
+  z-index: 10;
+  & > .data-loader-container > .loader-wrapper > .loader.spinner {
+    max-height: unset;
   }
 }
 
 .top-bar {
+  position: fixed;
   width: 100%;
   height: $top-bar-height;
   z-index: 100;
   flex-shrink: 0;
   top: 0;
+}
+.app-body {
+  @apply relative flex flex-col;
+  margin-top: $top-bar-height;
+  overflow-y: hidden;
+  width: 100%;
+  flex-grow: 1;
+  .p-sidebar {
+    .sidebar-container {
+      @apply bg-gray-100;
+    }
+    .non-sidebar-wrapper {
+      min-height: 100%;
+    }
+  }
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    /* overflow-y: hidden; */
+  }
 }
 </style>
