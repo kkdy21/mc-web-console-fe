@@ -3,13 +3,45 @@ import { PTooltip, PIconButton, PBreadcrumbs } from '@cloudforet-test/mirinae';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { useMenuPerUserStore } from '@/entities/user/store/menuPerUserStore';
 import { storeToRefs } from 'pinia';
+import { useBreadcrumbs } from '@/shared/hooks/breadcrumb';
+import type { Breadcrumb } from '@/shared/types';
+import { computed, reactive } from 'vue';
+import { useRoute } from 'vue-router/composables';
+import { useGnbStore } from '@/shared/libs/store/gnb-store';
+import { clone } from 'lodash';
+import { MenuId } from '@/entities';
 
 const sidebar = useSidebar();
 const menuPerUserStore = useMenuPerUserStore();
+const gnbStore = useGnbStore();
+const gnbGetters = gnbStore.getters;
+const route = useRoute();
+const { breadcrumbs } = useBreadcrumbs();
 
 const { isCollapsed } = storeToRefs(sidebar);
-const { category, majorCategory, selectedSubmenu } =
-  storeToRefs(menuPerUserStore);
+const { category, majorCategory } = storeToRefs(menuPerUserStore);
+
+const state = reactive({
+  routes: computed(() => {
+    let routes: Breadcrumb[] = [];
+    if (breadcrumbs.value.length === 0) {
+      routes = [...routes, ...breadcrumbs.value];
+    }
+    routes = [...routes, ...gnbGetters.breadcrumbs];
+    return routes;
+  }),
+  selectedMenuId: computed(() => {
+    const reversedMatched = clone(route.matched).reverse();
+    const closestRoute = reversedMatched.find(
+      m => m.meta?.menuId !== undefined,
+    );
+    const targetMenuId: MenuId = closestRoute?.meta.menuId;
+    return targetMenuId;
+  }),
+  currentMenuId: computed(
+    () => route.matched[route.matched.length - 1].meta.menuId,
+  ),
+});
 
 const handleClickMenuButton = () => {
   sidebar.toggleCollapse();
@@ -35,7 +67,7 @@ const handleClickMenuButton = () => {
       </p-tooltip>
       <p-breadcrumbs
         v-if="category && majorCategory"
-        :routes="[{ name: majorCategory }, { name: category }]"
+        :routes="state.routes"
         :copiable="false"
       />
     </div>
@@ -74,7 +106,6 @@ const handleClickMenuButton = () => {
   }
 }
 
-/* custom design-system component - p-copy-button */
 :deep(.p-copy-button) {
   .copy-button-alert {
     top: calc($top-bar-height + $gnb-toolbox-height - 0.5rem) !important;

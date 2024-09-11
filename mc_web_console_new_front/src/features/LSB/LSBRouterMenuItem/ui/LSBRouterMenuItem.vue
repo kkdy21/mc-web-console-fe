@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { PLazyImg, PI, PTooltip } from '@cloudforet-test/mirinae';
 import { computed, onMounted, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
-import { useRouter } from 'vue-router/composables';
 import { McmpRouter } from '@/app/providers/router';
 import { useMenuPerUserStore } from '@/entities';
 
@@ -37,10 +35,7 @@ const state = reactive({
 
 onMounted(() => {
   if (props.item.category && props.item.majorCategory) {
-    menuPerUserStore.setBreadcrumbs(
-      props.item.category,
-      props.item.majorCategory,
-    );
+    menuPerUserStore.setBreadcrumbs(props.item.category, props.item.name);
   }
 });
 

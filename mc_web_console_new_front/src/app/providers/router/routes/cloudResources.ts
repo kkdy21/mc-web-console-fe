@@ -2,8 +2,7 @@ import { RouteConfig } from 'vue-router';
 import { MENU_ID } from '@/entities/menu';
 import { CloudResourcesPage } from '@/pages/cloudResources';
 import { ManageSubnetPage, ManageSubnetFromVPCPage } from '@/pages/subnet';
-import { NetworksPage } from '@/pages/networks';
-import { SecuritysPage } from '@/pages/securitys';
+import { i18n } from '@/app/i18n';
 
 export const CLOUD_RESOURCES_ROUTE = {
   _NAME: 'CloudResources',
@@ -34,7 +33,8 @@ const cloudResourcesRoutes: RouteConfig[] = [
     component: CloudResourcesPage,
     meta: {
       // lsbVisible: true,
-      menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
+      menuId: 'cloudResources',
+      category: i18n.t('MENU.SETTINGS.ENVIRONMENT._NAME'),
     },
     children: [
       // {
@@ -61,7 +61,7 @@ const cloudResourcesRoutes: RouteConfig[] = [
     path: 'cloud-resources/subnets',
     name: CLOUD_RESOURCES_ROUTE.SUBNETS._NAME,
     meta: {
-      menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
+      menuId: MENU_ID.VPC,
     },
     component: ManageSubnetFromVPCPage,
   },
@@ -69,7 +69,7 @@ const cloudResourcesRoutes: RouteConfig[] = [
     path: 'cloud-resources/vpc/subnets',
     name: CLOUD_RESOURCES_ROUTE.VPC_SUBNETS._NAME,
     meta: {
-      menuId: MENU_ID.ENVIRONMENT_CLOUD_RESOURCES,
+      menuId: MENU_ID.VPC,
     },
     component: ManageSubnetPage,
   },

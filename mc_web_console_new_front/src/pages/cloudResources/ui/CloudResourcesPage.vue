@@ -2,12 +2,66 @@
 import { VPCListTable } from '@/widgets/cloudResources';
 import { VPCInformation } from '@/widgets/cloudResources';
 import { VPCInformationTableType } from '@/entities';
-import { onMounted, ref, Ref, watch } from 'vue';
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  Ref,
+  watch,
+  watchEffect,
+} from 'vue';
 import { i18n } from '@/app/i18n';
 import { useGetAllVPCs } from '@/entities';
 import { vpcStore } from '@/shared/libs';
 import { storeToRefs } from 'pinia';
+import { useRouter, useRoute } from 'vue-router/composables';
+import { useMenuPerUserStore } from '@/entities';
+import { useGnbStore } from '@/shared/libs/store/gnb-store';
+import { CLOUD_RESOURCES_ROUTE } from '@/app/providers/router/routes/cloudResources';
 
+const router = useRouter();
+const route = useRoute();
+const gnbStore = useGnbStore();
+
+const state = reactive({
+  vpcCustomBreadcrumbs: computed(() => {
+    const category = {
+      name: route.meta?.category,
+      to: { path: '' },
+    };
+    const customMiddleRoute = router.match({
+      name: CLOUD_RESOURCES_ROUTE._NAME,
+      // params:
+      // query:
+    });
+    const vpcMiddleRoutes = {
+      name: CLOUD_RESOURCES_ROUTE._NAME,
+      to: { path: customMiddleRoute.fullPath },
+    };
+
+    return [category, vpcMiddleRoutes];
+  }),
+});
+
+watchEffect(async () => {
+  gnbStore.setBreadcrumbs(state.vpcCustomBreadcrumbs);
+});
+
+console.log(gnbStore.state.breadcrumbs);
+
+onUnmounted(() => {
+  gnbStore.removeBreadcrumbs();
+});
+
+watch(
+  () => [],
+  () => {},
+  { immediate: false },
+);
+
+const menuPerUserStore = useMenuPerUserStore();
 const vpcStoreInstance = vpcStore.useVpcStore();
 
 const { allVPCsList } = storeToRefs(vpcStoreInstance);
@@ -76,7 +130,7 @@ onMounted(async () => {
   });
   const { vNet } = response.data.responseData;
 
-  vNet.forEach(v => {
+  vNet.forEach((v: any) => {
     const { cspVNetName, description, cidrBlock, connectionName, id } = v;
 
     toolboxTableItem.value.push({
@@ -103,6 +157,14 @@ const handleSelectRow = (
 ) => {
   selectedRow.value = selectedData || {};
 };
+
+onMounted(() => {
+  if (router.currentRoute.name)
+    menuPerUserStore.setBreadcrumbs(
+      router.currentRoute?.name,
+      'Cloud Resources',
+    );
+});
 </script>
 
 <template>

@@ -1,6 +1,36 @@
 <script setup lang="ts">
 import { LSB } from '@/widgets/layout';
 import { PTextInput } from '@cloudforet-test/mirinae';
+import { i18n } from '@/app/i18n';
+import { computed, onMounted, reactive, watch } from 'vue';
+import { ORGANIZATIONS_ROUTE } from '@/app/providers/router/routes/organizations';
+import { useGnbStore } from '@/shared/libs/store/gnb-store';
+import { useRoute, useRouter } from 'vue-router/composables';
+
+const router = useRouter();
+const route = useRoute();
+
+const gnbStore = useGnbStore();
+
+const state = reactive({
+  mciNavigation: computed(() => {
+    return [
+      {
+        name: i18n.t('MENU.SETTINGS.ACCOUNT_ACCESS.ORGANIZATIONS._NAME'),
+        to: {
+          name: ORGANIZATIONS_ROUTE.USERS._NAME,
+          // path: 'cloudResources',
+        },
+      },
+    ];
+  }),
+});
+
+onMounted(() => {
+  gnbStore.setBreadcrumbs(state.mciNavigation);
+});
+
+console.log(gnbStore.state.breadcrumbs);
 
 interface Props {
   menus: any[];
