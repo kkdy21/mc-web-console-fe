@@ -12,10 +12,7 @@ export function useMciDetailModel() {
     { label: 'Deployment Algorithm', name: 'deploymentAlgorithm' },
   ];
 
-  const tab = [
-    { name: 'detail', label: 'Detail' },
-    { name: 'server', label: 'Server' },
-  ];
+  //TODO 여기서 MCIS Provider가공 등 작업.
 
-  return { detailTableField, tab };
+  return { detailTableField };
 }

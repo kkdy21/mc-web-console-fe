@@ -19,7 +19,7 @@ export function axiosBulkPost<T, D extends Array<unknown> = any>(
   return axios.all(promiseArr);
 }
 
-function useAxiosWrapper<T, D = any>(
+function useAxiosWrapper<T, D extends Array<unknown> = any>(
   apiCall: (
     payload?: D,
     config?: AxiosRequestConfig,
@@ -34,7 +34,7 @@ function useAxiosWrapper<T, D = any>(
   const execute = async (
     payload?: D,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T[]> | IUseAxiosErrorDetail> => {
+  ): Promise<AxiosResponse<T>[]> => {
     // T[]로 수정
     isLoading.value = true;
     status.value = 'loading';
@@ -48,9 +48,9 @@ function useAxiosWrapper<T, D = any>(
     } catch (e: any) {
       reset();
       error.value = e;
-      errorMsg.value = extractErrorMessage(e);
+      errorMsg.value = e.map((e: any) => extractErrorMessage(e));
       status.value = 'error';
-      return Promise.reject<IUseAxiosErrorDetail>({ error, errorMsg, status });
+      return Promise.reject({ error, errorMsg, status });
     } finally {
       isLoading.value = false;
     }
@@ -75,7 +75,7 @@ function useAxiosWrapper<T, D = any>(
   };
 }
 
-export function useAxiosBulkPost<T, D extends Array<unknown>>(
+export function useAxiosBulkPost<T extends Array<T>, D extends Array<unknown>>(
   url: string,
   data: D,
   initialConfig: AxiosRequestConfig = {},

@@ -3,6 +3,7 @@ import {
   IWorkspaceData,
   IWorkspaceDeleteData,
   IWorkspaceDetailData,
+  IWorkspaceRoleResponse,
 } from '@/entities/workspace/model/types.ts';
 import { axiosInstance } from '@/shared/libs/api/instance.ts';
 import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
@@ -69,7 +70,10 @@ export function useEditWorkspaceList(requestData: IEditWorkspaceData | null) {
 }
 
 export function useWorkspaceRoleList() {
-  return useAxiosPost<IAxiosResponse<any[]>, null>(WORKSPACE_ROLE_LIST, null);
+  return useAxiosPost<IAxiosResponse<IWorkspaceRoleResponse>, null>(
+    WORKSPACE_ROLE_LIST,
+    null,
+  );
 }
 
 export function useBulkAddWorkspaceList(

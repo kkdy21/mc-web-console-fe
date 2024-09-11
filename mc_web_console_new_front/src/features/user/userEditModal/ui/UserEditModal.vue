@@ -133,17 +133,16 @@ const handleClose = () => {
 };
 
 onMounted(() => {
-  //TODO 실제 role list받아와서 가공해서 넣어줘야함.
   const resWorkspaceRoleList = useWorkspaceRoleList();
 
   try {
-    resWorkspaceRoleList.execute();
+    resWorkspaceRoleList.execute().then(res => {
+      res.data.responseData?.roles?.map(role => {
+        return { name: role.id, label: role.name };
+      });
+    });
   } catch (e) {
-    console.error(e);
-  } finally {
-    roleList.menu = [
-      { name: 'ac3ebd80-a089-4341-8fe6-44c5a8073ec4', label: 'testRole' },
-    ];
+    showErrorMessage('Error', 'Failed to return role Information');
   }
 });
 </script>

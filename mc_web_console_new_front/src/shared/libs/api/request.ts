@@ -1,11 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Ref, ref } from 'vue';
 import { axiosInstance } from '@/shared/libs/api/instance.ts';
-import {
-  AsyncStatus,
-  IUseAxiosErrorDetail,
-  IUseAxiosWrapperReturnType,
-} from '@/shared/libs';
+import { AsyncStatus, IUseAxiosWrapperReturnType } from '@/shared/libs';
 
 export function axiosGet<T>(url: string, config?: AxiosRequestConfig) {
   return axiosInstance.get<T>(`/${url}`, config);
@@ -34,7 +30,7 @@ export function useAxiosWrapper<T, D = any>(
   const execute = async (
     payload?: D,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> | IUseAxiosErrorDetail => {
+  ): Promise<AxiosResponse<T>> => {
     isLoading.value = true;
     status.value = 'loading';
     let result;
