@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMciDetailTableModel } from '@/widgets/workload/mci/mciDetail/model';
-import { onBeforeMount, onMounted, watch } from 'vue';
+import { useMciDetailModel } from '@/widgets/workload/mci/mciDetail/model';
+import { onBeforeMount, onMounted, watch, PropType } from 'vue';
 import { PDefinitionTable } from '@cloudforet-test/mirinae';
 
 interface IProps {
@@ -8,15 +8,15 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
-const mciDefineTableModel = useMciDetailTableModel();
+const mciDefineModel = useMciDetailModel();
 
 watch(props.selectedMciId, nv => {
-  mciDefineTableModel.setMciId(nv.mciId);
+  mciDefineModel.setMciId(nv.mciId);
 });
 
 onBeforeMount(() => {
-  mciDefineTableModel.initTable();
-  mciDefineTableModel.tableModel.tableState.loading = false;
+  mciDefineModel.initTable();
+  mciDefineModel.tableModel.tableState.loading = false;
 });
 
 onMounted(() => {});
@@ -25,9 +25,9 @@ onMounted(() => {});
 <template>
   <div>
     <p-definition-table
-      :fields="mciDefineTableModel.tableModel.tableState.fields"
-      :data="mciDefineTableModel.tableModel.tableState.data"
-      :loading="mciDefineTableModel.tableModel.tableState.loading"
+      :fields="mciDefineModel.tableModel.tableState.fields"
+      :data="mciDefineModel.tableModel.tableState.data"
+      :loading="mciDefineModel.tableModel.tableState.loading"
     >
     </p-definition-table>
   </div>

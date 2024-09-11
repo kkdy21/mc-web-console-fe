@@ -2,7 +2,7 @@ import { McisTableType, useMCIStore } from '@/entities/mci/model';
 import { ref, watch } from 'vue';
 import { useDefinitionTableModel } from '@/shared/hooks/table/definitionTable/useDefinitionTableModel.ts';
 
-export function useMciDetailTableModel() {
+export function useMciDetailModel() {
   const mciStore = useMCIStore();
   const mciId = ref<string | null>();
   const tableModel = useDefinitionTableModel<Record<McisTableType, any>>();

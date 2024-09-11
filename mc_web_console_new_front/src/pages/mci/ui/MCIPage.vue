@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MciList from '@/widgets/workload/mci/mciList/ui/MciList.vue';
-import { reactive, ref } from 'vue';
+import { reactive, ref, PropType } from 'vue';
 import { PTab } from '@cloudforet-test/mirinae';
 import MciDetail from '@/widgets/workload/mci/mciDetail/ui/MciDetail.vue';
 import { useMCIStore } from '@/entities/mci/model';
@@ -22,7 +22,9 @@ const tabState = reactive({
   ],
 });
 
-const selectedMciId = reactive<{ mciId: string | null }>({ mciId: null });
+const nsId = 'ns01';
+const selectedMciId = reactive<{ mciId: string }>({ mciId: '' });
+const selectedGroupId = reactive<{ groupId: string }>({ groupId: '' });
 
 function handleSelectMciTableRow(id: string) {
   selectedMciId.mciId = id;
@@ -35,7 +37,7 @@ function handleSelectMciTableRow(id: string) {
       <p>{{ pageName }}</p>
     </header>
     <section :class="`${pageName}-page-body`">
-      <MciList @select-row="handleSelectMciTableRow"></MciList>
+      <MciList :ns-id="nsId" @select-row="handleSelectMciTableRow"></MciList>
       <p
         v-if="!selectedMciId.mciId"
         class="flex justify-center text-gray-300 text-sm font-normal"
@@ -43,12 +45,16 @@ function handleSelectMciTableRow(id: string) {
         Select an item for more details.
       </p>
       <div>
-        <p-tab :tabs="tabState.tabs" v-model="tabState.activeTab">
+        <p-tab v-model="tabState.activeTab" :tabs="tabState.tabs">
           <template #detail>
-            <MciDetail :selectedMciId="selectedMciId"></MciDetail>
+            <MciDetail :selected-mci-id="selectedMciId"></MciDetail>
           </template>
           <template #server>
-            <VmGroups ns-id="t" mci-id="t"></VmGroups>
+            <VmGroups
+              :ns-id="nsId"
+              :mci-id="selectedMciId.mciId"
+              @selectCard="e => (selectedGroupId = e.groupId)"
+            ></VmGroups>
           </template>
         </p-tab>
       </div>

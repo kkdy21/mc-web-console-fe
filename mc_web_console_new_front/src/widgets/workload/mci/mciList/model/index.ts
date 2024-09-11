@@ -2,12 +2,17 @@ import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolb
 import { IMci, McisTableType, useMCIStore } from '@/entities/mci/model';
 import { watch } from 'vue';
 import { IVm } from '@/entities/vm/model';
+import { useGetMciList } from '@/entities/mci/api';
+import { showErrorMessage } from '@/shared/utils';
+import { storeToRefs } from 'pinia';
 
-export function useMCiListTableModel() {
+export function useMciListModel<T>(props: T) {
   const mciTableModel =
     useToolboxTableModel<Partial<Record<McisTableType, any>>>();
 
   const mciStore = useMCIStore();
+  const { mcis } = storeToRefs(mciStore);
+  const resMciList = useGetMciList(props.nsId);
 
   function initToolBoxTableModel() {
     mciTableModel.tableState.fields = [
@@ -70,7 +75,20 @@ export function useMCiListTableModel() {
     return provider;
   }
 
-  watch(mciStore.mcis, nv => {
+  function fetchMciList() {
+    resMciList
+      .execute()
+      .then(res => {
+        if (res.data.responseData) {
+          mciStore.setMcis(res.data.responseData);
+        }
+      })
+      .catch(e => {
+        showErrorMessage('Error', e.errorMsg.value);
+      });
+  }
+
+  watch(mcis, nv => {
     mciTableModel.tableState.items = nv.map(value =>
       organizeResponseMciList(value),
     );
@@ -81,5 +99,7 @@ export function useMCiListTableModel() {
     mciTableModel,
     initToolBoxTableModel,
     mciStore,
+    fetchMciList,
+    resMciList,
   };
 }

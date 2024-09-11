@@ -1,50 +1,39 @@
 <script setup lang="ts">
 import { PButton, PSelectCard, PToolbox } from '@cloudforet-test/mirinae';
-import { useVmGroupsTableModel } from '@/widgets/workload/vmGroups/model';
-import { useGetVmGroup } from '@/entities/vmgroups/api';
-import { onBeforeMount, onMounted, watch } from 'vue';
-import { showErrorMessage } from '@/shared/utils';
+import { useVmGroupsModel } from '@/widgets/workload/vmGroups/model';
+import { onBeforeMount, onMounted, reactive, watch } from 'vue';
 
 interface IProps {
   nsId: string;
-  mciId: string;
+  mciId: string | null;
 }
 
 const props = defineProps<IProps>();
-
-const { vmGroupsTableModel, vmGroupStore, getServerGroup } =
-  useVmGroupsTableModel();
-
-const resVmGroups = useGetVmGroup(props);
-const selected = [];
+const emit = defineEmits(['selectCard']);
+const { cardState, vmGroupStore, resVmGroups, fetchVmGroups } =
+  useVmGroupsModel<IProps>(props);
 
 watch(props, nv => {
-  resVmGroups
-    .execute({ pathParams: nv })
-    .then(res => {
-      if (res.data.responseData?.output) {
-        const organizeVmGroups = res.data.responseData.output.map(id => id);
-        vmGroupStore.setVmGroups(organizeVmGroups);
-      }
-    })
-    .catch(e => {
-      showErrorMessage('Error', e.errorMsg);
-    });
+  fetchVmGroups(nv);
 });
 
-onBeforeMount(() => {
-  vmGroupsTableModel.initState();
+watch(cardState, () => {
+  console.log(cardState.selected);
 });
 
 onMounted(() => {
-  console.log('test!');
+  fetchVmGroups(props);
   vmGroupStore.setVmGroups([{ id: 'test1' }, { id: 'test2' }, { id: 'test3' }]);
 });
+
+function handleClick(id: string) {
+  emit('selectCard', { groupId: id });
+}
 </script>
 
 <template>
   <div>
-    <p-toolbox :pageSizeChangeable="false">
+    <p-toolbox :page-size-changeable="false">
       <template #left-area>
         <p-button style-type="tertiary" icon-left="ic_plus_bold">
           Add Server
@@ -53,20 +42,17 @@ onMounted(() => {
     </p-toolbox>
     <div class="w-full overflow p-8 flex flex-wrap">
       <p-select-card
-        v-for="(value, index) in vmGroupsTableModel.tableState.displayItems"
-        multi-selectable
-        :value="value"
-        v-model="selected"
-        style="
-          min-width: 10rem;
-          max-width: 10rem;
-          min-height: 10rem;
-          max-height: 10rem;
-          margin: 1rem;
-        "
+        v-for="(value, _) in cardState.cardData"
+        :key="value.name"
+        v-model="cardState.selected"
+        :loading="resVmGroups.isLoading.value"
+        :value="value.name"
+        :multi-selectable="true"
+        @click="handleClick(value.name)"
       >
         <template #default="scope">
           {{ scope }}
+          {{ value }}
         </template>
       </p-select-card>
     </div>

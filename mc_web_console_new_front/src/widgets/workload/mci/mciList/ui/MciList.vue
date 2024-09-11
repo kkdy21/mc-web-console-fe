@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMCiListTableModel } from '@/widgets/workload/mci/mciList/model';
+import { useMciListModel } from '@/widgets/workload/mci/mciList/model';
 import {
   PButton,
   PHorizontalLayout,
@@ -10,31 +10,25 @@ import { computed, onBeforeMount, onMounted, reactive } from 'vue';
 import { useMCIStore } from '@/entities/mci/model';
 import { showErrorMessage } from '@/shared/utils';
 
+interface IProps {
+  nsId: string;
+}
+
+const props = defineProps<IProps>();
 const emit = defineEmits(['selectRow']);
 
-const { mciTableModel, initToolBoxTableModel, mciStore } =
-  useMCiListTableModel();
-
-//TODO projectID 받아야함.
-const resMciList = useGetMciList('ns01');
+const {
+  mciTableModel,
+  initToolBoxTableModel,
+  mciStore,
+  fetchMciList,
+  resMciList,
+} = useMciListModel(props);
 
 const mciCreateModalState = reactive({
   open: false,
   props: {},
 });
-
-function handleMciListFetch() {
-  resMciList
-    .execute()
-    .then(res => {
-      if (res.data.responseData) {
-        mciStore.setMcis(res.data.responseData);
-      }
-    })
-    .catch(e => {
-      showErrorMessage('Error', e.errorMsg.value);
-    });
-}
 
 function handleSelectedIndex(index: number[]) {
   const selectedData = mciTableModel.tableState.displayItems[index];
@@ -46,7 +40,7 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  handleMciListFetch();
+  fetchMciList();
 });
 </script>
 
@@ -74,7 +68,7 @@ onMounted(() => {
           :select-index.sync="mciTableModel.tableState.selectIndex"
           :page-size="mciTableModel.tableOptions.pageSize"
           @change="mciTableModel.handleChange"
-          @refresh="handleMciListFetch"
+          @refresh="fetchMciList"
           @select="handleSelectedIndex"
         >
           <template #toolbox-left>
