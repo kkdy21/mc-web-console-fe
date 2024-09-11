@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="merge : merge commit devfe -&gt; page/mci">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/definitionTable/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/definitionTable/useDefinitionTableModel.ts" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="page: mci Detail table">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/i18n/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/store.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/types.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/model/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/ui/MciDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/ui/MciDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/ui/MciList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/ui/MciList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/model/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/model/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/ui/VmGroups.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/ui/VmGroups.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -516,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726018425098</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="page: mci Detail table">
+      <option name="closed" value="true" />
+      <created>1726040325245</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1726040325245</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,7 +553,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="page/user" />
+                        <option value="page/mci" />
                       </list>
                     </value>
                   </entry>
@@ -557,7 +566,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: login error handling" />
     <MESSAGE value="add: login page - logo, logo name" />
     <MESSAGE value="add: user page" />
     <MESSAGE value="add : DynamicLayoutModel" />
@@ -582,7 +590,8 @@
     <MESSAGE value="feat : make MCI table, mci detail table, server table model" />
     <MESSAGE value="refactor : Modify type error" />
     <MESSAGE value="merge : merge commit devfe -&gt; page/mci" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge : merge commit devfe -&gt; page/mci" />
+    <MESSAGE value="page: mci Detail table" />
+    <option name="LAST_COMMIT_MESSAGE" value="page: mci Detail table" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />

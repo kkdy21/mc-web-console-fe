@@ -4,6 +4,7 @@ import { reactive, ref } from 'vue';
 import { PTab } from '@cloudforet-test/mirinae';
 import MciDetail from '@/widgets/workload/mci/mciDetail/ui/MciDetail.vue';
 import { useMCIStore } from '@/entities/mci/model';
+import VmGroups from '@/widgets/workload/vmGroups/ui/VmGroups.vue';
 
 const pageName = 'MCI';
 
@@ -46,7 +47,9 @@ function handleSelectMciTableRow(id: string) {
           <template #detail>
             <MciDetail :selectedMciId="selectedMciId"></MciDetail>
           </template>
-          <template #server></template>
+          <template #server>
+            <VmGroups ns-id="t" mci-id="t"></VmGroups>
+          </template>
         </p-tab>
       </div>
     </section>

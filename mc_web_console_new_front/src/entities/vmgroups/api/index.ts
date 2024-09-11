@@ -3,7 +3,7 @@ import {
   RequestBodyWrapper,
   useAxiosPost,
 } from '@/shared/libs';
-import { IServerGroupsResponse } from '@/entities/servergroups/model';
+import { IServerGroupsResponse } from '@/entities/vmgroups/model';
 
 interface IVmGroupRequestParams {
   nsId: string;

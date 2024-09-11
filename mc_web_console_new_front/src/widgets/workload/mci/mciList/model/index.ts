@@ -38,7 +38,7 @@ export function useMCiListTableModel() {
     ];
   }
 
-  function organizeResponseUserList(mciRes: IMci) {
+  function organizeResponseMciList(mciRes: IMci) {
     const organizedDatum: Partial<Record<McisTableType | 'originalData', any>> =
       {
         name: mciRes.name,
@@ -72,7 +72,7 @@ export function useMCiListTableModel() {
 
   watch(mciStore.mcis, nv => {
     mciTableModel.tableState.items = nv.map(value =>
-      organizeResponseUserList(value),
+      organizeResponseMciList(value),
     );
     mciTableModel.handleChange(null);
   });
