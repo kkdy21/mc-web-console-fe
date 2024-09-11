@@ -37,9 +37,9 @@ const state = reactive({
         <router-view />
       </template>
     </vertical-page-layout>
-    <general-page-layout>
+    <!-- <general-page-layout>
       <router-view />
-    </general-page-layout>
+    </general-page-layout> -->
   </fragment>
 </template>
 

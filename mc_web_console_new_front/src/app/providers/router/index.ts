@@ -4,7 +4,12 @@ import authRoutes from '@/pages/auth/auth.route.ts';
 import NotFound from '@/pages/error/404/NotFound.vue';
 import { environmentRoutes } from './routes/environment';
 import { accountAndAccessRoutes } from './routes/accountAndAccess';
-
+import { manageRoutes } from './routes/manage';
+import { MainLayout } from '@/app/Layouts';
+import { useAuthenticationStore } from '@/entities';
+import { Route } from 'vue-router';
+import { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
+import { AuthorizationType } from '@/shared/libs/store/auth';
 //TODO admin부분 고려
 
 export class McmpRouter {
@@ -18,8 +23,12 @@ export class McmpRouter {
     },
     {
       path: '/main',
-      component: { template: '<router-view/>' },
-      children: [...environmentRoutes, ...accountAndAccessRoutes],
+      component: MainLayout,
+      children: [
+        ...environmentRoutes,
+        ...accountAndAccessRoutes,
+        ...manageRoutes,
+      ],
     },
     ...authRoutes,
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
@@ -41,9 +50,9 @@ export class McmpRouter {
 
       // McmpRouter.router.beforeEach((to: Route, from: Route, next) => {
       //   const isLogin = useAuthenticationStore().login;
-      //   const userRole = useAuthorizationStore().role;
+      //   // const userRole = useAuthorizationStore().role;
 
-      //   // console.log(isLogin);
+      //   console.log(isLogin);
       //   // console.log(userRole);
       //   // console.log(to);
 
@@ -70,16 +79,16 @@ export class McmpRouter {
       //    * 1. 서버에서 접근가능한 메뉴목록들을 가져와서 변수에 저장한다음, 페이지를 이동할 때 마다 해당 변수에 값이 들어있는지를 검사하는 로직을 추가.
       //    * */
 
-      //   if (accessibleRoles.length > 0 && accessibleRoles.includes('admin')) {
-      //     if (userRole === 'admin') {
-      //       next();
-      //     } else {
-      //       next(false);
-      //       alert('권한이 없습니다.');
-      //     }
-      //   } else {
-      //     next();
-      //   }
+      //   // if (accessibleRoles.length > 0 && accessibleRoles.includes('admin')) {
+      //   //   if (userRole === 'admin') {
+      //   //     next();
+      //   //   } else {
+      //   //     next(false);
+      //   //     alert('권한이 없습니다.');
+      //   //   }
+      //   // } else {
+      //   //   next();
+      //   // }
       // });
     }
   }

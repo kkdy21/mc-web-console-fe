@@ -3,7 +3,7 @@ import { computed, onMounted, reactive, watch } from 'vue';
 import { useRoute } from 'vue-router/composables';
 import { clone, toLower } from 'lodash';
 import { PI } from '@cloudforet-test/mirinae';
-import type { MenuInfo } from '@/entities/user/store/menuPerUserStore';
+import type { Menu } from '@/entities/user/store/menuPerUserStore';
 import { useMenuPerUserStore } from '@/entities';
 import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
@@ -16,7 +16,7 @@ const { category } = storeToRefs(menuPerUserStore);
 const { isMinimized, isCollapsed } = storeToRefs(sidebar);
 
 const props = defineProps<{
-  displayedMenu: MenuInfo[];
+  displayedMenu: Menu[];
 }>();
 
 const route = useRoute();
@@ -25,7 +25,7 @@ const state = reactive({
   isInit: false as boolean | undefined,
   isHovered: false,
   category: '',
-  gnbMenuList: computed<MenuInfo[]>(() => {
+  gnbMenuList: computed<Menu[]>(() => {
     return flattenMenusWithCategory(props.displayedMenu);
   }),
   selectedMenuId: computed(() => {
@@ -36,17 +36,19 @@ const state = reactive({
   }),
 });
 
-const flattenMenusWithCategory = (menu: MenuInfo[]) => {
+const flattenMenusWithCategory = (menu: Menu[]) => {
   let flatMenu = [] as any[];
 
   for (let m of menu) {
+    console.log(m.displayname);
     flatMenu = flatMenu.concat(flattenMenu(m, m.displayname));
   }
 
+  // console.log(flatMenu, 'flatMenu');
   return flatMenu;
 };
 
-const flattenMenu = (menu: MenuInfo, majorCategory?: string) => {
+const flattenMenu = (menu: Menu, majorCategory?: string) => {
   let flatMenu = [] as any[];
   if (menu.menus && menu.menus.length > 0) {
     for (let subMenu of menu.menus) {
@@ -74,9 +76,12 @@ onMounted(() => {
   state.isInit = true;
 });
 
-watch(() => state.gnbMenuList, () => {
-  menuPerUserStore.setFlattendMenus(state.gnbMenuList);
-})
+watch(
+  () => state.gnbMenuList,
+  () => {
+    menuPerUserStore.setFlattendMenus(state.gnbMenuList);
+  },
+);
 </script>
 
 <template>
@@ -88,20 +93,20 @@ watch(() => state.gnbMenuList, () => {
           v-if="
             (idx === 0 ||
               menu.majorCategory !==
-                state.gnbMenuList[idx - 1].majorCategory) &&
-            !isMinimized
+              state.gnbMenuList[idx - 1].majorCategory) &&
+              !isMinimized
           "
           class="menu-category"
-          >{{ menu.majorCategory }}</span
+        >{{ menu.majorCategory }}</span
         >
         <span
           v-else-if="
             (idx === 0 ||
               menu.majorCategory !==
-                state.gnbMenuList[idx - 1].majorCategory) &&
-            isMinimized
+              state.gnbMenuList[idx - 1].majorCategory) &&
+              isMinimized
           "
-          >&nbsp;
+        >&nbsp;
         </span>
         <router-link
           v-if="

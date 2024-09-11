@@ -4,13 +4,9 @@ import {
   PTooltip,
   PI,
   PEmpty,
-  PTextHighlighting,
-  PButton,
-  PContextMenu,
 } from '@cloudforet-test/mirinae';
-// import { getSelectDropdownMenu } from '@cloudforet-test/mirinae/src/inputs/dropdown/select-dropdown/mock';
 import { gray, violet } from '@/app/style/colors';
-import { reactive, ref, watch, watchEffect } from 'vue';
+import { reactive, ref, watch } from 'vue';
 
 import { i18n } from '@/app/i18n';
 const CONTEXT_MENU_TYPE = {
@@ -148,7 +144,7 @@ const formatMenuItems = (menuItems: any[]) => {
           {
             type: CONTEXT_MENU_TYPE.header,
             name: 'workspace_header',
-            label: `${i18n.t('WORKSPACE.WORKSPACE')}`,
+            label: `${i18n.t('WORKSPACE._NAME')}`,
           },
         ]
       : ([] as any[]);
