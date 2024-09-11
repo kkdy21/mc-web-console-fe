@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : make MCI table, mci detail table, server table model">
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="refactor : Modify type error">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/userEditModal/ui/UserEditModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/userEditModal/ui/UserEditModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/bulkRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/bulkRequest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/libs/api/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/model/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/servergroups/model/store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -499,7 +492,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725965286243</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="refactor : Modify type error">
+      <option name="closed" value="true" />
+      <created>1726016363402</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1726016363402</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: login logic + login ui" />
     <MESSAGE value="feat: Login UI, input validator, Login success callback" />
     <MESSAGE value="feat: login error handling" />
     <MESSAGE value="add: login page - logo, logo name" />
@@ -542,7 +542,8 @@
     <MESSAGE value="feat : bulk request" />
     <MESSAGE value="feat : make mci, vm, servergroup model" />
     <MESSAGE value="feat : make MCI table, mci detail table, server table model" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : make MCI table, mci detail table, server table model" />
+    <MESSAGE value="refactor : Modify type error" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor : Modify type error" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />
