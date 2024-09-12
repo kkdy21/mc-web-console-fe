@@ -5,7 +5,7 @@ import {
 } from '@/shared/libs';
 import { IServerGroupsResponse } from '@/entities/vmgroups/model';
 
-interface IVmGroupRequestParams {
+export interface IVmGroupRequestParams {
   nsId: string;
   mciId: string;
 }

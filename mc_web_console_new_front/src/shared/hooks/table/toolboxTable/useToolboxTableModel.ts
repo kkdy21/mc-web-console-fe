@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import {
   ChangeEvent,
   ITableField,
@@ -137,6 +137,14 @@ export const useToolboxTableModel = <T>() => {
 
     tableState.loading = false;
   };
+
+  watch(
+    () => tableState.items,
+    () => {
+      tableState.sortedItems = tableState.items;
+      handleChange(null);
+    },
+  );
 
   return {
     tableOptions,

@@ -5,7 +5,7 @@ import {
 } from '@/shared/libs';
 import { IMci } from '@/entities/mci/model';
 
-interface IMciRequestParams {
+export interface IMciRequestParams {
   nsId: string | null;
   mciId: string | null;
 }

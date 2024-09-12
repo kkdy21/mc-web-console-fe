@@ -5,7 +5,7 @@ import { onBeforeMount, onMounted, reactive, watch } from 'vue';
 
 interface IProps {
   nsId: string;
-  mciId: string | null;
+  mciId: string;
 }
 
 const props = defineProps<IProps>();
@@ -22,6 +22,7 @@ watch(cardState, () => {
 });
 
 onMounted(() => {
+  console.log(props);
   fetchVmGroups(props);
   vmGroupStore.setVmGroups([{ id: 'test1' }, { id: 'test2' }, { id: 'test3' }]);
 });
@@ -49,10 +50,16 @@ function handleClick(id: string) {
         :value="value.name"
         :multi-selectable="true"
         @click="handleClick(value.name)"
+        style="
+          width: 205.5px;
+          height: 56px;
+          margin: 0.2rem;
+          padding: 10px 16px 10px 16px;
+          border-radius: 12px;
+        "
       >
         <template #default="scope">
-          {{ scope }}
-          {{ value }}
+          {{ value.name }}
         </template>
       </p-select-card>
     </div>

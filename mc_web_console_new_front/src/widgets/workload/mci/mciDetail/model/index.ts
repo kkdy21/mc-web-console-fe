@@ -1,6 +1,7 @@
 import { McisTableType, useMCIStore } from '@/entities/mci/model';
 import { ref, watch } from 'vue';
 import { useDefinitionTableModel } from '@/shared/hooks/table/definitionTable/useDefinitionTableModel.ts';
+import { getCloudProvidersInVms } from '@/shared/hooks/vm';
 
 export function useMciDetailModel() {
   const mciStore = useMCIStore();
@@ -36,7 +37,7 @@ export function useMciDetailModel() {
         status: mci.status || '',
         type: mci.type || '',
         action: mci.action || '',
-        provider: mci.connectionConfig.providerName || '',
+        provider: getCloudProvidersInVms(mci.vm) || '',
         deploymentAlgorithm: mci.deploymentAlgorithm || '',
       };
     }

@@ -32,7 +32,12 @@ const mciCreateModalState = reactive({
 
 function handleSelectedIndex(index: number[]) {
   const selectedData = mciTableModel.tableState.displayItems[index];
-  emit('selectRow', selectedData.id);
+  if (selectedData) {
+    emit('selectRow', selectedData.name);
+  }
+  // else {
+  //   emit('selectRow', '');
+  // }
 }
 
 onBeforeMount(() => {

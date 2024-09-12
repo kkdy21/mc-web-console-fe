@@ -1,17 +1,22 @@
 import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
 import { IMci, McisTableType, useMCIStore } from '@/entities/mci/model';
 import { watch } from 'vue';
-import { IVm } from '@/entities/vm/model';
 import { useGetMciList } from '@/entities/mci/api';
 import { showErrorMessage } from '@/shared/utils';
 import { storeToRefs } from 'pinia';
+import { getCloudProvidersInVms } from '@/shared/hooks/vm';
 
-export function useMciListModel<T>(props: T) {
+interface IProps {
+  nsId: string;
+}
+
+export function useMciListModel(props: IProps) {
   const mciTableModel =
     useToolboxTableModel<Partial<Record<McisTableType, any>>>();
 
   const mciStore = useMCIStore();
   const { mcis } = storeToRefs(mciStore);
+
   const resMciList = useGetMciList(props.nsId);
 
   function initToolBoxTableModel() {
@@ -50,29 +55,15 @@ export function useMciListModel<T>(props: T) {
         description: mciRes.description,
         alias: mciRes.alias || '',
         status: mciRes.status || '',
-        provider: getCloudProvider(mciRes.vm),
-        countTotal: mciRes.statusCount.countTotal || '',
-        countRunning: mciRes.statusCount.countRunning || '',
-        countSuspended: mciRes.statusCount.countSuspended || '',
-        countTerminated: mciRes.statusCount.countTerminated || '',
+        provider: getCloudProvidersInVms(mciRes.vm),
+        countTotal: mciRes.statusCount.countTotal ?? '',
+        countRunning: mciRes.statusCount.countRunning ?? '',
+        countSuspended: mciRes.statusCount.countSuspended ?? '',
+        countTerminated: mciRes.statusCount.countTerminated ?? '',
         originalData: mciRes,
       };
 
     return organizedDatum;
-  }
-
-  function getCloudProvider(vms: IVm[]) {
-    const provider: { [key: string]: any } = {};
-
-    vms.forEach(vm => {
-      const { providerName } = vm.connectionConfig;
-      if (providerName) {
-        provider[providerName] ||= {};
-      }
-    });
-
-    console.log(provider);
-    return provider;
   }
 
   function fetchMciList() {
@@ -93,6 +84,7 @@ export function useMciListModel<T>(props: T) {
       organizeResponseMciList(value),
     );
     mciTableModel.handleChange(null);
+    console.log(mciTableModel.tableState.displayItems);
   });
 
   return {

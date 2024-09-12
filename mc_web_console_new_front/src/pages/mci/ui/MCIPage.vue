@@ -23,11 +23,13 @@ const tabState = reactive({
 });
 
 const nsId = 'ns01';
-const selectedMciId = reactive<{ mciId: string }>({ mciId: '' });
-const selectedGroupId = reactive<{ groupId: string }>({ groupId: '' });
+// const selectedMciId = reactive<{ mciId: string }>({ mciId: '' });
+// const selectedGroupId = reactive<{ groupId: string }>({ groupId: '' });
+const selectedMciId = ref<string>('');
+const selectedGroupId = ref<string>('');
 
 function handleSelectMciTableRow(id: string) {
-  selectedMciId.mciId = id;
+  selectedMciId.value = id;
 }
 </script>
 
@@ -37,22 +39,22 @@ function handleSelectMciTableRow(id: string) {
       <p>{{ pageName }}</p>
     </header>
     <section :class="`${pageName}-page-body`">
-      <MciList :ns-id="nsId" @select-row="handleSelectMciTableRow"></MciList>
+      <MciList :ns-id="nsId" @selectRow="handleSelectMciTableRow"></MciList>
       <p
-        v-if="!selectedMciId.mciId"
+        v-if="!selectedMciId"
         class="flex justify-center text-gray-300 text-sm font-normal"
       >
         Select an item for more details.
       </p>
-      <div>
+      <div v-if="selectedMciId">
         <p-tab v-model="tabState.activeTab" :tabs="tabState.tabs">
           <template #detail>
-            <MciDetail :selected-mci-id="selectedMciId"></MciDetail>
+            <MciDetail :selectedMciId="selectedMciId"></MciDetail>
           </template>
           <template #server>
             <VmGroups
               :ns-id="nsId"
-              :mci-id="selectedMciId.mciId"
+              :mci-id="selectedMciId"
               @selectCard="e => (selectedGroupId = e.groupId)"
             ></VmGroups>
           </template>

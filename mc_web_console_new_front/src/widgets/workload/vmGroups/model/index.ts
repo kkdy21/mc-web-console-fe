@@ -1,15 +1,16 @@
-import { useToolboxTableModel } from '@/shared/hooks/table/toolboxTable/useToolboxTableModel.ts';
-import { reactive, ref, watch } from 'vue';
-import {
-  ServerGroupTableType,
-  useVmGroupStore,
-} from '@/entities/vmgroups/model';
+import { reactive, watch } from 'vue';
+import { useVmGroupStore } from '@/entities/vmgroups/model';
 import { storeToRefs } from 'pinia';
 import { useGetVmGroup } from '@/entities/vmgroups/api';
 import { showErrorMessage } from '@/shared/utils';
 
-export function useVmGroupsModel<T>(props: T) {
-  const cardState = reactive({
+interface IProps {
+  nsId: string;
+  mciId: string;
+}
+
+export function useVmGroupsModel(props: IProps) {
+  const cardState = reactive<any>({
     cardData: [],
     selected: [],
   });
@@ -31,7 +32,7 @@ export function useVmGroupsModel<T>(props: T) {
     });
   }
 
-  function fetchVmGroups(props) {
+  function fetchVmGroups(props: IProps) {
     resVmGroups
       .execute({ pathParams: props })
       .then(res => {
@@ -45,12 +46,8 @@ export function useVmGroupsModel<T>(props: T) {
       });
   }
 
-  watch(vmGroups, nv => {
+  watch(vmGroups, () => {
     cardState.cardData = organizeCardData();
-  });
-
-  watch(props, () => {
-    console.log('prop 변경');
   });
 
   return {
