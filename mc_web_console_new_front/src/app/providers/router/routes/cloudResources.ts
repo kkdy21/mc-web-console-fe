@@ -4,6 +4,8 @@ import { CloudResourcesPage } from '@/pages/cloudResources';
 import { ManageSubnetPage, ManageSubnetFromVPCPage } from '@/pages/subnet';
 import { i18n } from '@/app/i18n';
 
+const category = i18n.t('MENU.SETTINGS.ENVIRONMENT._NAME');
+
 export const CLOUD_RESOURCES_ROUTE = {
   _NAME: 'CloudResources',
   VPC: {
@@ -33,7 +35,9 @@ const cloudResourcesRoutes: RouteConfig[] = [
     component: CloudResourcesPage,
     meta: {
       // lsbVisible: true,
+      requiresAuth: true,
       menuId: 'cloudResources',
+      category,
     },
     children: [
       // {
@@ -60,7 +64,9 @@ const cloudResourcesRoutes: RouteConfig[] = [
     path: 'cloud-resources/subnets',
     name: CLOUD_RESOURCES_ROUTE.SUBNETS._NAME,
     meta: {
+      requiresAuth: true,
       menuId: MENU_ID.VPC,
+      category,
     },
     component: ManageSubnetFromVPCPage,
   },
@@ -68,7 +74,9 @@ const cloudResourcesRoutes: RouteConfig[] = [
     path: 'cloud-resources/vpc/subnets',
     name: CLOUD_RESOURCES_ROUTE.VPC_SUBNETS._NAME,
     meta: {
+      requiresAuth: true,
       menuId: MENU_ID.VPC,
+      category,
     },
     component: ManageSubnetPage,
   },

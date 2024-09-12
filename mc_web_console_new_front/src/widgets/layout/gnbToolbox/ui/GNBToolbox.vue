@@ -4,17 +4,16 @@ import { useSidebar } from '@/shared/libs/store/sidebar';
 import { storeToRefs } from 'pinia';
 import { useBreadcrumbs } from '@/shared/hooks/breadcrumb';
 import type { Breadcrumb } from '@/shared/types';
-import { computed, reactive, watchEffect } from 'vue';
-import { useRoute, useRouter } from 'vue-router/composables';
+import { computed, reactive } from 'vue';
+import { useRoute } from 'vue-router/composables';
 import { useGnbStore } from '@/shared/libs/store/gnb-store';
-import { clone, result } from 'lodash';
+import { clone } from 'lodash';
 import { MenuId } from '@/entities';
 
 const sidebar = useSidebar();
 const gnbStore = useGnbStore();
 const gnbGetters = gnbStore.getters;
 const route = useRoute();
-const router = useRouter();
 const { breadcrumbs } = useBreadcrumbs();
 
 const { isCollapsed } = storeToRefs(sidebar);
@@ -41,16 +40,19 @@ const state = reactive({
   ),
   breadcrumbs: computed(() => {
     let resultArr: Breadcrumb[] = [];
-    route.matched.forEach(matchedRoute => {
-      matchedRoute.meta?.menuId === route.meta?.menuId
-        ? resultArr.push({
-            name: matchedRoute.name as string,
-            to: {
+    if (route.meta?.category) {
+      resultArr = [{ name: `${route.meta?.category}` }];
+      route.matched.forEach(matchedRoute => {
+        matchedRoute.meta?.menuId === route.meta?.menuId
+          ? resultArr.push({
               name: matchedRoute.name as string,
-            },
-          })
-        : null;
-    });
+              to: {
+                name: matchedRoute.name as string,
+              },
+            })
+          : null;
+      });
+    }
     return resultArr;
   }),
 });
@@ -78,8 +80,9 @@ const handleClickMenuButton = () => {
         />
       </p-tooltip>
       <p-breadcrumbs :routes="state.breadcrumbs" :copiable="false">
-        <template>
+        <template #default="props">
           <!-- TODO: -->
+          {{ props }}
         </template>
       </p-breadcrumbs>
     </div>
