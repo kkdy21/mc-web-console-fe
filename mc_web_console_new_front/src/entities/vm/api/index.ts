@@ -13,7 +13,7 @@ interface IVmRequestParams {
 
 const GET_VM_Info = 'GetMciVm';
 
-export function useGetMciInfo(params: IVmRequestParams | null) {
+export function useGetVmInfo(params: IVmRequestParams | null) {
   const requestBodyWrapper: Required<
     Pick<RequestBodyWrapper<IVmRequestParams | null>, 'pathParams'>
   > = {

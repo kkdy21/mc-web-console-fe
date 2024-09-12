@@ -7,14 +7,20 @@ const NAMESPACE = 'vm';
 interface IVmStore {
   vms: Ref<IVm[]>;
   setVm: (val: IVm[]) => void;
+  addVm: (val: IVm) => void;
   loadVmById: (vmId: string) => IVm | null;
 }
 
+//TODO ns, mci정보도 추가 저장해야함.
 export const useVmStore = defineStore(NAMESPACE, (): IVmStore => {
   const vms = ref<IVm[]>([]);
 
   function setVm(_vms: IVm[]) {
     vms.value = _vms;
+  }
+
+  function addVm(_vms: IVm) {
+    vms.value.push({ ..._vms });
   }
 
   function loadVmById(vmId: string) {
@@ -25,5 +31,5 @@ export const useVmStore = defineStore(NAMESPACE, (): IVmStore => {
     );
   }
 
-  return { vms, setVm, loadVmById };
+  return { vms, setVm, loadVmById, addVm };
 });

@@ -3,7 +3,7 @@ import {
   RequestBodyWrapper,
   useAxiosPost,
 } from '@/shared/libs';
-import { IServerGroupsResponse } from '@/entities/vmgroups/model';
+import { IVmGroupsResponse } from '@/entities/vmgroups/model';
 
 export interface IVmGroupRequestParams {
   nsId: string;
@@ -23,7 +23,7 @@ export function useGetVmGroup(props: IVmGroupRequestParams | null) {
   };
 
   return useAxiosPost<
-    IAxiosResponse<IServerGroupsResponse>,
+    IAxiosResponse<IVmGroupsResponse>,
     Required<
       Pick<RequestBodyWrapper<IVmGroupRequestParams | null>, 'pathParams'>
     >

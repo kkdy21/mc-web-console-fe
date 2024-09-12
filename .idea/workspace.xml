@@ -4,18 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="page: vmGroup temp">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/vm/index.ts" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="refactor : usage reactive">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/model/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/ui/VmDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/.env" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/mci/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/table/toolboxTable/useToolboxTableModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/model/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/ui/MciDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail/ui/MciDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/model/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/ui/MciList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciList/ui/MciList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/model/index.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/model/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/ui/VmGroups.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/ui/VmGroups.vue" afterDir="false" />
     </list>
@@ -28,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
-        <option value="Vue Composition API Component" />
         <option value="TypeScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -87,11 +86,11 @@
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/node_modules/@cloudforet-test/mirinae/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/model" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/ui" />
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci" />
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail" />
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload" />
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist" />
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/dynamic/dynamic-layout" />
     </key>
   </component>
   <component name="RunManager">
@@ -134,14 +133,6 @@
       <workItem from="1724373461583" duration="83595000" />
       <workItem from="1724909085833" duration="19517000" />
       <workItem from="1725345245668" duration="39777000" />
-    </task>
-    <task id="LOCAL-00002" summary="chore: docker file 추가">
-      <option name="closed" value="true" />
-      <created>1723769076313</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1723769076313</updated>
     </task>
     <task id="LOCAL-00003" summary="refactor : setting proxy, api logic">
       <option name="closed" value="true" />
@@ -527,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726045757038</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="refactor : usage reactive">
+      <option name="closed" value="true" />
+      <created>1726106201099</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1726106201099</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +567,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add: user page" />
     <MESSAGE value="add : DynamicLayoutModel" />
     <MESSAGE value="feat : query search, sorting, show datatable list" />
     <MESSAGE value="refactor : file position" />
@@ -593,7 +591,8 @@
     <MESSAGE value="merge : merge commit devfe -&gt; page/mci" />
     <MESSAGE value="page: mci Detail table" />
     <MESSAGE value="page: vmGroup temp" />
-    <option name="LAST_COMMIT_MESSAGE" value="page: vmGroup temp" />
+    <MESSAGE value="refactor : usage reactive" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor : usage reactive" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />

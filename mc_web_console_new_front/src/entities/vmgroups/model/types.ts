@@ -1,5 +1,5 @@
-export interface IServerGroupsResponse {
-  output: IVmGroup[];
+export interface IVmGroupsResponse {
+  output: string[];
 }
 
 export interface IVmGroup {

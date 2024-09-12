@@ -26,7 +26,7 @@ const nsId = 'ns01';
 // const selectedMciId = reactive<{ mciId: string }>({ mciId: '' });
 // const selectedGroupId = reactive<{ groupId: string }>({ groupId: '' });
 const selectedMciId = ref<string>('');
-const selectedGroupId = ref<string>('');
+const selectedGroupIds = ref<string>('');
 
 function handleSelectMciTableRow(id: string) {
   selectedMciId.value = id;
@@ -55,8 +55,9 @@ function handleSelectMciTableRow(id: string) {
             <VmGroups
               :ns-id="nsId"
               :mci-id="selectedMciId"
-              @selectCard="e => (selectedGroupId = e.groupId)"
-            ></VmGroups>
+              @selectCard="e => (selectedGroupIds = e.groupId)"
+            >
+            </VmGroups>
           </template>
         </p-tab>
       </div>

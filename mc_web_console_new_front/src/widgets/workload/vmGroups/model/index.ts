@@ -37,7 +37,9 @@ export function useVmGroupsModel(props: IProps) {
       .execute({ pathParams: props })
       .then(res => {
         if (res.data.responseData?.output) {
-          const organizeVmGroups = res.data.responseData.output.map(id => id);
+          const organizeVmGroups = res.data.responseData.output.map(id => ({
+            id,
+          }));
           vmGroupStore.setVmGroups(organizeVmGroups);
         }
       })

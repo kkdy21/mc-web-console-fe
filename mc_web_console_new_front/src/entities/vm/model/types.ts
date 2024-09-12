@@ -42,8 +42,8 @@ interface IId {
 
 interface CSPViewVmDetail {
   CSPid: string;
-  DataDiskIIDs: null;
-  DataDiskNames: null;
+  DataDiskIIDs: string[];
+  DataDiskNames: string[];
   IId: IId;
   ImageIId: IId;
   ImageName: string;
@@ -63,7 +63,7 @@ interface CSPViewVmDetail {
   RootDiskType: string;
   SSHAccessPoint: string;
   SecurityGroupIIds: IId[];
-  SecurityGroupNames: null;
+  SecurityGroupNames: string[];
   StartTime: string;
   SubnetIID: IId;
   SubnetName: string;
@@ -79,7 +79,7 @@ export interface IVm {
   connectionName: string;
   createdTime: string;
   cspViewVmDetail: CSPViewVmDetail;
-  dataDiskIds: null;
+  dataDiskIds: string;
   description: string;
   id: string;
   idByCSP: string;
