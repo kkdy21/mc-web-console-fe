@@ -46,10 +46,8 @@ const state = reactive({
 });
 
 watchEffect(async () => {
-  gnbStore.setBreadcrumbs(state.vpcCustomBreadcrumbs);
+  // gnbStore.setBreadcrumbs(state.vpcCustomBreadcrumbs);
 });
-
-console.log(gnbStore.state.breadcrumbs);
 
 onUnmounted(() => {
   gnbStore.removeBreadcrumbs();
@@ -157,14 +155,6 @@ const handleSelectRow = (
 ) => {
   selectedRow.value = selectedData || {};
 };
-
-onMounted(() => {
-  if (router.currentRoute.name)
-    menuPerUserStore.setBreadcrumbs(
-      router.currentRoute?.name,
-      'Cloud Resources',
-    );
-});
 </script>
 
 <template>

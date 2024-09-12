@@ -10,20 +10,20 @@ const router = useRouter();
 const route = useRoute();
 const gnbStore = useGnbStore();
 
-onMounted(() => {
-  router.currentRoute.matched.forEach(matchedRoute => {
-    matchedRoute.meta?.menuId === router.currentRoute.meta?.menuId
-      ? gnbStore.setBreadcrumbs([
-          {
-            name: 'here',
-            to: {
-              name: router.currentRoute.name as string,
-            },
-          },
-        ])
-      : null;
-  });
-});
+// onMounted(() => {
+//   router.currentRoute.matched.forEach(matchedRoute => {
+//     matchedRoute.meta?.menuId === router.currentRoute.meta?.menuId
+//       ? gnbStore.setBreadcrumbs([
+//           {
+//             name: route.name as string,
+//             to: {
+//               name: router.currentRoute.name as string,
+//             },
+//           },
+//         ])
+//       : null;
+//   });
+// });
 
 const pageName = 'Users';
 const selectedRow: Ref<

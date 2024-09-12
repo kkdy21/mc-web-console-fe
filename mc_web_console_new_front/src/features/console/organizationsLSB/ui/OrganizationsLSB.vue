@@ -26,11 +26,9 @@ const state = reactive({
   }),
 });
 
-onMounted(() => {
-  gnbStore.setBreadcrumbs(state.mciNavigation);
-});
-
-console.log(gnbStore.state.breadcrumbs);
+// onMounted(() => {
+//   gnbStore.setBreadcrumbs(state.mciNavigation);
+// });
 
 interface Props {
   menus: any[];

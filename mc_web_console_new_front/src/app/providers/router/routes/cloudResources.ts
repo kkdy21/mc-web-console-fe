@@ -34,7 +34,6 @@ const cloudResourcesRoutes: RouteConfig[] = [
     meta: {
       // lsbVisible: true,
       menuId: 'cloudResources',
-      category: i18n.t('MENU.SETTINGS.ENVIRONMENT._NAME'),
     },
     children: [
       // {
