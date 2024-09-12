@@ -17,11 +17,7 @@ export function useGetVmInfo(params: IVmRequestParams | null) {
   const requestBodyWrapper: Required<
     Pick<RequestBodyWrapper<IVmRequestParams | null>, 'pathParams'>
   > = {
-    pathParams: {
-      nsId: params!.nsId,
-      mciId: params!.mciId,
-      vmId: params!.vmId,
-    },
+    pathParams: params,
   };
 
   return useAxiosPost<

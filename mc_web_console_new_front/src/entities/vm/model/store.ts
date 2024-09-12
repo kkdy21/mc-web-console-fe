@@ -9,6 +9,7 @@ interface IVmStore {
   setVm: (val: IVm[]) => void;
   addVm: (val: IVm) => void;
   loadVmById: (vmId: string) => IVm | null;
+  loadVmSubGroupById: (vmId: string) => IVm | null;
 }
 
 //TODO ns, mci정보도 추가 저장해야함.
@@ -31,5 +32,13 @@ export const useVmStore = defineStore(NAMESPACE, (): IVmStore => {
     );
   }
 
-  return { vms, setVm, loadVmById, addVm };
+  function loadVmSubGroupById(vmSubGrupId: string) {
+    return (
+      vms.value.find(vm => {
+        return vm.subGroupId === vmSubGrupId;
+      }) || null
+    );
+  }
+
+  return { vms, setVm, loadVmById, addVm, loadVmSubGroupById };
 });

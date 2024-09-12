@@ -27,8 +27,7 @@ onMounted(() => {
 });
 
 function handleClick(id: string) {
-  console.log(id);
-  emit('selectCard', { groupId: id });
+  emit('selectCard', id);
 }
 </script>
 

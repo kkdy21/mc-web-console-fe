@@ -6,9 +6,10 @@ import { useGetVmInfo } from '@/entities/vm/api';
 interface IProps {
   nsId: string;
   mciId: string;
+  vmGroupId: string;
 }
 
-export function useVmDetailModel(props: IProps) {
+export function useVmInformationModel(props: IProps) {
   const targetVmId = ref<string | null>();
   const vmStore = useVmStore();
   const resVmInfo = useGetVmInfo(null);
@@ -75,7 +76,7 @@ export function useVmDetailModel(props: IProps) {
   }
 
   function organizeVmDefineTableData(vm: IVm) {
-    let data: Partial<Record<vmDetailTableType, any>> = {
+    const data: Partial<Record<vmDetailTableType, any>> = {
       serverId: vm.id,
       description: vm.description,
       publicIP: vm.publicIP,
@@ -88,7 +89,7 @@ export function useVmDetailModel(props: IProps) {
       serverSpec: vm.cspViewVmDetail.VMSpecName,
       region: vm.region.assignedRegion,
       zone: vm.region.assignedZone,
-      securityGroup: vm.securityGroupIds.join(', '),
+      securityGroup: vm.securityGroupIds?.join(', '),
       vpcId: vm.vNetId,
       subnetId: vm.subnetId,
       startTime: vm.cspViewVmDetail.StartTime,
@@ -96,7 +97,7 @@ export function useVmDetailModel(props: IProps) {
       rootDevice: vm.cspViewVmDetail.RootDeviceName,
       rootDeviceType: vm.cspViewVmDetail.RootDiskType,
       keypairName: vm.cspViewVmDetail.KeyPairName,
-      blockDevice: vm.cspViewVmDetail.DataDiskNames.join(', ') || null,
+      blockDevice: vm.cspViewVmDetail.DataDiskNames?.join(', ') || null,
       configName: vm.connectionConfig.configName,
       vmId: vm.idByCSP,
       userIdPwd: `${vm.cspViewVmDetail.VMUserId} / ${vm.cspViewVmDetail.VMUserPasswd}`,
@@ -111,22 +112,29 @@ export function useVmDetailModel(props: IProps) {
   }
 
   async function setDefineTableData(vmId: string) {
-    const loadVm = async () =>
-      vmStore.loadVmById(vmId) ||
-      (await fetchVmInfo(vmId), vmStore.loadVmById(vmId));
+    const vm = vmStore.loadVmById(vmId);
+    let data: Partial<Record<vmDetailTableType, any>> = {};
 
-    const vm = await loadVm();
-    return vm ? organizeVmDefineTableData(vm) : {};
+    if (vm) {
+      data = organizeVmDefineTableData(vm);
+    } else {
+      await fetchVmInfo(vmId);
+      const vm = vmStore.loadVmSubGroupById(vmId);
+      if (vm) {
+        data = organizeVmDefineTableData(vm);
+      }
+    }
+    return data;
   }
-
   watch(targetVmId, async nv => {
     if (nv) {
       detailTableModel.tableState.data = await setDefineTableData(nv);
+      console.log(detailTableModel.tableState.data);
     } else {
       detailTableModel.initState();
     }
     detailTableModel.tableState.loading = false;
   });
 
-  return { initTable, setVmId };
+  return { initTable, setVmId, detailTableModel, resVmInfo };
 }
