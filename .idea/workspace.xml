@@ -4,20 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="feat : user edit data fetch">
-      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/userEditModal/ui/UserEditModal.vue" afterDir="false" />
+    <list default="true" id="f8d6e4b5-bfd2-4b98-82a7-5f12ab65ed84" name="Changes" comment="refactor : usage reactive">
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/model/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/ui/VmDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/app/style/style.pcss" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/app/style/style.pcss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/user/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/workspace/model/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/features/user/addUser/ui/AddUser.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui/UserPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userEdit/ui/UserEdit.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userinfomation/ui/UserInformation.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist/ui/UserListTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vm/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/entities/vmgroups/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/pages/mci/ui/MCIPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/model/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/model/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/model/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/ui/VmGroups.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmGroups/ui/VmGroups.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat/login-token" />
+        <entry key="$PROJECT_DIR$" value="page/user" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +54,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "page/user",
+    "git-widget-placeholder": "page/mci",
     "js.linters.configure.manually.selectedeslint": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe",
@@ -70,7 +69,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.20603015",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "/Users/mzc01-rowan/IdeaProjects/mc-web-console-fe/mc_web_console_new_front/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
@@ -87,11 +86,11 @@
       <recent name="$PROJECT_DIR$/mc_web_console_new_front/node_modules/@cloudforet-test/mirinae/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/user/userlist" />
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/shared/hooks/dynamic/dynamic-layout" />
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/pages/account&amp;access/users/ui" />
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/pages/auth/login/ui" />
-      <recent name="$PROJECT_DIR$/mc_web_console_new_front" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/model" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/vmDetail/vmInformation/ui" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload/mci/mciDetail" />
+      <recent name="$PROJECT_DIR$/mc_web_console_new_front/src/widgets/workload" />
     </key>
   </component>
   <component name="RunManager">
@@ -134,22 +133,6 @@
       <workItem from="1724373461583" duration="83595000" />
       <workItem from="1724909085833" duration="19517000" />
       <workItem from="1725345245668" duration="39777000" />
-    </task>
-    <task id="LOCAL-00001" summary="feat/temp : jwt-decode 추가">
-      <option name="closed" value="true" />
-      <created>1723537034791</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1723537034791</updated>
-    </task>
-    <task id="LOCAL-00002" summary="chore: docker file 추가">
-      <option name="closed" value="true" />
-      <created>1723769076313</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1723769076313</updated>
     </task>
     <task id="LOCAL-00003" summary="refactor : setting proxy, api logic">
       <option name="closed" value="true" />
@@ -463,33 +446,127 @@
       <option name="project" value="LOCAL" />
       <updated>1725587658153</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="temp : merge temp">
+      <option name="closed" value="true" />
+      <created>1725840149717</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1725840149717</updated>
+    </task>
+    <task id="LOCAL-00043" summary="feat : bulk request">
+      <option name="closed" value="true" />
+      <created>1725843511094</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1725843511094</updated>
+    </task>
+    <task id="LOCAL-00044" summary="feat : make mci, vm, servergroup model">
+      <option name="closed" value="true" />
+      <created>1725957964084</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1725957964084</updated>
+    </task>
+    <task id="LOCAL-00045" summary="feat : make mci, vm, servergroup model">
+      <option name="closed" value="true" />
+      <created>1725957968324</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1725957968324</updated>
+    </task>
+    <task id="LOCAL-00046" summary="feat : make MCI table, mci detail table, server table model">
+      <option name="closed" value="true" />
+      <created>1725965286243</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1725965286243</updated>
+    </task>
+    <task id="LOCAL-00047" summary="refactor : Modify type error">
+      <option name="closed" value="true" />
+      <created>1726016363402</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1726016363402</updated>
+    </task>
+    <task id="LOCAL-00048" summary="merge : merge commit devfe -&gt; page/mci">
+      <option name="closed" value="true" />
+      <created>1726018425098</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1726018425098</updated>
+    </task>
+    <task id="LOCAL-00049" summary="page: mci Detail table">
+      <option name="closed" value="true" />
+      <created>1726040325245</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1726040325245</updated>
+    </task>
+    <task id="LOCAL-00050" summary="page: vmGroup temp">
+      <option name="closed" value="true" />
+      <created>1726045757037</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1726045757038</updated>
+    </task>
+    <task id="LOCAL-00051" summary="refactor : usage reactive">
+      <option name="closed" value="true" />
+      <created>1726106201099</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1726106201099</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="GitHub.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="page/mci" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor : change api-type file location" />
-    <MESSAGE value="refactor : 초기구조" />
-    <MESSAGE value="add: login page" />
-    <MESSAGE value="add: lodash, InputModel" />
-    <MESSAGE value="feat: login logic + login ui" />
-    <MESSAGE value="feat: Login UI, input validator, Login success callback" />
-    <MESSAGE value="feat: login error handling" />
-    <MESSAGE value="add: login page - logo, logo name" />
-    <MESSAGE value="add: user page" />
     <MESSAGE value="add : DynamicLayoutModel" />
     <MESSAGE value="feat : query search, sorting, show datatable list" />
     <MESSAGE value="refactor : file position" />
@@ -506,7 +583,16 @@
     <MESSAGE value="feat : workspace list, workspace delete" />
     <MESSAGE value="feat : user edit modal" />
     <MESSAGE value="feat : user edit data fetch" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : user edit data fetch" />
+    <MESSAGE value="temp : merge temp" />
+    <MESSAGE value="feat : bulk request" />
+    <MESSAGE value="feat : make mci, vm, servergroup model" />
+    <MESSAGE value="feat : make MCI table, mci detail table, server table model" />
+    <MESSAGE value="refactor : Modify type error" />
+    <MESSAGE value="merge : merge commit devfe -&gt; page/mci" />
+    <MESSAGE value="page: mci Detail table" />
+    <MESSAGE value="page: vmGroup temp" />
+    <MESSAGE value="refactor : usage reactive" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor : usage reactive" />
   </component>
   <component name="VueSettings">
     <option name="innerServiceType" value="DISABLED" />

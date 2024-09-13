@@ -38,3 +38,12 @@ export interface IEditWorkspaceData {
   workspaceId: string;
   roleId: string;
 }
+
+export interface IWorkspaceRoleResponse {
+  roles: [
+    {
+      name: string;
+      id: string;
+    },
+  ];
+}

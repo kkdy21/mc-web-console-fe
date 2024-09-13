@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import { PNoticeAlert, PToastAlert } from '@cloudforet-test/mirinae';
+</script>
+
 <template>
-  <div v-cloak id="app">
+  <div id="app">
+    <p-notice-alert group="noticeBottomRight" />
+    <p-toast-alert group="toastTopCenter" />
     <router-view />
   </div>
 </template>
@@ -17,11 +23,13 @@
     position: absolute;
     height: 100%;
     z-index: 10;
+
     & > .data-loader-container > .loader-wrapper > .loader.spinner {
       max-height: unset;
     }
   }
 }
+
 :deep(.sidebar-container) {
   @apply bg-gray-100;
 }

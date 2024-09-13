@@ -1,13 +1,17 @@
-import { useAxiosPost } from '@/shared/libs/api/request.ts';
-import { IAxiosResponse, RequestBodyWrapper } from '@/shared/libs';
 import {
   IEditWorkspaceData,
   IWorkspaceData,
   IWorkspaceDeleteData,
   IWorkspaceDetailData,
+  IWorkspaceRoleResponse,
 } from '@/entities/workspace/model/types.ts';
 import { axiosInstance } from '@/shared/libs/api/instance.ts';
 import { UserInformationTableType, UserWorkspaceTableType } from '@/entities';
+import {
+  IAxiosResponse,
+  RequestBodyWrapper,
+  useAxiosPost,
+} from '@/shared/libs';
 
 const DELETE_WORKSPACE_BY_ID = 'deleteworkspaceuserrolemapping';
 const GET_WORKSPACELIST_BY_ID = 'GetWorkspaceUserRoleMappingListByUserId';
@@ -66,7 +70,10 @@ export function useEditWorkspaceList(requestData: IEditWorkspaceData | null) {
 }
 
 export function useWorkspaceRoleList() {
-  return useAxiosPost<IAxiosResponse<any[]>, null>(WORKSPACE_ROLE_LIST, null);
+  return useAxiosPost<IAxiosResponse<IWorkspaceRoleResponse>, null>(
+    WORKSPACE_ROLE_LIST,
+    null,
+  );
 }
 
 export function useBulkAddWorkspaceList(
