@@ -41,9 +41,9 @@ const vmDetailTabState = reactive({
   ],
 });
 
+//TODO projectId 가져와야함.
 const nsId = 'ns01';
-// const selectedMciId = reactive<{ mciId: string }>({ mciId: '' });
-// const selectedGroupId = reactive<{ groupId: string }>({ groupId: '' });
+
 const selectedMciId = ref<string>('');
 const selectedGroupId = ref<string>('');
 
