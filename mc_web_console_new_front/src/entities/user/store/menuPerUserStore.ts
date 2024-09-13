@@ -14,8 +14,6 @@ export interface MenuInfo {
 
   operationMenu: Menu;
 
-  category: string;
-  majorCategory: string;
   icon: string;
   flattenedMenus: Menu[];
   selectedSubmenu: string;
@@ -43,8 +41,6 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
       menus: [],
     } as Menu,
 
-    category: '',
-    majorCategory: '',
     icon: '',
     flattenedMenus: [],
     selectedSubmenu: '',
@@ -58,10 +54,6 @@ export const useMenuPerUserStore = defineStore('menuPerUser', {
     },
     setFlattendMenus(menu: Menu[]) {
       this.flattenedMenus = menu;
-    },
-    setBreadcrumbs(category: string, majorCategory: string) {
-      this.category = category;
-      this.majorCategory = majorCategory;
     },
     setSelectedSubmenu(submenu: string) {
       this.selectedSubmenu = submenu;

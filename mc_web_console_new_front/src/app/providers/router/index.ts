@@ -6,11 +6,18 @@ import { environmentRoutes } from './routes/environment';
 import { accountAndAccessRoutes } from './routes/accountAndAccess';
 import { manageRoutes } from './routes/manage';
 import { MainLayout } from '@/app/Layouts';
-import { useAuthenticationStore } from '@/entities';
+import { MenuId, useAuthenticationStore } from '@/entities';
 import { Route } from 'vue-router';
 import { AUTH_ROUTE } from '@/pages/auth/auth.route.ts';
 import { AuthorizationType } from '@/shared/libs/store/auth';
+import { useAuthStore } from '@/shared/libs/store/auth';
+import { ROLE_TYPE } from '@/shared/libs/accessControl/pageAccessHelper/constant';
+import { RoleType } from '@/shared/libs/accessControl/pageAccessHelper/types';
+import { getMinimalPageAccessPermissionList } from '@/shared/libs';
+import { toLower } from 'lodash';
 //TODO admin부분 고려
+
+const accessiblePagesWithRoles = [] as any[];
 
 export class McmpRouter {
   static router: VueRouter | null = null;
@@ -46,6 +53,66 @@ export class McmpRouter {
       McmpRouter.router = new VueRouter({
         mode: 'history',
         routes: McmpRouter.rootRoute,
+      });
+      McmpRouter.router.beforeEach((to: Route, from: Route, next) => {
+        const requiresAuth = to.matched.some(
+          record => record.meta?.requiresAuth,
+        );
+        // const isAuthenticated = useAuthenticationStore().login;
+        const isAuthenticated = true; // temporary value
+
+        // TODO: 인증된 유저의 role 목록. (우선 static data)
+        const userRoles: RoleType[] = [ROLE_TYPE.PLATFORM_ADMIN]; // temporary value
+
+        userRoles.forEach((userRole: RoleType) => {
+          const isAccessible = getMinimalPageAccessPermissionList(
+            userRole,
+          ).includes(toLower(String(to.name)) as MenuId);
+
+          if (requiresAuth) {
+            if (!isAuthenticated) {
+              next({ name: AUTH_ROUTE.LOGIN._NAME });
+              return;
+              // 2-2. 접근 불가능한 role인 경우 next(false)로 막기 - option: forbidden page로 이동
+            } else if (isAuthenticated && isAccessible) {
+              next();
+            } else if (isAuthenticated && !isAccessible) {
+              alert('권한이 없습니다.');
+              next(false);
+            } else {
+              next();
+            }
+          } else {
+            next();
+          }
+
+          // 1. 인증되지 않은 사용자가 접근하려 할 때 ()
+          // if (requiresAuth && !isAuthenticated) {
+          //   next({ name: AUTH_ROUTE.LOGIN._NAME });
+          //   return;
+          //   // 2-2. 접근 불가능한 role인 경우 next(false)로 막기 - option: forbidden page로 이동
+          // } else if (requiresAuth && !to.meta?.role.includes(userRole)) {
+          //   next(false);
+          //   alert('권한이 없습니다.');
+          // } else {
+          //   next();
+          // }
+        });
+
+        // getMinimalPageAccessPermissionList(userRole).forEach(
+        //   (menuId: MenuId) => {
+        //     if (toLower(String(to.name)) === toLower(menuId)) {
+        //       next({ name: to.name as string });
+        //     } else if (toLower(String(to.name)) !== toLower(menuId)) {
+        //       // console.log('here');
+        //       // alert('권한이 없습니다.');
+        //       // next();
+        //     }
+        //   },
+        // );
+
+        // 2. 인증된 사용자가 접근하려 할 때 (authorized)
+        // 2-1. 접근 가능한 role인경우 next()
       });
 
       // McmpRouter.router.beforeEach((to: Route, from: Route, next) => {

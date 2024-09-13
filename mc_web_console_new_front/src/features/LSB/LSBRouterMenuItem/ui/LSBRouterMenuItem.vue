@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { PLazyImg, PI, PTooltip } from '@cloudforet-test/mirinae';
 import { computed, onMounted, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
-import { useRouter } from 'vue-router/composables';
 import { McmpRouter } from '@/app/providers/router';
 import { useMenuPerUserStore } from '@/entities';
 
@@ -28,20 +26,6 @@ const state = reactive({
   itemWidth: computed<Ref<number>>(() => useElementSize(itemEl.value).width),
   textWidth: computed<Ref<number>>(() => useElementSize(textEl.value).width),
   hoveredItem: '' as string,
-  // isEllipsis: computed<boolean>(
-  //   () =>
-  //     state.hoveredItem === props.item.id &&
-  //     state.itemWidth.value - 20 === state.textWidth.value,
-  // ),
-});
-
-onMounted(() => {
-  if (props.item.category && props.item.majorCategory) {
-    menuPerUserStore.setBreadcrumbs(
-      props.item.category,
-      props.item.majorCategory,
-    );
-  }
 });
 
 // TODO: Route 완료 후 수정 필요

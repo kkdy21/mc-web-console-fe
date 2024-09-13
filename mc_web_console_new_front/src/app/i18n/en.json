@@ -40,9 +40,9 @@
         "_NAME": "Account & Access",
         "ORGANIZATIONS": {
           "_NAME": "Organizations",
-          "ORGANIZATIONS_USERS": "Users",
-          "ORGANIZATIONS_APPROVALS": "Approvals",
-          "ORGANIZATIONS_ACCESS_CONTROLS": "Access Controls"
+          "USERS": "Users",
+          "APPROVALS": "Approvals",
+          "ACCESS_CONTROLS": "Access Controls"
         }
       },
       "ENVIRONMENT": {
@@ -81,6 +81,16 @@
   },
   "WORKSPACE": {
     "_NAME": "Workspace"
+  },
+  "ROLE": {
+    "_NAME": "Role",
+    "PLATFORM_ADMIN": "Platform Admin",
+    "ADMIN": "Admin",
+    "OPERATOR": "Operator",
+    "VIEWER": "Viewer",
+    "BILL_ADMIN": "Bill Admin",
+    "BILL_VIEWER": "Bill Viewer",
+    "MIGRATOR_ADMIN": "Migrator Admin"
   },
   "AUTH": {
     "LOGIN": {
